@@ -1,0 +1,37 @@
+<div>
+  <mat-form-field class="input">
+    <input matInput [(ngModel)]="empresa.razonSocial"/>
+    <mat-placeholder class="placeholder">
+      <mat-icon>business</mat-icon>
+      Razón Social
+    </mat-placeholder>
+  </mat-form-field>
+  <mat-form-field class="input">
+    <input matInput [(ngModel)]="empresa.contacto"/>
+    <mat-placeholder class="placeholder">
+      <mat-icon>person</mat-icon>
+      Nombre de Contacto
+    </mat-placeholder>
+  </mat-form-field>
+  <mat-form-field class="input">
+    <input matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"/>
+    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+      Favor de ingresar un email valido
+    </mat-error>
+    <mat-placeholder class="placeholder">
+      <mat-icon>email</mat-icon>
+      Correo de Contacto
+    </mat-placeholder>
+  </mat-form-field>
+  <mat-form-field class="input">
+    <input matInput type="number" [(ngModel)]="empresa.telefono"/>
+    <mat-placeholder class="placeholder">
+      <mat-icon>local_phone</mat-icon>
+      Teléfono de Contacto
+    </mat-placeholder>
+  </mat-form-field>
+  <button mat-raised-button color="warn" class="btn" style="margin-left: 20%;" (click)="onNoClick()">Cancelar
+  </button>
+  <button mat-raised-button color="primary" class="btn" (click)="guardar()">Guardar
+  </button>
+</div>

@@ -1,0 +1,37 @@
+<mat-toolbar color="primary">
+
+  <mat-toolbar-row>
+    <span [routerLink]="['/']" style="cursor: pointer;">Centro Psicopedagógico Integral</span>
+    <span class="example-spacer"></span>
+    <button
+      class="btn"
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      aria-label="Example icon-button with a menu"
+    >
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [routerLink]="['/']">
+        <mat-icon>home</mat-icon>
+        <span>Inicio</span>
+      </button>
+      <button mat-menu-item [routerLink]="['/empresas']">
+        <mat-icon>business</mat-icon>
+        <span>Empresas</span>
+      </button>
+      <button mat-menu-item [routerLink]="['/nueva']">
+        <mat-icon>description</mat-icon>
+        <span>Nueva Encuesta</span>
+      </button>
+      <button mat-menu-item [routerLink]="['/resultados']">
+        <mat-icon>assessment</mat-icon>
+        <span>Resultados</span>
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Cerrar Sesión</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar-row>
+</mat-toolbar>

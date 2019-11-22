@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="imagen">
+    <img class="img" src="../../assets/img/logo.jpeg">
+  </div>
+  <div class="login">
+    <mat-form-field class="input">
+      <input matInput/>
+      <mat-placeholder class="placeholder">
+        <mat-icon>person</mat-icon>
+        Usuario
+      </mat-placeholder>
+    </mat-form-field>
+    <mat-form-field class="input">
+      <input matInput [type]="hide ? 'password' : 'text'">
+      <mat-placeholder class="placeholder">
+        <mat-icon>lock</mat-icon>
+        Contraseña
+      </mat-placeholder>
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="login()" class="btn">Entrar</button>
+  </div>
+</div>
