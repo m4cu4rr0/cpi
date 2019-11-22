@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EncuestaComponent implements OnInit {
 
+  seccion = 1;
+
   constructor() { }
 
   ngOnInit() {
   }
+  
 
 }

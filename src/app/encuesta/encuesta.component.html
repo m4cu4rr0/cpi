@@ -1,4 +1,369 @@
 <app-menu></app-menu>
 <div class="container">
-
+	<div class="seccion" *ngIf="seccion == 1">
+		<div>
+			<label class="titulo" >I.- Acontecimiento traumático severo</label>
+			<label class="pregunta" >¿Ha presenciado o sufrido alguna vez, durante o con motivo del trabajo un acontecimiento como los siguientes:</label>
+			<label class="opcion" >Accidente que tenga como consecuencia la muerte, la pérdida de un miembro o una lesión grave?</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+				<mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+			</mat-radio-group>
+			<label class="opcion" >Asaltos?</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+				<mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+			</mat-radio-group>
+			<label class="opcion" >Actos violentos que derivaron en lesiones graves?</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+				<mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+			</mat-radio-group>
+			<label class="opcion" >Secuestro?</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+				<mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+			</mat-radio-group>
+			<label class="opcion" >Amenazas?, o</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+				<mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+			</mat-radio-group>
+			<label class="opcion" >Cualquier otro que ponga en riesgo su vida o salud, y/o la de otras personas?</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+				<mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+			</mat-radio-group>
+		</div>
+	</div>
+  <div class="seccion"  *ngIf="seccion == 2">
+		<div>
+			<label class="titulo" >II.- Recuerdos persistentes sobre el acontecimiento (durante el último mes):</label>
+			<label class="opcion" >¿Ha tenido recuerdos recurrentes sobre el acontecimiento que le provocan malestares?</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+				<mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+			</mat-radio-group>
+			<label class="opcion" >¿Ha tenido sueños de carácter recurrente sobre el acontecimiento, que le producen malestar?</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+				<mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+			</mat-radio-group>
+		</div>
+	</div>
+  <div class="seccion"  *ngIf="seccion == 3">
+		<div>
+			<label class="titulo" >III.- Esfuerzo por evitar circunstancias parecidas o asociadas al acontecimiento (durante el último mes):</label>
+			<label class="opcion" >¿Se ha esforzado por evitar todo tipo de sentimientos, conversaciones o situaciones que le puedan recordar el acontecimiento?</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+				<mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+			</mat-radio-group>
+			<label class="opcion" >¿Se ha esforzado por evitar todo tipo de actividades, lugares o personas que motivan recuerdos del acontecimiento?</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+				<mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+			</mat-radio-group>
+      <label class="opcion" >¿Ha tenido dificultad para recordar alguna parte importante del evento?</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+				<mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+			</mat-radio-group>
+			<label class="opcion" >¿Ha disminuido su interés en sus actividades cotidianas?</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+				<mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+			</mat-radio-group>
+      <label class="opcion" >¿Se ha sentido usted alejado o distante de los demás?</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+				<mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+			</mat-radio-group>
+			<label class="opcion" >¿Ha notado que tiene dificultad para expresar sus sentimientos?</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+				<mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+			</mat-radio-group>
+      <label class="opcion" >¿Ha tenido la impresión de que su vida se va a acortar, que va a morir antes que otras personas o que tiene un futuro limitado?</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+				<mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+			</mat-radio-group>
+		</div>
+	</div>
+  <div class="seccion"  *ngIf="seccion == 4">
+		<div>
+			<label class="titulo" >IV Afectación (durante el último mes):</label>
+			<label class="opcion" >¿Ha tenido usted dificultades para dormir?</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+				<mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+			</mat-radio-group>
+			<label class="opcion" >¿Ha estado particularmente irritable o le han dado arranques de coraje?</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+				<mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+			</mat-radio-group>
+      <label class="opcion" >¿Ha tenido dificultad para concentrarse?</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+				<mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+			</mat-radio-group>
+			<label class="opcion" >¿Ha estado nervioso o constantemente en alerta?</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+				<mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+			</mat-radio-group>
+      <label class="opcion" >¿Se ha sobresaltado fácilmente por cualquier cosa?</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+				<mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+			</mat-radio-group>
+		</div>
+	</div>
+  <div class="seccion"  *ngIf="seccion == 5">
+		<div>
+			<label class="titulo" >Para responder las preguntas siguientes considere las condiciones de su centro de trabajo, así como la cantidad y ritmo de trabajo.</label>
+			<label class="opcion2" >1.-Mi trabajo me exige hacer mucho esfuerzo físico</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Siempre</mat-radio-button>
+				<mat-radio-button value="2" class="radio" color="primary">Casi siempre</mat-radio-button>
+				<mat-radio-button value="3" class="radio" color="primary">Agunas veces</mat-radio-button>
+				<mat-radio-button value="4" class="radio" color="primary">Casi nunca</mat-radio-button>
+				<mat-radio-button value="5" class="radio" color="primary">Nunca</mat-radio-button>
+			</mat-radio-group>
+      <label class="opcion2" >2.-Me preocupa sufrir un accidente en mi trabajo</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Siempre</mat-radio-button>
+				<mat-radio-button value="2" class="radio" color="primary">Casi siempre</mat-radio-button>
+				<mat-radio-button value="3" class="radio" color="primary">Agunas veces</mat-radio-button>
+				<mat-radio-button value="4" class="radio" color="primary">Casi nunca</mat-radio-button>
+				<mat-radio-button value="5" class="radio" color="primary">Nunca</mat-radio-button>
+			</mat-radio-group>
+      <label class="opcion2" >3.-Considero que las actividades que realizo son peligrosas</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Siempre</mat-radio-button>
+				<mat-radio-button value="2" class="radio" color="primary">Casi siempre</mat-radio-button>
+				<mat-radio-button value="3" class="radio" color="primary">Agunas veces</mat-radio-button>
+				<mat-radio-button value="4" class="radio" color="primary">Casi nunca</mat-radio-button>
+				<mat-radio-button value="5" class="radio" color="primary">Nunca</mat-radio-button>
+			</mat-radio-group>
+      <label class="opcion2" >4.-Por la cantidad de trabajo que tengo debo quedarme tiempo adicional a mi turno</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Siempre</mat-radio-button>
+				<mat-radio-button value="2" class="radio" color="primary">Casi siempre</mat-radio-button>
+				<mat-radio-button value="3" class="radio" color="primary">Agunas veces</mat-radio-button>
+				<mat-radio-button value="4" class="radio" color="primary">Casi nunca</mat-radio-button>
+				<mat-radio-button value="5" class="radio" color="primary">Nunca</mat-radio-button>
+			</mat-radio-group>
+      <label class="opcion2" >5.-Por la cantidad de trabajo que tengo debo trabajar sin parar</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Siempre</mat-radio-button>
+				<mat-radio-button value="2" class="radio" color="primary">Casi siempre</mat-radio-button>
+				<mat-radio-button value="3" class="radio" color="primary">Agunas veces</mat-radio-button>
+				<mat-radio-button value="4" class="radio" color="primary">Casi nunca</mat-radio-button>
+				<mat-radio-button value="5" class="radio" color="primary">Nunca</mat-radio-button>
+			</mat-radio-group>
+      <label class="opcion2" >6.-Considero que es necesario mantener un ritmo de trabajo acelerado</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Siempre</mat-radio-button>
+				<mat-radio-button value="2" class="radio" color="primary">Casi siempre</mat-radio-button>
+				<mat-radio-button value="3" class="radio" color="primary">Agunas veces</mat-radio-button>
+				<mat-radio-button value="4" class="radio" color="primary">Casi nunca</mat-radio-button>
+				<mat-radio-button value="5" class="radio" color="primary">Nunca</mat-radio-button>
+			</mat-radio-group>
+      <label class="opcion2" >7.-Mi trabajo exige que esté muy concentrado</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Siempre</mat-radio-button>
+				<mat-radio-button value="2" class="radio" color="primary">Casi siempre</mat-radio-button>
+				<mat-radio-button value="3" class="radio" color="primary">Agunas veces</mat-radio-button>
+				<mat-radio-button value="4" class="radio" color="primary">Casi nunca</mat-radio-button>
+				<mat-radio-button value="5" class="radio" color="primary">Nunca</mat-radio-button>
+			</mat-radio-group>
+      <label class="opcion2" >8.-Mi trabajo requiere que memorice mucha información</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Siempre</mat-radio-button>
+				<mat-radio-button value="2" class="radio" color="primary">Casi siempre</mat-radio-button>
+				<mat-radio-button value="3" class="radio" color="primary">Agunas veces</mat-radio-button>
+				<mat-radio-button value="4" class="radio" color="primary">Casi nunca</mat-radio-button>
+				<mat-radio-button value="5" class="radio" color="primary">Nunca</mat-radio-button>
+			</mat-radio-group>
+      <label class="opcion2" >9.-Mi trabajo exige que atienda varios asuntos al mismo tiempo</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Siempre</mat-radio-button>
+				<mat-radio-button value="2" class="radio" color="primary">Casi siempre</mat-radio-button>
+				<mat-radio-button value="3" class="radio" color="primary">Agunas veces</mat-radio-button>
+				<mat-radio-button value="4" class="radio" color="primary">Casi nunca</mat-radio-button>
+				<mat-radio-button value="5" class="radio" color="primary">Nunca</mat-radio-button>
+			</mat-radio-group>
+		</div>
+	</div>
+  <div class="seccion"  *ngIf="seccion == 6">
+		<div>
+			<label class="titulo" >Las preguntas siguientes están relacionadas con las actividades que realiza en su trabajo y las responsabilidades que tiene.</label>
+			<label class="opcion2" >10.-En mi trabajo soy responsable de cosas de mucho valor</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Siempre</mat-radio-button>
+				<mat-radio-button value="2" class="radio" color="primary">Casi siempre</mat-radio-button>
+				<mat-radio-button value="3" class="radio" color="primary">Agunas veces</mat-radio-button>
+				<mat-radio-button value="4" class="radio" color="primary">Casi nunca</mat-radio-button>
+				<mat-radio-button value="5" class="radio" color="primary">Nunca</mat-radio-button>
+			</mat-radio-group>
+      <label class="opcion2" >11.-Respondo ante mi jefe por los resultados de toda mi área de trabajo</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Siempre</mat-radio-button>
+				<mat-radio-button value="2" class="radio" color="primary">Casi siempre</mat-radio-button>
+				<mat-radio-button value="3" class="radio" color="primary">Agunas veces</mat-radio-button>
+				<mat-radio-button value="4" class="radio" color="primary">Casi nunca</mat-radio-button>
+				<mat-radio-button value="5" class="radio" color="primary">Nunca</mat-radio-button>
+			</mat-radio-group>
+      <label class="opcion2" >12.-En mi trabajo me dan órdenes contradictorias</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Siempre</mat-radio-button>
+				<mat-radio-button value="2" class="radio" color="primary">Casi siempre</mat-radio-button>
+				<mat-radio-button value="3" class="radio" color="primary">Agunas veces</mat-radio-button>
+				<mat-radio-button value="4" class="radio" color="primary">Casi nunca</mat-radio-button>
+				<mat-radio-button value="5" class="radio" color="primary">Nunca</mat-radio-button>
+			</mat-radio-group>
+      <label class="opcion2" >13.-Considero que en mi trabajo me piden hacer cosas innecesarias</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Siempre</mat-radio-button>
+				<mat-radio-button value="2" class="radio" color="primary">Casi siempre</mat-radio-button>
+				<mat-radio-button value="3" class="radio" color="primary">Agunas veces</mat-radio-button>
+				<mat-radio-button value="4" class="radio" color="primary">Casi nunca</mat-radio-button>
+				<mat-radio-button value="5" class="radio" color="primary">Nunca</mat-radio-button>
+			</mat-radio-group>
+		</div>
+	</div>
+  <div class="seccion"  *ngIf="seccion == 7">
+		<div>
+			<label class="titulo" >Las preguntas siguientes están relacionadas con el tiempo destinado a su trabajo y sus responsabilidades familiares.</label>
+			<label class="opcion2" >14.-Trabajo horas extras más de tres veces a la semana</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Siempre</mat-radio-button>
+				<mat-radio-button value="2" class="radio" color="primary">Casi siempre</mat-radio-button>
+				<mat-radio-button value="3" class="radio" color="primary">Agunas veces</mat-radio-button>
+				<mat-radio-button value="4" class="radio" color="primary">Casi nunca</mat-radio-button>
+				<mat-radio-button value="5" class="radio" color="primary">Nunca</mat-radio-button>
+			</mat-radio-group>
+      <label class="opcion2" >15.-Mi trabajo me exige laborar en días de descanso, festivos o fines de semana</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Siempre</mat-radio-button>
+				<mat-radio-button value="2" class="radio" color="primary">Casi siempre</mat-radio-button>
+				<mat-radio-button value="3" class="radio" color="primary">Agunas veces</mat-radio-button>
+				<mat-radio-button value="4" class="radio" color="primary">Casi nunca</mat-radio-button>
+				<mat-radio-button value="5" class="radio" color="primary">Nunca</mat-radio-button>
+			</mat-radio-group>
+      <label class="opcion2" >16.-Considero que el tiempo en el trabajo es mucho y perjudica mis actividades familiares o personales</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Siempre</mat-radio-button>
+				<mat-radio-button value="2" class="radio" color="primary">Casi siempre</mat-radio-button>
+				<mat-radio-button value="3" class="radio" color="primary">Agunas veces</mat-radio-button>
+				<mat-radio-button value="4" class="radio" color="primary">Casi nunca</mat-radio-button>
+				<mat-radio-button value="5" class="radio" color="primary">Nunca</mat-radio-button>
+			</mat-radio-group>
+      <label class="opcion2" >17.-Pienso en las actividades familiares o personales cuando estoy en mi trabajo</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Siempre</mat-radio-button>
+				<mat-radio-button value="2" class="radio" color="primary">Casi siempre</mat-radio-button>
+				<mat-radio-button value="3" class="radio" color="primary">Agunas veces</mat-radio-button>
+				<mat-radio-button value="4" class="radio" color="primary">Casi nunca</mat-radio-button>
+				<mat-radio-button value="5" class="radio" color="primary">Nunca</mat-radio-button>
+			</mat-radio-group>
+		</div>
+	</div>
+  <div class="seccion"  *ngIf="seccion == 8">
+		<div>
+			<label class="titulo" >Las preguntas siguientes están relacionadas con las decisiones que puede tomar en su trabajo.</label>
+			<label class="opcion2" >18.-Mi trabajo permite que desarrolle nuevas habilidades</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Siempre</mat-radio-button>
+				<mat-radio-button value="2" class="radio" color="primary">Casi siempre</mat-radio-button>
+				<mat-radio-button value="3" class="radio" color="primary">Agunas veces</mat-radio-button>
+				<mat-radio-button value="4" class="radio" color="primary">Casi nunca</mat-radio-button>
+				<mat-radio-button value="5" class="radio" color="primary">Nunca</mat-radio-button>
+			</mat-radio-group>
+      <label class="opcion2" >19.-En mi trabajo puedo aspirar a un mejor puesto</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Siempre</mat-radio-button>
+				<mat-radio-button value="2" class="radio" color="primary">Casi siempre</mat-radio-button>
+				<mat-radio-button value="3" class="radio" color="primary">Agunas veces</mat-radio-button>
+				<mat-radio-button value="4" class="radio" color="primary">Casi nunca</mat-radio-button>
+				<mat-radio-button value="5" class="radio" color="primary">Nunca</mat-radio-button>
+			</mat-radio-group>
+      <label class="opcion2" >20.-Durante mi jornada de trabajo puedo tomar pausas cuando las necesito</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Siempre</mat-radio-button>
+				<mat-radio-button value="2" class="radio" color="primary">Casi siempre</mat-radio-button>
+				<mat-radio-button value="3" class="radio" color="primary">Agunas veces</mat-radio-button>
+				<mat-radio-button value="4" class="radio" color="primary">Casi nunca</mat-radio-button>
+				<mat-radio-button value="5" class="radio" color="primary">Nunca</mat-radio-button>
+			</mat-radio-group>
+      <label class="opcion2" >21.-Puedo decidir la velocidad a la que realizo mis actividades en mi trabajo</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Siempre</mat-radio-button>
+				<mat-radio-button value="2" class="radio" color="primary">Casi siempre</mat-radio-button>
+				<mat-radio-button value="3" class="radio" color="primary">Agunas veces</mat-radio-button>
+				<mat-radio-button value="4" class="radio" color="primary">Casi nunca</mat-radio-button>
+				<mat-radio-button value="5" class="radio" color="primary">Nunca</mat-radio-button>
+			</mat-radio-group>
+      <label class="opcion2" >22.-Puedo cambiar el orden de las actividades que realizo en mi trabajo</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Siempre</mat-radio-button>
+				<mat-radio-button value="2" class="radio" color="primary">Casi siempre</mat-radio-button>
+				<mat-radio-button value="3" class="radio" color="primary">Agunas veces</mat-radio-button>
+				<mat-radio-button value="4" class="radio" color="primary">Casi nunca</mat-radio-button>
+				<mat-radio-button value="5" class="radio" color="primary">Nunca</mat-radio-button>
+			</mat-radio-group>
+		</div>
+	</div>
+  <div class="seccion"  *ngIf="seccion == 9">
+		<div>
+			<label class="titulo" >Las preguntas siguientes están relacionadas con la capacitación e información que recibe sobre su trabajo.</label>
+			<label class="opcion2" >23.-Me informan con claridad cuáles son mis funciones</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Siempre</mat-radio-button>
+				<mat-radio-button value="2" class="radio" color="primary">Casi siempre</mat-radio-button>
+				<mat-radio-button value="3" class="radio" color="primary">Agunas veces</mat-radio-button>
+				<mat-radio-button value="4" class="radio" color="primary">Casi nunca</mat-radio-button>
+				<mat-radio-button value="5" class="radio" color="primary">Nunca</mat-radio-button>
+			</mat-radio-group>
+      <label class="opcion2" >24.-Me explican claramente los resultados que debo obtener en mi trabajo</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Siempre</mat-radio-button>
+				<mat-radio-button value="2" class="radio" color="primary">Casi siempre</mat-radio-button>
+				<mat-radio-button value="3" class="radio" color="primary">Agunas veces</mat-radio-button>
+				<mat-radio-button value="4" class="radio" color="primary">Casi nunca</mat-radio-button>
+				<mat-radio-button value="5" class="radio" color="primary">Nunca</mat-radio-button>
+			</mat-radio-group>
+      <label class="opcion2" >25.-Me informan con quién puedo resolver problemas o asuntos de trabajo</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Siempre</mat-radio-button>
+				<mat-radio-button value="2" class="radio" color="primary">Casi siempre</mat-radio-button>
+				<mat-radio-button value="3" class="radio" color="primary">Agunas veces</mat-radio-button>
+				<mat-radio-button value="4" class="radio" color="primary">Casi nunca</mat-radio-button>
+				<mat-radio-button value="5" class="radio" color="primary">Nunca</mat-radio-button>
+			</mat-radio-group>
+      <label class="opcion2" >26.-Me permiten asistir a capacitaciones relacionadas con mi trabajo</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Siempre</mat-radio-button>
+				<mat-radio-button value="2" class="radio" color="primary">Casi siempre</mat-radio-button>
+				<mat-radio-button value="3" class="radio" color="primary">Agunas veces</mat-radio-button>
+				<mat-radio-button value="4" class="radio" color="primary">Casi nunca</mat-radio-button>
+				<mat-radio-button value="5" class="radio" color="primary">Nunca</mat-radio-button>
+			</mat-radio-group>
+      <label class="opcion2" >27.-Recibo capacitación útil para hacer mi trabajo</label>
+			<mat-radio-group>
+				<mat-radio-button value="1" class="radio" color="primary">Siempre</mat-radio-button>
+				<mat-radio-button value="2" class="radio" color="primary">Casi siempre</mat-radio-button>
+				<mat-radio-button value="3" class="radio" color="primary">Agunas veces</mat-radio-button>
+				<mat-radio-button value="4" class="radio" color="primary">Casi nunca</mat-radio-button>
+				<mat-radio-button value="5" class="radio" color="primary">Nunca</mat-radio-button>
+			</mat-radio-group>
+		</div>
+	</div>
+  <div class="btnRow">
+    <button mat-raised-button color="warn" *ngIf="seccion > 1" (click)="anterior()">Anterior</button>
+    <button mat-raised-button color="primary" class="btn" (click)="siguiente()">Siguiente</button>
+  </div>
 </div>
