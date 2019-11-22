@@ -13,6 +13,7 @@ import {MatIconModule,
   MatMenuModule,
   MatDialogModule,
   MatListModule,
+  MatRadioModule,
   MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -63,6 +64,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     MatMenuModule,
     MatDialogModule,
     MatListModule,
+    MatRadioModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
