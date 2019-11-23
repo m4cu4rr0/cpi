@@ -13,6 +13,15 @@ export class EncuestaComponent implements OnInit {
 
   ngOnInit() {
   }
-  
+
+  anterior() {
+    window.scroll(0,0);
+    this.seccion--;
+  }
+
+  siguiente() {
+      window.scroll(0,0);
+      this.seccion++;
+  }
 
 }
