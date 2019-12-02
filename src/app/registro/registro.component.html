@@ -1,1 +1,271 @@
-<p>registro works!</p>
+<div class="container">
+    <div class="imagen" *ngIf="cuestionario == 0">
+        <img class="img" src="../../assets/img/logo.jpeg">
+    </div>
+    <div class="login" *ngIf="cuestionario == 0">
+        <label class="folio">Ingrese su Folio:</label>
+        <mat-form-field class="input">
+            <input matInput [(ngModel)]="folio" name="folio"/>
+            <mat-placeholder class="placeholder">
+                Folio
+            </mat-placeholder>
+        </mat-form-field>
+      <mat-error *ngIf="error === 1">
+        {{msj}}
+      </mat-error>
+        <button mat-raised-button color="primary" (click)="validarFolio()" class="btn">Entrar</button>
+    </div>
+    <div class="datos" *ngIf="cuestionario == 1">
+        <mat-grid-list cols="2" rowHeight="80px">
+            <mat-grid-tile [colspan]="2">
+                <label class="titulo">Ingrese sus Datos</label>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <label class="opcion">Nombe Completo:</label>
+                <mat-form-field class="input">
+                    <input matInput [(ngModel)]="nuevaPersona.nombre" name="nombre" oninput="this.value = this.value.toUpperCase()"/>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <label class="opcion" >Sexo:</label>
+                <mat-radio-group class="radioGroup" [(ngModel)]="nuevaPersona.sexo" name="sexo">
+                    <mat-radio-button value="M" class="radio" color="primary">Masculino</mat-radio-button>
+                    <mat-radio-button value="F" class="radio" color="primary">Femenino</mat-radio-button>
+                </mat-radio-group>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <label class="opcion" >Edad:</label>
+                <mat-select class="select" placeholder="Seleccione su edad" [(ngModel)]="nuevaPersona.edad" name="edad">
+                    <mat-option [value]="'15 - 19'">
+                        15 - 19
+                    </mat-option>
+                    <mat-option [value]="'20 - 24'">
+                        20 - 24
+                    </mat-option>
+                    <mat-option [value]="'25 - 29'">
+                        25 - 29
+                    </mat-option>
+                    <mat-option [value]="'30 - 34'">
+                        30 - 34
+                    </mat-option>
+                    <mat-option [value]="'35 - 39'">
+                        35 - 39
+                    </mat-option>
+                    <mat-option [value]="'40 - 44'">
+                        40 - 44
+                    </mat-option>
+                    <mat-option [value]="'45 - 49'">
+                        45 - 49
+                    </mat-option>
+                    <mat-option [value]="'50 - 54'">
+                        50 - 54
+                    </mat-option>
+                    <mat-option [value]="'55 - 59'">
+                        55 - 59
+                    </mat-option>
+                    <mat-option [value]="'60 - 64'">
+                        60 - 64
+                    </mat-option>
+                    <mat-option [value]="'65 - 69'">
+                        65 - 69
+                    </mat-option>
+                    <mat-option [value]="'70 o más'">
+                        70 o más
+                    </mat-option>
+                </mat-select>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <label class="opcion" >Estado civil:</label>
+                <mat-select class="select" placeholder="Seleccione su estado civil" [(ngModel)]="nuevaPersona.edoCivil" name="edoCivil">
+                    <mat-option [value]="'Casado'">
+                        Casado
+                    </mat-option>
+                    <mat-option [value]="'Soltero'">
+                        Soltero
+                    </mat-option>
+                    <mat-option [value]="'Union Libre'">
+                        Unión libre
+                    </mat-option>
+                    <mat-option [value]="'Divorciado'">
+                        Divorciado
+                    </mat-option>
+                    <mat-option [value]="'Viudo'">
+                        Viudo
+                    </mat-option>
+                </mat-select>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <label class="opcion" >Nivel de estudios:</label>
+                <mat-select class="select" placeholder="Seleccione sus estudios" [(ngModel)]="nuevaPersona.estudios" name="estudios">
+                    <mat-option [value]="'Sin formación'">
+                        Sin formación
+                    </mat-option>
+                    <mat-option [value]="'Primaria'">
+                        Primaria
+                    </mat-option>
+                    <mat-option [value]="'Secundaria'">
+                        Secundaria
+                    </mat-option>
+                    <mat-option [value]="'Preparatoria o Bachillerato'">
+                        Preparatoria o Bachillerato
+                    </mat-option>
+                    <mat-option [value]="'Técnico Superior'">
+                        Técnico Superior
+                    </mat-option>
+                    <mat-option [value]="'Licenciatura'">
+                        Licenciatura
+                    </mat-option>
+                    <mat-option [value]="'Maestría'">
+                        Maestría
+                    </mat-option>
+                    <mat-option [value]="'Doctorado'">
+                        Doctorado
+                    </mat-option>
+                </mat-select>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <label class="opcion">Ocupación / Puesto:</label>
+                <mat-form-field class="input">
+                    <input matInput [(ngModel)]="nuevaPersona.ocupacion" name="puesto" oninput="this.value = this.value.toUpperCase()"/>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <label class="opcion">Departamento / Sección / Área:</label>
+                <mat-form-field class="input">
+                    <input matInput [(ngModel)]="nuevaPersona.departamento" name="departamento" oninput="this.value = this.value.toUpperCase()"/>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <label class="opcion" >Tipo de puesto:</label>
+                <mat-select class="select" placeholder="Seleccione su puesto" [(ngModel)]="nuevaPersona.puesto" name="tpoPuesto">
+                    <mat-option [value]="'Operativo'">
+                        Operativo
+                    </mat-option>
+                    <mat-option [value]="'Supervisor'">
+                        Supervisor
+                    </mat-option>
+                    <mat-option [value]="'Profesional o técnico'">
+                        Profesional o técnico
+                    </mat-option>
+                    <mat-option [value]="'Gerente'">
+                        Gerente
+                    </mat-option>
+                </mat-select>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <label class="opcion" >Tipo de contratación:</label>
+                <mat-select class="select" placeholder="Seleccione su contratación" [(ngModel)]="nuevaPersona.contratacion" name="contratacion">
+                    <mat-option [value]="'Por obra o proyecto'">
+                        Por obra o proyecto
+                    </mat-option>
+                    <mat-option [value]="'Tiempo indeterminado'">
+                        Tiempo indeterminado
+                    </mat-option>
+                    <mat-option [value]="'Por tiempo determinado '">
+                        Por tiempo determinado (temporal)
+                    </mat-option>
+                    <mat-option [value]="'Honorarios'">
+                        Honorarios
+                    </mat-option>
+                </mat-select>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <label class="opcion" >Tipo de Personal:</label>
+                <mat-select class="select" placeholder="Seleccione su tipo" [(ngModel)]="nuevaPersona.personal" name="personal">
+                    <mat-option [value]="'Sindicalizado'">
+                        Sindicalizado
+                    </mat-option>
+                    <mat-option [value]="'Confianza'">
+                        Confianza
+                    </mat-option>
+                    <mat-option [value]="'Ninguno'">
+                        Ninguno
+                    </mat-option>
+                </mat-select>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <label class="opcion" >Tipo de jornada de trabajo:</label>
+                <mat-select class="select" placeholder="Seleccione su jornada" [(ngModel)]="nuevaPersona.jornada" name="jornada">
+                    <mat-option [value]="'Diurno'">
+                        Fijo diurno(entre las 6:00 y 20:00 hrs)
+                    </mat-option>
+                    <mat-option [value]="'Nocturno'">
+                        Fijo nocturno(entre las 20:00 y 6:00 hrs)
+                    </mat-option>
+                    <mat-option [value]="'Mixto'">
+                        Fijo mixto(combinación de nocturno y diurno)
+                    </mat-option>
+                </mat-select>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <label class="opcion" >Realiza rotación de turnos:</label>
+                <mat-radio-group class="radioGroup" [(ngModel)]="nuevaPersona.rotacion" name="rotacion">
+                    <mat-radio-button value="'Si" class="radio" color="primary">Si</mat-radio-button>
+                    <mat-radio-button value="'No'" class="radio" color="primary">No</mat-radio-button>
+                </mat-radio-group>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <label class="opcion" >Tiempo en el puesto actual:</label>
+                <mat-select class="select" placeholder="Seleccione su tiempo" [(ngModel)]="nuevaPersona.expActual" name="expActual">
+                    <mat-option [value]="'Menos de 6 meses'">
+                        Menos de 6 meses
+                    </mat-option>
+                    <mat-option [value]="'Entre 6 meses y 1 año'">
+                        Entre 6 meses y 1 año
+                    </mat-option>
+                    <mat-option [value]="'Entre 1 a 4 años'">
+                        Entre 1 a 4 años
+                    </mat-option>
+                    <mat-option [value]="'Entre 5 a 9 años'">
+                        Entre 5 a 9 años
+                    </mat-option>
+                    <mat-option [value]="'Entre 10 a 14 años'">
+                        Entre 10 a 14 años
+                    </mat-option>
+                    <mat-option [value]="'Entre 15 a 19 años'">
+                        Entre 15 a 19 años
+                    </mat-option>
+                    <mat-option [value]="'Entre 20 a 24 años'">
+                        Entre 20 a 24 años
+                    </mat-option>
+                    <mat-option [value]="'25 años o más'">
+                        25 años o más
+                    </mat-option>
+                </mat-select>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <label class="opcion" >Tiempo experiencia laboral:</label>
+                <mat-select class="select" placeholder="Seleccione su tiempo" [(ngModel)]="nuevaPersona.expTotal" name="expTotal">
+                    <mat-option [value]="'Menos de 6 meses'">
+                        Menos de 6 meses
+                    </mat-option>
+                    <mat-option [value]="'Entre 6 meses y 1 año'">
+                        Entre 6 meses y 1 año
+                    </mat-option>
+                    <mat-option [value]="'Entre 1 a 4 años'">
+                        Entre 1 a 4 años
+                    </mat-option>
+                    <mat-option [value]="'Entre 5 a 9 años'">
+                        Entre 5 a 9 años
+                    </mat-option>
+                    <mat-option [value]="'Entre 10 a 14 años'">
+                        Entre 10 a 14 años
+                    </mat-option>
+                    <mat-option [value]="'Entre 15 a 19 años'">
+                        Entre 15 a 19 años
+                    </mat-option>
+                    <mat-option [value]="'Entre 20 a 24 años'">
+                        Entre 20 a 24 años
+                    </mat-option>
+                    <mat-option [value]="'25 años o más'">
+                        25 años o más
+                    </mat-option>
+                </mat-select>
+            </mat-grid-tile>
+        </mat-grid-list>
+        <mat-error *ngIf="error === 1">
+            Favor de ingresar todos los datos
+        </mat-error>
+        <button mat-raised-button color="primary" (click)="save()" class="btn2">Registar</button>
+    </div>
+</div>

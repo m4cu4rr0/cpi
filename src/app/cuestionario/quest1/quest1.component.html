@@ -1,0 +1,131 @@
+<div class="container">
+    <div class="seccion" *ngIf="seccion == 1">
+        <div>
+            <label class="titulo">I.- Acontecimiento traumático severo</label>
+            <label class="pregunta">¿Ha presenciado o sufrido alguna vez, durante o con motivo del trabajo un
+                acontecimiento como los siguientes:</label>
+            <label class="opcion">Accidente que tenga como consecuencia la muerte, la pérdida de un miembro o una lesión
+                grave?</label>
+            <mat-radio-group>
+                <mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+                <mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+            </mat-radio-group>
+            <label class="opcion">Asaltos?</label>
+            <mat-radio-group>
+                <mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+                <mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+            </mat-radio-group>
+            <label class="opcion">Actos violentos que derivaron en lesiones graves?</label>
+            <mat-radio-group>
+                <mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+                <mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+            </mat-radio-group>
+            <label class="opcion">Secuestro?</label>
+            <mat-radio-group>
+                <mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+                <mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+            </mat-radio-group>
+            <label class="opcion">Amenazas?, o</label>
+            <mat-radio-group>
+                <mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+                <mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+            </mat-radio-group>
+            <label class="opcion">Cualquier otro que ponga en riesgo su vida o salud, y/o la de otras personas?</label>
+            <mat-radio-group>
+                <mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+                <mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+            </mat-radio-group>
+        </div>
+    </div>
+    <div class="seccion" *ngIf="seccion == 2">
+        <div>
+            <label class="titulo">II.- Recuerdos persistentes sobre el acontecimiento (durante el último mes):</label>
+            <label class="opcion">¿Ha tenido recuerdos recurrentes sobre el acontecimiento que le provocan
+                malestares?</label>
+            <mat-radio-group>
+                <mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+                <mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+            </mat-radio-group>
+            <label class="opcion">¿Ha tenido sueños de carácter recurrente sobre el acontecimiento, que le producen
+                malestar?</label>
+            <mat-radio-group>
+                <mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+                <mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+            </mat-radio-group>
+        </div>
+    </div>
+    <div class="seccion" *ngIf="seccion == 3">
+        <div>
+            <label class="titulo">III.- Esfuerzo por evitar circunstancias parecidas o asociadas al acontecimiento
+                (durante el último mes):</label>
+            <label class="opcion">¿Se ha esforzado por evitar todo tipo de sentimientos, conversaciones o situaciones
+                que le puedan recordar el acontecimiento?</label>
+            <mat-radio-group>
+                <mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+                <mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+            </mat-radio-group>
+            <label class="opcion">¿Se ha esforzado por evitar todo tipo de actividades, lugares o personas que motivan
+                recuerdos del acontecimiento?</label>
+            <mat-radio-group>
+                <mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+                <mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+            </mat-radio-group>
+            <label class="opcion">¿Ha tenido dificultad para recordar alguna parte importante del evento?</label>
+            <mat-radio-group>
+                <mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+                <mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+            </mat-radio-group>
+            <label class="opcion">¿Ha disminuido su interés en sus actividades cotidianas?</label>
+            <mat-radio-group>
+                <mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+                <mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+            </mat-radio-group>
+            <label class="opcion">¿Se ha sentido usted alejado o distante de los demás?</label>
+            <mat-radio-group>
+                <mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+                <mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+            </mat-radio-group>
+            <label class="opcion">¿Ha notado que tiene dificultad para expresar sus sentimientos?</label>
+            <mat-radio-group>
+                <mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+                <mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+            </mat-radio-group>
+            <label class="opcion">¿Ha tenido la impresión de que su vida se va a acortar, que va a morir antes que otras
+                personas o que tiene un futuro limitado?</label>
+            <mat-radio-group>
+                <mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+                <mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+            </mat-radio-group>
+        </div>
+    </div>
+    <div class="seccion" *ngIf="seccion == 4">
+        <div>
+            <label class="titulo">IV Afectación (durante el último mes):</label>
+            <label class="opcion">¿Ha tenido usted dificultades para dormir?</label>
+            <mat-radio-group>
+                <mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+                <mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+            </mat-radio-group>
+            <label class="opcion">¿Ha estado particularmente irritable o le han dado arranques de coraje?</label>
+            <mat-radio-group>
+                <mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+                <mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+            </mat-radio-group>
+            <label class="opcion">¿Ha tenido dificultad para concentrarse?</label>
+            <mat-radio-group>
+                <mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+                <mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+            </mat-radio-group>
+            <label class="opcion">¿Ha estado nervioso o constantemente en alerta?</label>
+            <mat-radio-group>
+                <mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+                <mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+            </mat-radio-group>
+            <label class="opcion">¿Se ha sobresaltado fácilmente por cualquier cosa?</label>
+            <mat-radio-group>
+                <mat-radio-button value="1" class="radio" color="primary">Si</mat-radio-button>
+                <mat-radio-button value="0" class="radio" color="primary">No</mat-radio-button>
+            </mat-radio-group>
+        </div>
+    </div>
+</div>

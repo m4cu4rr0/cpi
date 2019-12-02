@@ -1,6 +1,6 @@
-export class PersonaModel{
+export class PersonaModel {
   constructor(public nombre: string,
-              public edad: number,
+              public edad: string,
               public sexo: string,
               public edoCivil: string,
               public estudios: string,
@@ -13,5 +13,6 @@ export class PersonaModel{
               public rotacion: string,
               public expActual: string,
               public expTotal: string,
-              public id: number){}
+              public folio: string,
+              public id: string) {}
 }

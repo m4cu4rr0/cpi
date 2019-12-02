@@ -1,40 +1,70 @@
-.seccion{
-  margin: 10%;
-  margin-top: 5%;
-  margin-bottom: 0;
-}
-
 .titulo{
   font-weight: bold;
   font-size: 23px;
+  color: #3F50B5;
 }
-
-.pregunta{
-  font-size: 19px;
-  margin: 1%;
-}
-
 .opcion{
   font-size: 17px;
-  margin: 1%;
-  width: 80%;
-}
-.opcion2{
-  font-size: 17px;
-  margin: 1%;
   width: 100%;
+  color: #3F50B5;
+  padding: 40px;
 }
-
-.radio{
-  margin: 1%;
-  font-size: 17px;
-}
-
-.btnRow{
+.nuevaEncuesta{
+  -webkit-box-shadow: 2px 2px 13px 6px rgba(0,0,0,0.75);
+  -moz-box-shadow: 2px 2px 13px 6px rgba(0,0,0,0.75);
+  box-shadow: 2px 2px 13px 6px rgba(0,0,0,0.75);
+  background-color: white;
   margin: 5%;
+}
+.select{
+  width: 90%;
+  padding: 10%;
+}
+.input{
+  width: 90%;
+  padding: 10%;
+}
+.section{
+  width: 100%;
+  padding: 40px;
+}
+.checkbox{
+  max-width: 80%;
+}
+.btnRow{
+  margin: 2%;
   margin-left: 40%;
 }
 
 .btn{
   margin-left: 5%;
+}
+
+.exito{
+  font-size: 25px;
+  min-height: 400px;
+  width: 100%;
+}
+
+.text{
+  text-align: center;
+  width: 80%;
+  margin-left: 10%;
+}
+
+.newFolio{
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.exitoTit{
+  color: #348C34;
+  width: 100%;
+  text-align: center;
+  font-size: 30px;
+  margin-top: 5%;
+}
+.uniqueBtn{
+  margin-top: 50px;
+  margin-left: 45%;
 }

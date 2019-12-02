@@ -1,20 +1,23 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import {MatIconModule,
-  MatButtonModule,
-  MatSidenavModule,
-  MatToolbarModule,
-  MatCheckboxModule,
-  MatTableModule,
-  MatGridListModule,
-  MatCardModule,
-  MatInputModule,
-  MatMenuModule,
-  MatDialogModule,
-  MatListModule,
-  MatRadioModule,
-  MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material';
+import {
+    MatIconModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatCheckboxModule,
+    MatTableModule,
+    MatGridListModule,
+    MatCardModule,
+    MatInputModule,
+    MatMenuModule,
+    MatDialogModule,
+    MatListModule,
+    MatRadioModule,
+    MatSelectModule,
+    MAT_DIALOG_DEFAULT_OPTIONS, MatProgressSpinnerModule
+} from '@angular/material';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
@@ -33,45 +36,55 @@ import { NuevaEmpresaComponent } from './modal/nueva-empresa/nueva-empresa.compo
 import {HttpClientModule} from "@angular/common/http";
 import {ConfirmationDialogComponent} from "./modal/confirmation-dialog/confirmation-dialog.component";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { Quest1Component } from './cuestionario/quest1/quest1.component';
+import { Quest2Component } from './cuestionario/quest2/quest2.component';
+import { Quest3Component } from './cuestionario/quest3/quest3.component';
+import { LoadingComponent } from './modal/loading/loading.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    EmpresasComponent,
-    HubComponent,
-    CuestionarioComponent,
-    RegistroComponent,
-    ResultadosComponent,
-    MenuComponent,
-    EncuestaComponent,
-    NuevaEmpresaComponent,
-    ConfirmationDialogComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatIconModule,
-    MatSidenavModule,
-    MatToolbarModule,
-    MatTableModule,
-    MatGridListModule,
-    MatCardModule,
-    MatInputModule,
-    MatMenuModule,
-    MatDialogModule,
-    MatListModule,
-    MatRadioModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    NgbModule
-  ],
-  providers: [{provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true}}],
-  bootstrap: [AppComponent],
-  entryComponents: [NuevaEmpresaComponent, ConfirmationDialogComponent],
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        EmpresasComponent,
+        HubComponent,
+        CuestionarioComponent,
+        RegistroComponent,
+        ResultadosComponent,
+        MenuComponent,
+        EncuestaComponent,
+        NuevaEmpresaComponent,
+        ConfirmationDialogComponent,
+        Quest1Component,
+        Quest2Component,
+        Quest3Component,
+        LoadingComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatIconModule,
+        MatSidenavModule,
+        MatToolbarModule,
+        MatTableModule,
+        MatGridListModule,
+        MatCardModule,
+        MatInputModule,
+        MatMenuModule,
+        MatDialogModule,
+        MatListModule,
+        MatSelectModule,
+        MatProgressSpinnerModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        MatRadioModule,
+        NgbModule
+    ],
+    providers: [{provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true}}],
+    bootstrap: [AppComponent],
+    entryComponents: [NuevaEmpresaComponent, ConfirmationDialogComponent, LoadingComponent],
 })
 export class AppModule { }

@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import {EmpresaModel} from '../model/empresa.model';
+import {EmpresasService} from '../services/empresas.service';
+import {Router} from '@angular/router';
+import {EncuestaModel} from '../model/encuesta.model';
+import {RegistroService} from '../services/registro.service';
+import {MatDialog} from '@angular/material';
+import {LoadingComponent} from '../modal/loading/loading.component';
 
 @Component({
   selector: 'app-encuesta',
@@ -7,21 +14,61 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EncuestaComponent implements OnInit {
 
-  seccion = 1;
+  empresas: EmpresaModel[];
+  nuevaEncuesta: EncuestaModel;
+  error = 0;
+  newId: string;
 
-  constructor() { }
+  dialogRef: any;
+
+  constructor(public empService: EmpresasService,
+              private router: Router,
+              private regService: RegistroService,
+              public dialog: MatDialog) { }
 
   ngOnInit() {
+    this.cargarEmpresa();
+    this.nuevaEncuesta = new EncuestaModel(null, null, null, false, false, false );
+    this.newId = null;
   }
 
-  anterior() {
-    window.scroll(0,0);
-    this.seccion--;
+  cargarEmpresa() {
+    this.empService.fetchEmpresas().then(() => {
+      this.empService.getEmpresas().subscribe(empresas => {
+        this.empresas = empresas;
+      });
+    });
   }
 
-  siguiente() {
-      window.scroll(0,0);
-      this.seccion++;
+  cancelar() {
+    this.router.navigateByUrl('/home');
+  }
+
+  save() {
+    this.openDialog('Creando encuesta');
+    console.log(this.nuevaEncuesta);
+    if (this.nuevaEncuesta.idEmpresa != null && this.nuevaEncuesta.numPersonas != null) {
+      this.regService.agregarEncuesta(this.nuevaEncuesta).then( () => {
+        this.newId = this.regService.uniqueId;
+        setTimeout(() => {
+          this.closeDialog();
+        }, 1000);
+        // console.log('ID:' + this.newId);
+      });
+    } else {
+      this.error = 1;
+    }
+  }
+  openDialog(mensaje: string): void {
+    this.dialogRef = this.dialog.open(LoadingComponent, {
+      width: '350px',
+      data: {mensaje},
+      disableClose: true
+    });
+  }
+
+  closeDialog() {
+    this.dialogRef.close();
   }
 
 }

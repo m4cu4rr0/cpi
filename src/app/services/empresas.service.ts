@@ -55,7 +55,7 @@ export class EmpresasService {
       map(empresas => {
         return {...empresas.find(p => p.id === id)};
       })
-    )
+    );
   }
 
   agregarEmpresa(empresa: EmpresaModel) {
