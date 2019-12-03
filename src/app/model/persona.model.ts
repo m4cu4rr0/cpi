@@ -17,5 +17,6 @@ export class PersonaModel {
               public quest1: string,
               public quest2: string,
               public quest3: string,
+              public atencionQ1: boolean,
               public id: string) {}
 }

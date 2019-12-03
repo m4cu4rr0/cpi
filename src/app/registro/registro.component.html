@@ -296,6 +296,6 @@
     </mat-list>
   </div>
   <div class="datos" *ngIf="cuestionario == 3">
-    <app-quest1 (jsonSalida)="salidaQuest1($event)"></app-quest1>
+    <app-quest1 (jsonSalida)="salidaQuest1($event)" (atencionQ1)="salidaBoolean($event)"></app-quest1>
   </div>
 </div>

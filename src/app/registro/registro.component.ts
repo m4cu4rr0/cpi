@@ -23,7 +23,7 @@ export class RegistroComponent implements OnInit {
     constructor(public dialog: MatDialog, private regService: RegistroService) { }
 
     ngOnInit() {
-      this.nuevaPersona = new PersonaModel(null, null, null, null, null, null,
+      this.nuevaPersona = new PersonaModel(null, null, null, null, null, null, null,
         null, null, null, null, null, null, null, null, null, null, null, null, null);
       this.regService.fetchEncuestas();
       this.error = 0;
@@ -96,6 +96,10 @@ export class RegistroComponent implements OnInit {
   salidaQuest1($event) {
     this.nuevaPersona.quest1 = $event;
     this.cuestionario = 2;
+  }
+
+  salidaBoolean($event) {
+      this.nuevaPersona.atencionQ1 = $event;
   }
 
 
