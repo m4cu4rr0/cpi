@@ -23,7 +23,8 @@ export class RegistroComponent implements OnInit {
     constructor(public dialog: MatDialog, private regService: RegistroService) { }
 
     ngOnInit() {
-      this.nuevaPersona = new PersonaModel(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+      this.nuevaPersona = new PersonaModel(null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null);
       this.regService.fetchEncuestas();
       this.error = 0;
     }
@@ -33,13 +34,13 @@ export class RegistroComponent implements OnInit {
         this.openDialog('Validando folio ' + this.folio + ' por favor espere');
         this.regService.getEncuesta(this.folio).subscribe(encuesta => {
           this.encuestaActual = encuesta as EncuestaModel;
-          console.log(encuesta);
+          // console.log(encuesta);
         });
         setTimeout(() => {
           this.closeDialog();
           if (this.encuestaActual.id != null) {
             this.error = 0;
-            this.cuestionario = 1;
+            this.cuestionario = 2;
           } else {
             this.msj = 'Folio Invalido';
           }
@@ -68,6 +69,7 @@ export class RegistroComponent implements OnInit {
             this.nuevaPersona.rotacion !== null &&
             this.nuevaPersona.sexo !== null) {
             console.log('Lleno');
+            this.cuestionario = 2;
         } else {
             this.error = 1;
         }
@@ -84,6 +86,17 @@ export class RegistroComponent implements OnInit {
     closeDialog() {
         this.dialogRef.close();
     }
+
+  questionario1() {
+      if (this.nuevaPersona.quest1 === null) {
+        this.cuestionario = 3;
+      }
+  }
+
+  salidaQuest1($event) {
+    this.nuevaPersona.quest1 = $event;
+    this.cuestionario = 2;
+  }
 
 
 }

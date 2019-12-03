@@ -268,4 +268,34 @@
         </mat-error>
         <button mat-raised-button color="primary" (click)="save()" class="btn2">Registar</button>
     </div>
+  <div class="datos" *ngIf="cuestionario == 2">
+    <mat-list>
+      <h3 mat-subheader class="titulo">Cuestionarios a resolver:</h3>
+      <mat-divider></mat-divider>
+      <mat-list-item *ngIf="encuestaActual.quest1"
+                     class="cuestionario"
+                     [ngStyle]="{'cursor': nuevaPersona.quest1 === null ? 'pointer' : 'default'}"
+                      (click)="questionario1()">
+        <mat-icon mat-list-icon *ngIf="nuevaPersona.quest1 === null">check_box_outline_blank</mat-icon>
+        <mat-icon mat-list-icon *ngIf="nuevaPersona.quest1 !== null">check</mat-icon>
+        <h4 mat-line>Cuestionario para identificar a los trabajadores que fueron sujetos a acontecimienots traumáticos severos</h4>
+      </mat-list-item>
+      <mat-divider *ngIf="encuestaActual.quest1" ></mat-divider>
+      <mat-list-item *ngIf="encuestaActual.quest2" class="cuestionario" [ngStyle]="{'cursor': nuevaPersona.quest2 === null ? 'pointer' : 'none'}">
+        <mat-icon mat-list-icon *ngIf="nuevaPersona.quest2 === null">check_box_outline_blank</mat-icon>
+        <mat-icon mat-list-icon *ngIf="nuevaPersona.quest2 !== null">check</mat-icon>
+        <h4 mat-line>Cuestionario para identificar a los factores de riesgo psicosocial en los centros de trabajo</h4>
+      </mat-list-item>
+      <mat-divider *ngIf="encuestaActual.quest2" ></mat-divider>
+      <mat-list-item *ngIf="encuestaActual.quest3" class="cuestionario"  [ngStyle]="{'cursor': nuevaPersona.quest3 === null ? 'pointer' : 'none'}">
+        <mat-icon mat-list-icon *ngIf="nuevaPersona.quest3 === null">check_box_outline_blank</mat-icon>
+        <mat-icon mat-list-icon *ngIf="nuevaPersona.quest3 !== null">check</mat-icon>
+        <h4 mat-line>Cuestionario para identificar a los factores de riesgo psicosocial y avaluar el entorno organizacional en los centros de trabajo</h4>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-list>
+  </div>
+  <div class="datos" *ngIf="cuestionario == 3">
+    <app-quest1 (jsonSalida)="salidaQuest1($event)"></app-quest1>
+  </div>
 </div>

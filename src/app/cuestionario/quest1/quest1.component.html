@@ -128,4 +128,9 @@
             </mat-radio-group>
         </div>
     </div>
+    <div class="btnRow">
+      <button mat-raised-button color="warn" *ngIf="seccion > 1" (click)="anterior()">Anterior</button>
+      <button mat-raised-button color="primary" class="btn" (click)="siguiente()">Siguiente</button>
+      <button mat-raised-button color="primary" class="btn" (click)="salir()">Salir</button>
+    </div>
 </div>

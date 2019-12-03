@@ -4,7 +4,6 @@ import {HubComponent} from "./hub/hub.component";
 import {LoginComponent} from "./login/login.component";
 import {AuthGuard} from "./auth.guard";
 import {EmpresasComponent} from "./empresas/empresas.component";
-import {CuestionarioComponent} from "./cuestionario/cuestionario.component";
 import {ResultadosComponent} from "./resultados/resultados.component";
 import {EncuestaComponent} from "./encuesta/encuesta.component";
 import {RegistroComponent} from "./registro/registro.component";

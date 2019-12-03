@@ -27,7 +27,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { EmpresasComponent } from './empresas/empresas.component';
 import { HubComponent } from './hub/hub.component';
-import { CuestionarioComponent } from './cuestionario/cuestionario.component';
 import { RegistroComponent } from './registro/registro.component';
 import { ResultadosComponent } from './resultados/resultados.component';
 import { MenuComponent } from './menu/menu.component';
@@ -47,7 +46,6 @@ import { LoadingComponent } from './modal/loading/loading.component';
         LoginComponent,
         EmpresasComponent,
         HubComponent,
-        CuestionarioComponent,
         RegistroComponent,
         ResultadosComponent,
         MenuComponent,

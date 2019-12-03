@@ -14,5 +14,8 @@ export class PersonaModel {
               public expActual: string,
               public expTotal: string,
               public folio: string,
+              public quest1: string,
+              public quest2: string,
+              public quest3: string,
               public id: string) {}
 }
