@@ -4,6 +4,8 @@ import {MatDialog} from '@angular/material';
 import {LoadingComponent} from '../modal/loading/loading.component';
 import {RegistroService} from '../services/registro.service';
 import {EncuestaModel} from '../model/encuesta.model';
+import { Quest2Model } from '../model/quest2.model';
+import { Quest3Model } from '../model/quest3.model';
 
 @Component({
   selector: 'app-registro',
@@ -19,6 +21,8 @@ export class RegistroComponent implements OnInit {
   encuestaActual: EncuestaModel;
   dialogRef: any;
   msj: string;
+  quest2Res: Quest2Model;
+  quest3Res: Quest3Model;
 
   constructor(public dialog: MatDialog, private regService: RegistroService) { }
 
@@ -132,10 +136,25 @@ export class RegistroComponent implements OnInit {
     this.cuestionario = 2;
   }
 
+  salidaRes2($event) {
+    this.quest2Res = $event;
+  }
+
+  salidaRes3($event) {
+    this.quest3Res = $event;
+  }
+
   terminar() {
+    let id: string;
     this.regService.agregarPersona(this.nuevaPersona).then( resData => {
       console.log(resData);
-    })
+      id = this.regService.uniqueId;
+      console.log(id);
+      this.quest2Res.idPersona = id;
+      this.quest3Res.idPersona = id;
+      this.regService.agregarQuest2(this.quest2Res);
+      this.regService.agregarQuest3(this.quest3Res);
+    });
     this.cuestionario = 6;
   }
 

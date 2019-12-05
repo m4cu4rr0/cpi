@@ -312,10 +312,10 @@
     <app-quest1 (jsonSalida)="salidaQuest1($event)" (atencionQ1)="salidaBoolean($event)"></app-quest1>
   </div>
   <div class="datos" *ngIf="cuestionario == 4">
-    <app-quest2 (jsonSalida)="salidaQuest2($event)"></app-quest2>
+    <app-quest2 (jsonSalida)="salidaQuest2($event)" (questSalida)="salidaRes2($event)"></app-quest2>
   </div>
   <div class="datos" *ngIf="cuestionario == 5">
-    <app-quest3 (jsonSalida)="salidaQuest3($event)"></app-quest3>
+    <app-quest3 (jsonSalida)="salidaQuest3($event)" (questSalida)="salidaRes3($event)"></app-quest3>
   </div>
   <div class="datos" *ngIf="cuestionario == 6">
     <label class="exitoTit">Guardado exitosamente</label>

@@ -4,6 +4,8 @@ import {EncuestaModel} from '../model/encuesta.model';
 import {switchMap, take, tap, map} from 'rxjs/internal/operators';
 import {BehaviorSubject, Observable} from 'rxjs/index';
 import {PersonaModel} from '../model/persona.model';
+import { Quest2Model } from '../model/quest2.model';
+import { Quest3Model } from '../model/quest3.model';
 
 interface EncuestaData {
   id: string;
@@ -158,6 +160,36 @@ export class RegistroService {
         }),
         tap(personas => {
           this.personas.next(personas);
+        })
+      ).toPromise();
+  }
+
+  async agregarQuest2(quest2: Quest2Model) {
+    console.log(quest2);
+    return await this.http.post<{ name: string }>('https://consultoriacpi.firebaseio.com/quest2.json', {
+      ...quest2,
+      id: null
+    })
+      .pipe(
+        switchMap(resData => {
+          this.uniqueId = resData.name as string;
+          // console.log(this.uniqueId);
+          return this.uniqueId;
+        })
+      ).toPromise();
+  }
+
+  async agregarQuest3(quest3: Quest2Model) {
+    console.log(quest3);
+    return await this.http.post<{ name: string }>('https://consultoriacpi.firebaseio.com/quest3.json', {
+      ...quest3,
+      id: null
+    })
+      .pipe(
+        switchMap(resData => {
+          this.uniqueId = resData.name as string;
+          // console.log(this.uniqueId);
+          return this.uniqueId;
         })
       ).toPromise();
   }
