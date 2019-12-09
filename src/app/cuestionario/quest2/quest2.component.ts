@@ -92,7 +92,7 @@ export class Quest2Component implements OnInit {
         this.error = 1;
       } else {
         window.scroll(0, 0);
-        this.seccion++;
+        this.seccion ++;
         this.error = 0;
         this.progreso = 19.8;
       }
@@ -202,7 +202,7 @@ export class Quest2Component implements OnInit {
   }
 
   clienteChange($event) {
-    if (this.serCliente === 0) {
+    if (this.serCliente == 0) {
       this.quest2.preg41 = '0';
       this.quest2.preg42 = '0';
       this.quest2.preg43 = '0';
@@ -210,7 +210,7 @@ export class Quest2Component implements OnInit {
   }
 
   jefeChange($event) {
-    if (this.esJefe === 0) {
+    if (this.esJefe == 0) {
       this.quest2.preg44 = '0';
       this.quest2.preg45 = '0';
       this.quest2.preg46 = '0';

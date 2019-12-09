@@ -300,7 +300,7 @@ export class Quest3Component implements OnInit {
   }
 
   clienteChange($event) {
-    if (this.serCliente === 0) {
+    if (this.serCliente == 0) {
       this.quest3.preg65 = '0';
       this.quest3.preg66 = '0';
       this.quest3.preg67 = '0';
@@ -309,7 +309,7 @@ export class Quest3Component implements OnInit {
   }
 
   jefeChange($event) {
-    if (this.esJefe === 0) {
+    if (this.esJefe == 0) {
       this.quest3.preg69 = '0';
       this.quest3.preg70 = '0';
       this.quest3.preg71 = '0';

@@ -2,6 +2,9 @@
   <div class="imagen" *ngIf="cuestionario == 0">
     <img class="img" src="../../assets/img/logo.jpeg">
   </div>
+  <div class="imagen2" *ngIf="cuestionario != 0">
+    <img class="img2" src="../../assets/img/logo.jpeg">
+  </div>
   <div class="login" *ngIf="cuestionario == 0">
     <label class="folio">Ingrese su Folio:</label>
     <mat-form-field class="input">
@@ -269,6 +272,7 @@
     <button mat-raised-button color="primary" (click)="save()" class="btn2">Registar</button>
   </div>
   <div class="datos" *ngIf="cuestionario == 2">
+    <label class="titulo">Nota: Cada cuestionario tarda aproximadamente 15 minutos.</label>
     <mat-list>
       <h3 mat-subheader class="titulo">Cuestionarios a resolver:</h3>
       <mat-divider></mat-divider>
@@ -296,7 +300,7 @@
                      (click)="questionario3()">
         <mat-icon mat-list-icon *ngIf="nuevaPersona.quest3 === null">check_box_outline_blank</mat-icon>
         <mat-icon mat-list-icon *ngIf="nuevaPersona.quest3 !== null">check</mat-icon>
-        <h4 style="white-space: initial;" mat-line>Cuestionario para identificar a los factores de riesgo psicosocial y avaluar el entorno organizacional en los centros de trabajo</h4>
+        <h4 style="white-space: initial;" mat-line>Cuestionario para identificar a los factores de riesgo psicosocial y evaluar el entorno organizacional en los centros de trabajo</h4>
       </mat-list-item>
       <mat-divider></mat-divider>
     </mat-list>

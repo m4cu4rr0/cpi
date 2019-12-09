@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import {
   MatIconModule,
@@ -17,7 +18,7 @@ import {
   MatRadioModule,
   MatSelectModule,
   MatProgressBarModule,
-  MAT_DIALOG_DEFAULT_OPTIONS, MatProgressSpinnerModule
+  MatProgressSpinnerModule
 } from '@angular/material';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -40,6 +41,7 @@ import { Quest1Component } from './cuestionario/quest1/quest1.component';
 import { Quest2Component } from './cuestionario/quest2/quest2.component';
 import { Quest3Component } from './cuestionario/quest3/quest3.component';
 import { LoadingComponent } from './modal/loading/loading.component';
+import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -81,9 +83,10 @@ import { LoadingComponent } from './modal/loading/loading.component';
     ReactiveFormsModule,
     HttpClientModule,
     MatRadioModule,
-    NgbModule
+    NgbModule,
+    MDBBootstrapModule.forRoot()
   ],
-  providers: [{provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true}}],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent],
   entryComponents: [NuevaEmpresaComponent, ConfirmationDialogComponent, LoadingComponent],
 })

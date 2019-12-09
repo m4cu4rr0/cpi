@@ -107,8 +107,7 @@ export class RegistroService {
       ).toPromise();
   }
 
-  async agregarPersona(persona: PersonaModel) {
-    console.log(persona);
+  async agregarPersona(persona: PersonaModel, quest2: Quest2Model, quest3: Quest3Model) {
     return await this.http.post<{ name: string }>('https://consultoriacpi.firebaseio.com/personas.json', {
       ...persona,
       id: null
@@ -116,7 +115,15 @@ export class RegistroService {
       .pipe(
         switchMap(resData => {
           this.uniqueId = resData.name as string;
-          // console.log(this.uniqueId);
+          console.log(this.uniqueId);
+          if (quest2 != null) {
+            quest2.idPersona = this.uniqueId;
+            this.agregarQuest2(quest2);
+          }
+          if (quest3 != null) {
+            quest3.idPersona = this.uniqueId;
+            this.agregarQuest3(quest3);
+          }
           return this.uniqueId;
         })
       ).toPromise();

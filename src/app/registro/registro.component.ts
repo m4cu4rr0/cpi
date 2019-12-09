@@ -30,33 +30,38 @@ export class RegistroComponent implements OnInit {
     this.nuevaPersona = new PersonaModel(null, null, null, null, null, null, null,
       null, null, null, null, null, null, null, null, null, null, null, null, null);
     this.regService.fetchEncuestas();
+    this.quest2Res = null;
+    this.quest3Res = null;
     this.error = 0;
   }
 
   validarFolio() {
-    if (this.folio != null) {
+    if (this.folio != null && this.folio !== '') {
       this.openDialog('Validando folio ' + this.folio + ' por favor espere');
       this.regService.getEncuesta(this.folio).subscribe(encuesta => {
         this.encuestaActual = encuesta as EncuestaModel;
+
       });
       setTimeout(() => {
         this.closeDialog();
-        if (this.encuestaActual.id != null) {
+        if (this.encuestaActual.id !== undefined) {
           let numPer = 0;
           this.regService.personasFolio(this.encuestaActual.id).then( () => {
             this.regService.getPersonas().subscribe( resData => {
               numPer = resData.length;
             });
+            if (numPer < this.encuestaActual.numPersonas) {
+              this.error = 0;
+              this.cuestionario = 1;
+              this.nuevaPersona.folio = this.encuestaActual.id;
+            } else {
+              this.error = 1;
+              this.msj = 'Lleno el número de encuestas permitidas para este Folio';
+            }
           });
-          if (numPer < this.encuestaActual.numPersonas) {
-            this.error = 0;
-            this.cuestionario = 1;
-            this.nuevaPersona.folio = this.encuestaActual.id;
-          } else {
-            this.msj = 'Lleno el número de encuestas permitidas para este Folio';
-          }
         } else {
           this.msj = 'Folio Invalido';
+          this.error = 1;
         }
       }, 1500);
 
@@ -145,15 +150,8 @@ export class RegistroComponent implements OnInit {
   }
 
   terminar() {
-    let id: string;
-    this.regService.agregarPersona(this.nuevaPersona).then( resData => {
-      console.log(resData);
-      id = this.regService.uniqueId;
-      console.log(id);
-      this.quest2Res.idPersona = id;
-      this.quest3Res.idPersona = id;
-      this.regService.agregarQuest2(this.quest2Res);
-      this.regService.agregarQuest3(this.quest3Res);
+    this.regService.agregarPersona(this.nuevaPersona, this.quest2Res, this.quest3Res).then( resData => {
+      // console.log(resData);
     });
     this.cuestionario = 6;
   }
