@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {EncuestaModel} from '../model/encuesta.model';
 import {switchMap, take, tap, map} from 'rxjs/internal/operators';
-import {BehaviorSubject, Observable} from 'rxjs/index';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {PersonaModel} from '../model/persona.model';
 import { Quest2Model } from '../model/quest2.model';
 import { Quest3Model } from '../model/quest3.model';

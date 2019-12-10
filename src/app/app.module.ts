@@ -44,6 +44,7 @@ import { Quest3Component } from './cuestionario/quest3/quest3.component';
 import { LoadingComponent } from './modal/loading/loading.component';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { DatosPersonaComponent } from './modal/datos-persona/datos-persona.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     Quest1Component,
     Quest2Component,
     Quest3Component,
-    LoadingComponent
+    LoadingComponent,
+    DatosPersonaComponent
   ],
   imports: [
     BrowserModule,
@@ -92,6 +94,6 @@ import {MatExpansionModule} from '@angular/material/expansion';
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent],
-  entryComponents: [NuevaEmpresaComponent, ConfirmationDialogComponent, LoadingComponent],
+  entryComponents: [NuevaEmpresaComponent, ConfirmationDialogComponent, LoadingComponent, DatosPersonaComponent],
 })
 export class AppModule { }

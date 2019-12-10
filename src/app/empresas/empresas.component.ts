@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
-import {EmpresaModel} from "../model/empresa.model";
-import {MatDialog} from "@angular/material";
-import {NuevaEmpresaComponent} from "../modal/nueva-empresa/nueva-empresa.component";
-import {EmpresasService} from "../services/empresas.service";
-import {ConfirmationDialogService} from "../modal/confirmation-dialog/confirmation-dialog.service";
+import {EmpresaModel} from '../model/empresa.model';
+import {MatDialog} from '@angular/material';
+import {NuevaEmpresaComponent} from '../modal/nueva-empresa/nueva-empresa.component';
+import {EmpresasService} from '../services/empresas.service';
+import {ConfirmationDialogService} from '../modal/confirmation-dialog/confirmation-dialog.service';
 
 @Component({
   selector: 'app-empresas',

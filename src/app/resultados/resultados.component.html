@@ -105,7 +105,7 @@
                   Indica personas que requerirá atención clínica
                 </mat-panel-description>
               </mat-expansion-panel-header>
-              <label *ngFor="let p of personasEncuesta" [ngClass]="p.atencionQ1 ? 'ayuda' : 'noAyuda'">
+              <label *ngFor="let p of personasEncuesta" [ngClass]="p.atencionQ1 ? 'ayuda' : 'noAyuda'" (click)="openDialog(p)">
                 {{p.nombre}}
               </label>
             </mat-expansion-panel>

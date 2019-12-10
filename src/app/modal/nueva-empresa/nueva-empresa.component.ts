@@ -1,8 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {ErrorStateMatcher, MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
-import {FormControl, FormGroupDirective, NgForm, Validators} from "@angular/forms";
-import {EmpresaModel} from "../../model/empresa.model";
-import {EmpresasService} from "../../services/empresas.service";
+import {ErrorStateMatcher, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {EmpresaModel} from '../../model/empresa.model';
+import {EmpresasService} from '../../services/empresas.service';
 
 export interface DialogData {
   id: string;

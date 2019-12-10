@@ -6,6 +6,8 @@ import {EmpresasService} from '../services/empresas.service';
 import {EmpresaModel} from '../model/empresa.model';
 import {ConfirmationDialogService} from '../modal/confirmation-dialog/confirmation-dialog.service';
 import {PersonaModel} from '../model/persona.model';
+import {MatDialog} from '@angular/material/dialog';
+import {DatosPersonaComponent} from '../modal/datos-persona/datos-persona.component';
 
 @Component({
   selector: 'app-resultados',
@@ -14,7 +16,9 @@ import {PersonaModel} from '../model/persona.model';
 })
 export class ResultadosComponent implements OnInit {
 
-  constructor(public regSer: RegistroService, public empSer: EmpresasService,
+  constructor(public dialog: MatDialog,
+              public regSer: RegistroService,
+              public empSer: EmpresasService,
               private confirmationDialogService: ConfirmationDialogService) {
   }
 
@@ -22,7 +26,7 @@ export class ResultadosComponent implements OnInit {
   displayedColumns: string[] = ['empresa', 'folio', 'personas', 'encuesta1', 'encuesta2', 'encuesta3', 'acciones'];
   dataSource;
   encuestas: EncuestaModel[];
-  numPer: Array<{id: string, text: string}> = [];
+  numPer: Array<{ id: string, text: string }> = [];
   encuestaActual: EncuestaModel;
   personasEncuesta: PersonaModel[];
 
@@ -70,11 +74,7 @@ export class ResultadosComponent implements OnInit {
 
   ngOnInit() {
     this.empSer.fetchEmpresas();
-    this.regSer.fetchEncuestas().then(() => {
-      this.regSer.getEncuestas().subscribe(resData => this.encuestas = resData);
-      this.dataSource = new MatTableDataSource(this.encuestas);
-      this.cargarNumPersonas();
-    });
+    this.cargarEncuesta();
     this.encuestaActual = null;
   }
 
@@ -91,14 +91,16 @@ export class ResultadosComponent implements OnInit {
 
   cargarNumPersonas() {
     let numPer = 0;
-    this.encuestas.forEach(encuesta => {
-      this.regSer.personasFolio(encuesta.id).then( () => {
-        this.regSer.getPersonas().subscribe( resData => {
-          numPer = resData.length;
+    if (this.encuestas !== undefined) {
+      this.encuestas.forEach(encuesta => {
+        this.regSer.personasFolio(encuesta.id).then(() => {
+          this.regSer.getPersonas().subscribe(resData => {
+            numPer = resData.length;
+          });
+          this.numPer.push({id: encuesta.id, text: numPer + '/' + encuesta.numPersonas});
         });
-        this.numPer.push({id : encuesta.id, text : numPer + '/' + encuesta.numPersonas });
       });
-    });
+    }
   }
 
   obtenNumPer(folio: string) {
@@ -120,11 +122,7 @@ export class ResultadosComponent implements OnInit {
         console.log('User confirmed:', confirmed);
         if (confirmed) {
           this.deleteEncuesta(id);
-          this.regSer.fetchEncuestas().then(() => {
-            this.regSer.getEncuestas().subscribe(resData => this.encuestas = resData);
-            this.dataSource = new MatTableDataSource(this.encuestas);
-            this.cargarNumPersonas();
-          });
+          this.regSer.fetchEncuestas().then(() => this.cargarEncuesta());
         }
       })
       .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
@@ -133,9 +131,27 @@ export class ResultadosComponent implements OnInit {
   seeEncuesta(encuesta: EncuestaModel) {
     this.encuestaActual = encuesta;
     this.regSer.personasFolio(encuesta.id).then(() => {
-      this.regSer.getPersonas().subscribe( resData => {
+      this.regSer.getPersonas().subscribe(resData => {
         this.personasEncuesta = resData;
       });
+    });
+  }
+
+  openDialog(persona: PersonaModel): void {
+    const dialogRef = this.dialog.open(DatosPersonaComponent, {
+      width: '600px',
+      data: {persona},
+      disableClose: true
+    });
+  }
+
+  cargarEncuesta() {
+    this.regSer.fetchEncuestas().then(() => {
+      this.regSer.getEncuestas().subscribe(resData => {
+        this.encuestas = resData;
+      });
+      this.cargarNumPersonas();
+      this.dataSource = new MatTableDataSource(this.encuestas);
     });
   }
 
