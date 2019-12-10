@@ -45,9 +45,8 @@ export class EncuestaComponent implements OnInit {
   }
 
   save() {
-    this.openDialog('Creando encuesta');
-    console.log(this.nuevaEncuesta);
     if (this.nuevaEncuesta.idEmpresa != null && this.nuevaEncuesta.numPersonas != null) {
+      this.openDialog('Creando encuesta');
       this.regService.agregarEncuesta(this.nuevaEncuesta).then( () => {
         this.newId = this.regService.uniqueId;
         setTimeout(() => {
