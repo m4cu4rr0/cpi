@@ -18,7 +18,8 @@ import {
   MatRadioModule,
   MatSelectModule,
   MatProgressBarModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatTabsModule
 } from '@angular/material';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -34,14 +35,15 @@ import { ResultadosComponent } from './resultados/resultados.component';
 import { MenuComponent } from './menu/menu.component';
 import { EncuestaComponent } from './encuesta/encuesta.component';
 import { NuevaEmpresaComponent } from './modal/nueva-empresa/nueva-empresa.component';
-import {HttpClientModule} from "@angular/common/http";
-import {ConfirmationDialogComponent} from "./modal/confirmation-dialog/confirmation-dialog.component";
+import {HttpClientModule} from '@angular/common/http';
+import {ConfirmationDialogComponent} from './modal/confirmation-dialog/confirmation-dialog.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { Quest1Component } from './cuestionario/quest1/quest1.component';
 import { Quest2Component } from './cuestionario/quest2/quest2.component';
 import { Quest3Component } from './cuestionario/quest3/quest3.component';
 import { LoadingComponent } from './modal/loading/loading.component';
-import {HashLocationStrategy, LocationStrategy} from "@angular/common";
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -84,6 +86,8 @@ import {HashLocationStrategy, LocationStrategy} from "@angular/common";
     HttpClientModule,
     MatRadioModule,
     NgbModule,
+    MatTabsModule,
+    MatExpansionModule,
     MDBBootstrapModule.forRoot()
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],

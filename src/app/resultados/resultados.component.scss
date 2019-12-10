@@ -3,6 +3,7 @@
   width: 80%;
   overflow: auto;
   margin-left: 10%;
+  margin-top: 30px;
 }
 table{
   width: 100%;
@@ -12,4 +13,29 @@ table{
   width: 80%;
   margin-left: 10%;
   margin-top: 30px;
+}
+
+.quests{
+  margin-top: 30px;
+}
+::ng-deep .mat-tab-labels > .mat-tab-label:first-child {
+  display: none;
+}
+.ayuda{
+  width: 100%;
+  background-color: rgba(255, 99, 132, 0.2);
+  border: 3px solid rgba(255,99,132,1);
+  padding: 10px;
+  color: #3F50B5;
+}
+.noAyuda{
+  width: 100%;
+  background-color: rgba(75, 192, 192, 0.2);
+  border: 3px solid rgba(75, 192, 192, 1);
+  padding: 10px;
+  color: #3F50B5;
+}
+.cuerpoQuest{
+  max-height: 600px;
+  overflow-y: visible;
 }

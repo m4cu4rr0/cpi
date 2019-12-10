@@ -201,6 +201,24 @@ export class RegistroService {
       ).toPromise();
   }
 
+  deleteEncuesta(id: string) {
+    let encuestaUpdated: EncuestaModel[];
+    return this.encuestas.pipe(
+      take(1),
+      switchMap(encuestas => {
+        const updatedEmpresaIndex = encuestas.findIndex(en => en.id === id);
+        encuestaUpdated = [...encuestas];
+        encuestaUpdated.splice(updatedEmpresaIndex, 1);
+        return this.http
+          .delete(`https://consultoriacpi.firebaseio.com/encuestas/${id}.json`);
+      }),
+      tap(() => {
+        this.encuestas.next(encuestaUpdated);
+      })
+    );
+
+  }
+
 
   constructor(private http: HttpClient) { }
 }
