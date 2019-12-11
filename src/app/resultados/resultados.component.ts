@@ -8,6 +8,7 @@ import {ConfirmationDialogService} from '../modal/confirmation-dialog/confirmati
 import {PersonaModel} from '../model/persona.model';
 import {MatDialog} from '@angular/material/dialog';
 import {DatosPersonaComponent} from '../modal/datos-persona/datos-persona.component';
+import {Quest2Model} from '../model/quest2.model';
 
 @Component({
   selector: 'app-resultados',
@@ -30,29 +31,25 @@ export class ResultadosComponent implements OnInit {
   encuestaActual: EncuestaModel;
   personasEncuesta: PersonaModel[];
 
-  chartDatasets: Array<any> = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'My First dataset'}
-  ];
+  chartCalFinal: Array<any> = null;
 
-  chartLabels: Array<any> = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'];
+  chartLabels: Array<any> = ['Nulo o despreciable', 'Bajo', 'Medio', 'Alto', 'Muy alto'];
 
   chartColors: Array<any> = [
     {
       backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)'
+        '#9BE5F7',
+        '#6BF56E',
+        '#FFFF00',
+        '#FFC000',
+        '#FF0000'
       ],
       borderColor: [
-        'rgba(255,99,132,1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
+        '#9BE5F7',
+        '#6BF56E',
+        '#FFFF00',
+        '#FFC000',
+        '#FF0000'
       ],
       borderWidth: 2,
     }
@@ -134,6 +131,7 @@ export class ResultadosComponent implements OnInit {
       this.regSer.getPersonas().subscribe(resData => {
         this.personasEncuesta = resData;
       });
+      this.cargarQuest2();
     });
   }
 
@@ -152,6 +150,39 @@ export class ResultadosComponent implements OnInit {
       });
       this.cargarNumPersonas();
       this.dataSource = new MatTableDataSource(this.encuestas);
+    });
+  }
+
+  cargarQuest2() {
+    const ids: string[] = [];
+    let nulo = 0;
+    let bajo = 0;
+    let medio = 0;
+    let alto = 0;
+    let muyAlto = 0;
+    let quest2;
+    this.personasEncuesta.forEach(p => ids.push(p.id));
+    this.regSer.quest2Personas(ids).then(() => {
+      this.regSer.getQuest2().subscribe(resData => {
+        quest2 = resData;
+        console.log(quest2);
+      });
+      quest2.forEach(q => {
+        if (q.calificacion < 20) {
+          nulo++;
+        } else if (q.calificacion < 45) {
+          bajo++;
+        } else if (q.calificacion < 70) {
+          medio++;
+        } else if (q.calificacion < 90) {
+          alto++;
+        } else {
+          muyAlto++;
+        }
+      });
+      this.chartCalFinal = [
+        {data: [nulo, bajo, medio, alto, muyAlto], label: 'Calificación Final'}
+      ];
     });
   }
 

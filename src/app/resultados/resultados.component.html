@@ -105,7 +105,8 @@
                   Indica personas que requerirá atención clínica
                 </mat-panel-description>
               </mat-expansion-panel-header>
-              <label *ngFor="let p of personasEncuesta" [ngClass]="p.atencionQ1 ? 'ayuda' : 'noAyuda'" (click)="openDialog(p)">
+              <label *ngFor="let p of personasEncuesta" [ngClass]="p.atencionQ1 ? 'ayuda' : 'noAyuda'"
+                     (click)="openDialog(p)">
                 {{p.nombre}}
               </label>
             </mat-expansion-panel>
@@ -114,26 +115,56 @@
       </mat-tab>
       <mat-tab label="Cuestionario 2" [disabled]="!encuestaActual.quest2">
         <div class="cuerpoQuest">
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Calificación General
+                </mat-panel-title>
+                <mat-panel-description>
+                  La calificación final
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="graph" *ngIf="chartCalFinal != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chartCalFinal"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Calificación por Categoría
+                </mat-panel-title>
+                <mat-panel-description>
+                  Para la calificación de la categoría
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Calificación por Dominio
+                </mat-panel-title>
+                <mat-panel-description>
+                  Para la calificación del dominio
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+            </mat-expansion-panel>
+          </mat-accordion>
 
         </div>
       </mat-tab>
       <mat-tab label="Cuestionario 3" [disabled]="!encuestaActual.quest3">
         <div class="cuerpoQuest">
-
         </div>
       </mat-tab>
     </mat-tab-group>
   </div>
-  <!--<div style="display: block">
-    <canvas mdbChart
-            [chartType]="chartType"
-            [datasets]="chartDatasets"
-            [labels]="chartLabels"
-            [colors]="chartColors"
-            [options]="chartOptions"
-            [legend]="true"
-            (chartHover)="chartHovered($event)"
-            (chartClick)="chartClicked($event)">
-    </canvas>
-  </div>-->
 </div>
