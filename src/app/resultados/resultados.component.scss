@@ -38,11 +38,26 @@ table{
   cursor: pointer;
 }
 .cuerpoQuest{
-  max-height: 600px;
+  max-height: 500px;
   overflow-y: visible;
 }
 .graph{
   width: 800px;
   width: 600px;
   margin-left: 20%;
+  margin-top: 30px;
+}
+.img2{
+  height: 50px;
+  width: 100px;
+}
+.imagen2{
+  position: absolute;
+  left: 73%;
+  display: none;
+}
+.imagen2Print{
+  position: absolute;
+  left: 73%;
+  margin-bottom: 100px;
 }

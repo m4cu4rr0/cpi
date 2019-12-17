@@ -1,9 +1,10 @@
-<app-menu></app-menu>
+<app-menu *ngIf="nuevaEncuesta.id === null"></app-menu>
 <div class="container">
-  <div class="nuevaEncuesta" *ngIf="newId === null">
+  <div [ngClass]="nuevaEncuesta.id === null ? 'nuevaEncuesta' : ''" *ngIf="newId === null">
     <mat-grid-list cols="1" rowHeight="60px">
       <mat-grid-tile>
-        <label class="titulo">Nueva Encuesta</label>
+        <label class="titulo" *ngIf="nuevaEncuesta.id === null">Nueva Encuesta</label>
+        <label class="titulo" *ngIf="nuevaEncuesta.id !== null">Editar Encuesta</label>
       </mat-grid-tile>
       <mat-grid-tile>
         <label class="opcion">Empresa:</label>
@@ -40,9 +41,13 @@
     <mat-error *ngIf="error === 1" style="margin-left: 40px;">
       Debe seleccionar empresa e indicar número de personas.
     </mat-error>
-    <div class="btnRow">
+    <div class="btnRow" *ngIf="nuevaEncuesta.id === null">
       <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
       <button mat-raised-button color="primary" class="btn" (click)="save()">Crear</button>
+    </div>
+    <div class="btnRow" *ngIf="nuevaEncuesta.id !== null">
+      <button mat-raised-button color="warn" (click)="cerrar()">Cancelar</button>
+      <button mat-raised-button color="primary" class="btn" (click)="update()">Actualizar</button>
     </div>
   </div>
   <div class="nuevaEncuesta" *ngIf="newId !== null">

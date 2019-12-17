@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {EmpresaModel} from '../model/empresa.model';
 import {EmpresasService} from '../services/empresas.service';
 import {Router} from '@angular/router';
@@ -6,6 +6,11 @@ import {EncuestaModel} from '../model/encuesta.model';
 import {RegistroService} from '../services/registro.service';
 import {MatDialog} from '@angular/material';
 import {LoadingComponent} from '../modal/loading/loading.component';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+
+export interface DialogData {
+  encuesta: EncuestaModel;
+}
 
 @Component({
   selector: 'app-encuesta',
@@ -24,11 +29,19 @@ export class EncuestaComponent implements OnInit {
   constructor(public empService: EmpresasService,
               private router: Router,
               private regService: RegistroService,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog,
+              public dialogRefAc: MatDialogRef<EncuestaComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+    this.nuevaEncuesta = data.encuesta;
+  }
 
   ngOnInit() {
     this.cargarEmpresa();
-    this.nuevaEncuesta = new EncuestaModel(null, null, null, false, false, false );
+    if (this.nuevaEncuesta ) {
+      // console.log(this.nuevaEncuesta);
+    } else {
+      this.nuevaEncuesta = new EncuestaModel(null, null, null, false, false, false );
+    }
     this.newId = null;
   }
 
@@ -60,7 +73,7 @@ export class EncuestaComponent implements OnInit {
   }
   openDialog(mensaje: string): void {
     this.dialogRef = this.dialog.open(LoadingComponent, {
-      width: '350px',
+      width: '700px',
       data: {mensaje},
       disableClose: true
     });
@@ -68,6 +81,25 @@ export class EncuestaComponent implements OnInit {
 
   closeDialog() {
     this.dialogRef.close();
+  }
+
+  cerrar(): void {
+    this.dialogRefAc.close();
+  }
+
+  update() {
+    if (this.nuevaEncuesta.idEmpresa != null && this.nuevaEncuesta.numPersonas != null) {
+      this.openDialog('Actualizando encuesta');
+      this.regService.updateEmpresa(this.nuevaEncuesta).subscribe( resData => {
+        // console.log(resData);
+        setTimeout(() => {
+          this.closeDialog();
+          this.cerrar();
+        }, 1000);
+      });
+    } else {
+      this.error = 1;
+    }
   }
 
 }

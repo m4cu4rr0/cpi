@@ -71,6 +71,9 @@
           Acción
         </th>
         <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="accent" (click)="openDialogEn(element)">
+            <mat-icon>edit</mat-icon>
+          </button>
           <button mat-icon-button color="primary" (click)="seeEncuesta(element)">
             <mat-icon>remove_red_eye</mat-icon>
           </button>
@@ -85,16 +88,19 @@
     </table>
   </div>
   <div class="quests" *ngIf="encuestaActual != null">
-    <button mat-button (click)="encuestaActual = null;">
+    <div [ngClass]="imagen">
+      <img class="img2" src="../../assets/img/logo.jpeg">
+    </div>
+    <button mat-button (click)="encuestaActual = null;" class="noPrint">
       <i class="material-icons">
         arrow_back_ios
       </i>
       Regresar
     </button>
-    <mat-tab-group>
+    <mat-tab-group style="margin-top: 10px;">
       <mat-tab></mat-tab>
-      <mat-tab label="Cuestionario 1" [disabled]="!encuestaActual.quest1">
-        <div class="cuerpoQuest">
+      <mat-tab label="Cuestionario 1" *ngIf="encuestaActual.quest1">
+        <div [ngClass]="q1Class">
           <mat-accordion>
             <mat-expansion-panel>
               <mat-expansion-panel-header>
@@ -105,6 +111,9 @@
                   Indica personas que requerirá atención clínica
                 </mat-panel-description>
               </mat-expansion-panel-header>
+              <button mat-icon-button (click)="print(1)" class="noPrint">
+                <mat-icon>save</mat-icon>
+              </button>
               <label *ngFor="let p of personasEncuesta" [ngClass]="p.atencionQ1 ? 'ayuda' : 'noAyuda'"
                      (click)="openDialog(p)">
                 {{p.nombre}}
@@ -113,10 +122,10 @@
           </mat-accordion>
         </div>
       </mat-tab>
-      <mat-tab label="Cuestionario 2" [disabled]="!encuestaActual.quest2">
-        <div class="cuerpoQuest">
+      <mat-tab label="Cuestionario 2" *ngIf="encuestaActual.quest2">
+        <div [ngClass]="q1Class">
           <mat-accordion>
-            <mat-expansion-panel>
+            <mat-expansion-panel [ngClass]="q21Class">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   Calificación General
@@ -125,6 +134,15 @@
                   La calificación final
                 </mat-panel-description>
               </mat-expansion-panel-header>
+              <button mat-icon-button (click)="print(2)" class="noPrint">
+                <mat-icon>save</mat-icon>
+              </button>
+              <mat-slide-toggle
+                class="noPrint"
+                (change)="cambio($event)"
+                [checked]="checked">
+                Gráficas Pie
+              </mat-slide-toggle>
               <div class="graph" *ngIf="chartCalFinal != null">
                 <canvas mdbChart
                         [chartType]="chartType"
@@ -132,12 +150,13 @@
                         [labels]="chartLabels"
                         [colors]="chartColors"
                         [options]="chartOptions"
+                        [legend]="true"
                         (chartHover)="chartHovered($event)"
                         (chartClick)="chartClicked($event)">
                 </canvas>
               </div>
             </mat-expansion-panel>
-            <mat-expansion-panel>
+            <mat-expansion-panel [ngClass]="q22Class">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   Calificación por Categoría
@@ -146,8 +165,65 @@
                   Para la calificación de la categoría
                 </mat-panel-description>
               </mat-expansion-panel-header>
+              <button mat-icon-button (click)="print(3)" class="noPrint">
+                <mat-icon>save</mat-icon>
+              </button>
+              <mat-slide-toggle
+                class="noPrint"
+                (change)="cambio($event)"
+                [checked]="checked">
+                Gráficas Pie
+              </mat-slide-toggle>
+              <div class="graph" *ngIf="chartAmbienteTrabajo != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chartAmbienteTrabajo"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <div class="graph" *ngIf="chartFactoresActividad != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chartFactoresActividad"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <div class="graph" *ngIf="chartOrganizacionTiempo != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chartOrganizacionTiempo"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <div class="graph" *ngIf="chartLideranzoRelaciones != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chartLideranzoRelaciones"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
             </mat-expansion-panel>
-            <mat-expansion-panel>
+            <mat-expansion-panel [ngClass]="q23Class">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   Calificación por Dominio
@@ -156,13 +232,368 @@
                   Para la calificación del dominio
                 </mat-panel-description>
               </mat-expansion-panel-header>
+              <button mat-icon-button (click)="print(4)" class="noPrint">
+                <mat-icon>save</mat-icon>
+              </button>
+              <mat-slide-toggle
+                class="noPrint"
+                (change)="cambio($event)"
+                [checked]="checked">
+                Gráficas Pie
+              </mat-slide-toggle>
+              <div class="graph" *ngIf="chartCondicionesTrabajo != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chartCondicionesTrabajo"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <div class="graph" *ngIf="chartCargaTrabajo != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chartCargaTrabajo"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <div class="graph" *ngIf="chartFaltaControl != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chartFaltaControl"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <div class="graph" *ngIf="chartJornadaTrabajo != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chartJornadaTrabajo"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <div class="graph" *ngIf="chartInterferenciaRelacion != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chartInterferenciaRelacion"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <div class="graph" *ngIf="chartLiderazgo != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chartLiderazgo"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <div class="graph" *ngIf="chartRelacionesTrabajo != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chartRelacionesTrabajo"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <div class="graph" *ngIf="chartViolencia != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chartViolencia"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
             </mat-expansion-panel>
           </mat-accordion>
-
         </div>
       </mat-tab>
-      <mat-tab label="Cuestionario 3" [disabled]="!encuestaActual.quest3">
-        <div class="cuerpoQuest">
+      <mat-tab label="Cuestionario 3" *ngIf="encuestaActual.quest3">
+        <div [ngClass]="q1Class">
+          <mat-accordion>
+            <mat-expansion-panel [ngClass]="q31Class">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Calificación General
+                </mat-panel-title>
+                <mat-panel-description>
+                  La calificación final
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <button mat-icon-button (click)="print(5)" class="noPrint">
+                <mat-icon>save</mat-icon>
+              </button>
+              <mat-slide-toggle
+                class="noPrint"
+                (change)="cambio($event)"
+                [checked]="checked">
+                Gráficas Pie
+              </mat-slide-toggle>
+              <div class="graph" *ngIf="chart3CalFinal != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chart3CalFinal"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel [ngClass]="q32Class">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Calificación por Categoría
+                </mat-panel-title>
+                <mat-panel-description>
+                  Para la calificación de la categoría
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <button mat-icon-button (click)="print(6)" class="noPrint">
+                <mat-icon>save</mat-icon>
+              </button>
+              <mat-slide-toggle
+                class="noPrint"
+                (change)="cambio($event)"
+                [checked]="checked">
+                Gráficas Pie
+              </mat-slide-toggle>
+              <div class="graph" *ngIf="chart3AmbienteTrabajo != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chart3AmbienteTrabajo"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <div class="graph" *ngIf="chart3FactoresActividad != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chart3FactoresActividad"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <div class="graph" *ngIf="chart3OrganizacionTiempo != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chart3OrganizacionTiempo"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <div class="graph" *ngIf="chart3LideranzoRelaciones != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chart3LideranzoRelaciones"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <div class="graph" *ngIf="chart3EntornoOrganizacional != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chart3EntornoOrganizacional"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel [ngClass]="q33Class">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Calificación por Dominio
+                </mat-panel-title>
+                <mat-panel-description>
+                  Para la calificación del dominio
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <button mat-icon-button (click)="print(7)" class="noPrint">
+                <mat-icon>save</mat-icon>
+              </button>
+              <mat-slide-toggle
+                class="noPrint"
+                (change)="cambio($event)"
+                [checked]="checked">
+                Gráficas Pie
+              </mat-slide-toggle>
+              <div class="graph" *ngIf="chart3CondicionesTrabajo != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chart3CondicionesTrabajo"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <div class="graph" *ngIf="chart3CargaTrabajo != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chart3CargaTrabajo"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <div class="graph" *ngIf="chart3FaltaControl != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chart3FaltaControl"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <div class="graph" *ngIf="chart3JornadaTrabajo != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chart3JornadaTrabajo"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <div class="graph" *ngIf="chart3InterferenciaRelacion != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chart3InterferenciaRelacion"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <div class="graph" *ngIf="chart3Liderazgo != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chart3Liderazgo"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <div class="graph" *ngIf="chart3RelacionesTrabajo != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chart3RelacionesTrabajo"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <div class="graph" *ngIf="chart3Violencia != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chart3Violencia"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <div class="graph" *ngIf="chart3ReconocimientoDesemp != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chart3ReconocimientoDesemp"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <div class="graph" *ngIf="chart3InsuficientePertenencia != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chart3InsuficientePertenencia"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
         </div>
       </mat-tab>
     </mat-tab-group>
