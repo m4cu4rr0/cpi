@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {RegistroService} from '../services/registro.service';
 import {EncuestaModel} from '../model/encuesta.model';
 import {MatTableDataSource} from '@angular/material';
@@ -9,6 +9,15 @@ import {PersonaModel} from '../model/persona.model';
 import {MatDialog} from '@angular/material/dialog';
 import {DatosPersonaComponent} from '../modal/datos-persona/datos-persona.component';
 import {EncuestaComponent} from '../encuesta/encuesta.component';
+import {MatSort} from '@angular/material/sort';
+import {Quest3Model} from '../model/quest3.model';
+import {Quest2Model} from '../model/quest2.model';
+
+interface PerQuest {
+  persona: PersonaModel;
+  quest3: Quest3Model;
+  quest2: Quest2Model;
+}
 
 @Component({
   selector: 'app-resultados',
@@ -66,17 +75,96 @@ export class ResultadosComponent implements OnInit {
   chart3ReconocimientoDesemp: Array<any> = null;
   chart3InsuficientePertenencia: Array<any> = null;
 
+  chart3Prom: Array<any> = null;
+  chart3PromDom: Array<any> = null;
+  chartColors2: Array<any> = null;
+  chartColors3: Array<any> = null;
+
+  chart1: Array<any> = null;
+
+  chart2Prom: Array<any> = null;
+  chart2PromDom: Array<any> = null;
+  chartColors22: Array<any> = null;
+  chartColors32: Array<any> = null;
+
+  promedioQ3 = 0;
+  promedioQ3C1 = 0;
+  promedioQ3C2 = 0;
+  promedioQ3C3 = 0;
+  promedioQ3C4 = 0;
+  promedioQ3C5 = 0;
+  promedioQ3D1 = 0;
+  promedioQ3D2 = 0;
+  promedioQ3D3 = 0;
+  promedioQ3D4 = 0;
+  promedioQ3D5 = 0;
+  promedioQ3D6 = 0;
+  promedioQ3D7 = 0;
+  promedioQ3D8 = 0;
+  promedioQ3D9 = 0;
+  promedioQ3D10 = 0;
+
+  promedioQ2 = 0;
+  promedioQ2C1 = 0;
+  promedioQ2C2 = 0;
+  promedioQ2C3 = 0;
+  promedioQ2C4 = 0;
+  promedioQ2D1 = 0;
+  promedioQ2D2 = 0;
+  promedioQ2D3 = 0;
+  promedioQ2D4 = 0;
+  promedioQ2D5 = 0;
+  promedioQ2D6 = 0;
+  promedioQ2D7 = 0;
+  promedioQ2D8 = 0;
+
   q1Class = 'cuerpoQuest';
+  q11Class = 'noPrint';
+  q12Class = 'noPrint';
   q21Class = 'noPrint';
   q22Class = 'noPrint';
   q23Class = 'noPrint';
+  q24Class = 'noPrint';
+  q25Class = 'noPrint';
   q31Class = 'noPrint';
   q32Class = 'noPrint';
   q33Class = 'noPrint';
+  q34Class = 'noPrint';
+  q35Class = 'noPrint';
   checked: boolean;
   imagen = 'imagen2';
 
+  countTotal = 0;
+  countHom = 0;
+  countMuj = 0;
+  countAtencion = 0 ;
+  countNoAtencion = 0;
+  countAtencionM = 0 ;
+  countNoAtencionM = 0;
+  countAtencionH = 0 ;
+  countNoAtencionH = 0;
+  displayedColumns2: string[] = ['nombre', 'sexo', 'edad', 'departamento'];
+  dataSource2;
+
+  sort;
+  // @ts-ignore
+  @ViewChild(MatSort) set content(content: ElementRef) {
+    this.sort = content;
+    if (this.sort) {
+      if (!this.dataSource2) {
+        return;
+      }
+      this.dataSource2.sort = this.sort;
+
+    }
+  }
+
   chartLabels: Array<any> = ['Nulo o despreciable', 'Bajo', 'Medio', 'Alto', 'Muy alto'];
+  chartLabels2: Array<any> = ['1', '2', '3', '4', '5'];
+  chartLabels3: Array<any> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+  chartLabels22: Array<any> = ['1', '2', '3', '4'];
+  chartLabels32: Array<any> = ['1', '2', '3', '4', '5', '6', '7', '8'];
+  chartLabels1: Array<any> = ['No requieren atención', 'Requieren atención'];
 
   chartColors: Array<any> = [
     {
@@ -98,12 +186,28 @@ export class ResultadosComponent implements OnInit {
     }
   ];
 
+  chartColors1: Array<any> = [
+    {
+      backgroundColor: [
+        '#6BF56E',
+        '#FF0000'
+      ],
+      borderColor: [
+        '#6BF56E',
+        '#FF0000'
+      ],
+      borderWidth: 2,
+    }
+  ];
+
+
+
   chartOptions: any = {
     responsive: true
   };
 
   applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSource2.filter = filterValue.trim().toLowerCase();
   }
 
   chartClicked(e: any): void {
@@ -175,14 +279,23 @@ export class ResultadosComponent implements OnInit {
       this.regSer.getPersonas().subscribe(resData => {
         this.personasEncuesta = resData;
       });
-      this.cargarQuest2();
-      this.cargarQuest3();
+      if (encuesta.quest2) {
+        this.cargarQuest2();
+      }
+      if (encuesta.quest3) {
+        this.cargarQuest3();
+      }
+      if (encuesta.quest1) {
+        this.cargarQuest1();
+        this.dataSource2 = new MatTableDataSource(this.personasEncuesta);
+        this.dataSource2.sort = this.sort;
+      }
     });
   }
 
   openDialog(persona: PersonaModel): void {
     const dialogRef = this.dialog.open(DatosPersonaComponent, {
-      width: '300px',
+      width: '600px',
       data: {persona},
       disableClose: true
     });
@@ -196,6 +309,44 @@ export class ResultadosComponent implements OnInit {
       this.cargarNumPersonas();
       this.dataSource = new MatTableDataSource(this.encuestas);
     });
+  }
+
+  cargarQuest1() {
+    this.countTotal = this.personasEncuesta.length;
+    this.countAtencion = 0;
+    this.countNoAtencion = 0;
+    this.countMuj = 0;
+    this.countAtencionM = 0;
+    this.countNoAtencionM = 0;
+    this.countHom = 0;
+    this.countAtencionH = 0;
+    this.countNoAtencionH = 0;
+    this.personasEncuesta.forEach(p => {
+      if (p.atencionQ1) {
+        this.countAtencion++;
+        if (p.sexo === 'M') {
+          this.countHom++;
+          this.countAtencionH++;
+        } else {
+          this.countMuj++;
+          this.countAtencionM++;
+        }
+      } else {
+        this.countNoAtencion++;
+        if (p.sexo === 'M') {
+          this.countHom++;
+          this.countNoAtencionH++;
+        } else {
+          this.countMuj++;
+          this.countNoAtencionM++;
+        }
+      }
+    });
+
+    this.chart1 = [
+      {data: [this.countNoAtencion, this.countAtencion], label: 'Tota de Trabajadores'}
+    ];
+
   }
 
   cargarQuest2() {
@@ -266,12 +417,27 @@ export class ResultadosComponent implements OnInit {
     let a13 = 0;
     let mA13 = 0;
     let quest2;
+    let longitud = 0;
+    this.promedioQ2 = 0;
+    this.promedioQ2C1 = 0;
+    this.promedioQ2C2 = 0;
+    this.promedioQ2C3 = 0;
+    this.promedioQ2C4 = 0;
+    this.promedioQ2D1 = 0;
+    this.promedioQ2D2 = 0;
+    this.promedioQ2D3 = 0;
+    this.promedioQ2D4 = 0;
+    this.promedioQ2D5 = 0;
+    this.promedioQ2D6 = 0;
+    this.promedioQ2D7 = 0;
+    this.promedioQ2D8 = 0;
 
     this.personasEncuesta.forEach(p => ids.push(p.id));
     this.regSer.quest2Personas(ids).then(() => {
       this.regSer.getQuest2().subscribe(resData => {
         quest2 = resData;
         // console.log(quest2);
+        longitud = quest2.length;
       });
       quest2.forEach(q => {
         if (q.calificacion < 20) {
@@ -417,6 +583,19 @@ export class ResultadosComponent implements OnInit {
         } else {
           mA13++;
         }
+        this.promedioQ2 += q.calificacion;
+        this.promedioQ2C1 += q.ambienteTrabajo;
+        this.promedioQ2C2 += q.factoresActividad;
+        this.promedioQ2C3 += q.organizacionTiempo;
+        this.promedioQ2C4 += q.lideranzoRelaciones;
+        this.promedioQ2D1 += q.condicionesTrabajo;
+        this.promedioQ2D2 += q.cargaTrabajo;
+        this.promedioQ2D3 += q.faltaControl;
+        this.promedioQ2D4 += q.jornadaTrabajo;
+        this.promedioQ2D5 += q.interferenciaRelacion;
+        this.promedioQ2D6 += q.liderazgo;
+        this.promedioQ2D7 += q.relacionesTrabajo;
+        this.promedioQ2D8 += q.violencia;
       });
       this.chartCalFinal = [
         {data: [n1, b1, m1, a1, mA1], label: 'Calificación Final'}
@@ -456,6 +635,71 @@ export class ResultadosComponent implements OnInit {
       ];
       this.chartViolencia = [
         {data: [n13, b13, m13, a13, mA13], label: 'Violencia'}
+      ];
+
+      this.promedioQ2 = this.promedioQ2 / longitud;
+      this.promedioQ2C1 = this.promedioQ2C1 / longitud;
+      this.promedioQ2C2 = this.promedioQ2C2 / longitud;
+      this.promedioQ2C3 = this.promedioQ2C3 / longitud;
+      this.promedioQ2C4 = this.promedioQ2C4 / longitud;
+      this.promedioQ2D1 = this.promedioQ2D1 / longitud;
+      this.promedioQ2D2 = this.promedioQ2D2 / longitud;
+      this.promedioQ2D3 = this.promedioQ2D3 / longitud;
+      this.promedioQ2D4 = this.promedioQ2D4 / longitud;
+      this.promedioQ2D5 = this.promedioQ2D5 / longitud;
+      this.promedioQ2D6 = this.promedioQ2D6 / longitud;
+      this.promedioQ2D7 = this.promedioQ2D7 / longitud;
+      this.promedioQ2D8 = this.promedioQ2D8 / longitud;
+
+      this.chart2Prom = [
+        {data: [this.promedioQ2C1, this.promedioQ2C2, this.promedioQ2C3, this.promedioQ2C4], label: 'Promedio Categoría'}
+      ];
+      this.chart2PromDom = [
+        {data: [this.promedioQ2D1, this.promedioQ2D2, this.promedioQ2D3, this.promedioQ2D4, this.promedioQ2D5,
+            this.promedioQ2D6, this.promedioQ2D7, this.promedioQ2D8], label: 'Promedio Dominio'}
+      ];
+
+      this.chartColors22 = [
+        {
+          backgroundColor: [
+            this.getColor(this.getPromedioQ2(2)),
+            this.getColor(this.getPromedioQ2(3)),
+            this.getColor(this.getPromedioQ2(4)),
+            this.getColor(this.getPromedioQ2(5))
+          ],
+          borderColor: [
+            this.getColor(this.getPromedioQ2(2)),
+            this.getColor(this.getPromedioQ2(3)),
+            this.getColor(this.getPromedioQ2(4)),
+            this.getColor(this.getPromedioQ2(5))
+          ],
+          borderWidth: 2,
+        }
+      ];
+      this.chartColors32 = [
+        {
+          backgroundColor: [
+            this.getColor(this.getPromedioQ2(6)),
+            this.getColor(this.getPromedioQ2(7)),
+            this.getColor(this.getPromedioQ2(8)),
+            this.getColor(this.getPromedioQ2(9)),
+            this.getColor(this.getPromedioQ2(10)),
+            this.getColor(this.getPromedioQ2(11)),
+            this.getColor(this.getPromedioQ2(12)),
+            this.getColor(this.getPromedioQ2(13))
+          ],
+          borderColor: [
+            this.getColor(this.getPromedioQ2(6)),
+            this.getColor(this.getPromedioQ2(7)),
+            this.getColor(this.getPromedioQ2(8)),
+            this.getColor(this.getPromedioQ2(9)),
+            this.getColor(this.getPromedioQ2(10)),
+            this.getColor(this.getPromedioQ2(11)),
+            this.getColor(this.getPromedioQ2(12)),
+            this.getColor(this.getPromedioQ2(13))
+          ],
+          borderWidth: 2,
+        }
       ];
     });
   }
@@ -543,12 +787,14 @@ export class ResultadosComponent implements OnInit {
     let a16 = 0;
     let mA16 = 0;
     let quest3;
+    let longitud = 0;
 
     this.personasEncuesta.forEach(p => ids.push(p.id));
     this.regSer.quest3Personas(ids).then(() => {
       this.regSer.getQuest3().subscribe(resData => {
         quest3 = resData;
         // console.log(quest3);
+        longitud = quest3.length;
       });
       quest3.forEach(q => {
         if (q.calificacion < 20) {
@@ -716,17 +962,33 @@ export class ResultadosComponent implements OnInit {
         } else {
           mA15++;
         }
-        if (q.violencia < 4) {
+        if (q.insuficientePertenencia < 4) {
           n16++;
-        } else if (q.violencia < 6) {
+        } else if (q.insuficientePertenencia < 6) {
           b16++;
-        } else if (q.violencia < 8) {
+        } else if (q.insuficientePertenencia < 8) {
           m16++;
-        } else if (q.violencia < 10) {
+        } else if (q.insuficientePertenencia < 10) {
           a16++;
         } else {
           mA16++;
         }
+        this.promedioQ3 += q.calificacion;
+        this.promedioQ3C1 += q.ambienteTrabajo;
+        this.promedioQ3C2 += q.factoresActividad;
+        this.promedioQ3C3 += q.organizacionTiempo;
+        this.promedioQ3C4 += q.lideranzoRelaciones;
+        this.promedioQ3C5 += q.entornoOrganizacional;
+        this.promedioQ3D1 += q.condicionesTrabajo;
+        this.promedioQ3D2 += q.cargaTrabajo;
+        this.promedioQ3D3 += q.faltaControl;
+        this.promedioQ3D4 += q.jornadaTrabajo;
+        this.promedioQ3D5 += q.interferenciaRelacion;
+        this.promedioQ3D6 += q.liderazgo;
+        this.promedioQ3D7 += q.relacionesTrabajo;
+        this.promedioQ3D8 += q.violencia;
+        this.promedioQ3D9 += q.reconocimientoDesemp;
+        this.promedioQ3D10 += q.insuficientePertenencia;
       });
       this.chart3CalFinal = [
         {data: [n1, b1, m1, a1, mA1], label: 'Calificación Final'}
@@ -776,6 +1038,80 @@ export class ResultadosComponent implements OnInit {
       this.chart3InsuficientePertenencia = [
         {data: [n16, b16, m16, a16, mA16], label: 'Insuficiente sentido de pertenencia e, inestabilidad'}
       ];
+
+      this.promedioQ3 = this.promedioQ3 / longitud;
+      this.promedioQ3C1 = this.promedioQ3C1 / longitud;
+      this.promedioQ3C2 = this.promedioQ3C2 / longitud;
+      this.promedioQ3C3 = this.promedioQ3C3 / longitud;
+      this.promedioQ3C4 = this.promedioQ3C4 / longitud;
+      this.promedioQ3C5 = this.promedioQ3C5 / longitud;
+      this.promedioQ3D1 = this.promedioQ3D1 / longitud;
+      this.promedioQ3D2 = this.promedioQ3D2 / longitud;
+      this.promedioQ3D3 = this.promedioQ3D3 / longitud;
+      this.promedioQ3D4 = this.promedioQ3D4 / longitud;
+      this.promedioQ3D5 = this.promedioQ3D5 / longitud;
+      this.promedioQ3D6 = this.promedioQ3D6 / longitud;
+      this.promedioQ3D7 = this.promedioQ3D7 / longitud;
+      this.promedioQ3D8 = this.promedioQ3D8 / longitud;
+      this.promedioQ3D9 = this.promedioQ3D9 / longitud;
+      this.promedioQ3D10 = this.promedioQ3D10 / longitud;
+
+      this.chart3Prom = [
+        {data: [this.promedioQ3C1, this.promedioQ3C2, this.promedioQ3C3, this.promedioQ3C4, this.promedioQ3C5], label: 'Promedio Categoría'}
+      ];
+      this.chart3PromDom = [
+        {data: [this.promedioQ3D1, this.promedioQ3D2, this.promedioQ3D3, this.promedioQ3D4, this.promedioQ3D5,
+            this.promedioQ3D6, this.promedioQ3D7, this.promedioQ3D8, this.promedioQ3D9, this.promedioQ3D10], label: 'Promedio Dominio'}
+      ];
+
+      this.chartColors2 = [
+        {
+          backgroundColor: [
+            this.getColor(this.getPromedioQ3(2)),
+            this.getColor(this.getPromedioQ3(3)),
+            this.getColor(this.getPromedioQ3(4)),
+            this.getColor(this.getPromedioQ3(5)),
+            this.getColor(this.getPromedioQ3(6))
+          ],
+          borderColor: [
+            this.getColor(this.getPromedioQ3(2)),
+            this.getColor(this.getPromedioQ3(3)),
+            this.getColor(this.getPromedioQ3(4)),
+            this.getColor(this.getPromedioQ3(5)),
+            this.getColor(this.getPromedioQ3(6))
+          ],
+          borderWidth: 2,
+        }
+      ];
+      this.chartColors3 = [
+        {
+          backgroundColor: [
+            this.getColor(this.getPromedioQ3(7)),
+            this.getColor(this.getPromedioQ3(8)),
+            this.getColor(this.getPromedioQ3(9)),
+            this.getColor(this.getPromedioQ3(10)),
+            this.getColor(this.getPromedioQ3(11)),
+            this.getColor(this.getPromedioQ3(12)),
+            this.getColor(this.getPromedioQ3(13)),
+            this.getColor(this.getPromedioQ3(14)),
+            this.getColor(this.getPromedioQ3(15)),
+            this.getColor(this.getPromedioQ3(16))
+          ],
+          borderColor: [
+            this.getColor(this.getPromedioQ3(7)),
+            this.getColor(this.getPromedioQ3(8)),
+            this.getColor(this.getPromedioQ3(9)),
+            this.getColor(this.getPromedioQ3(10)),
+            this.getColor(this.getPromedioQ3(11)),
+            this.getColor(this.getPromedioQ3(12)),
+            this.getColor(this.getPromedioQ3(13)),
+            this.getColor(this.getPromedioQ3(14)),
+            this.getColor(this.getPromedioQ3(15)),
+            this.getColor(this.getPromedioQ3(16))
+          ],
+          borderWidth: 2,
+        }
+      ];
     });
   }
 
@@ -784,9 +1120,11 @@ export class ResultadosComponent implements OnInit {
     switch (num) {
       case 1:
         this.q1Class = 'print';
+        this.q11Class = 'print';
         setTimeout( () => {
           window.print();
           this.q1Class = 'cuerpoQuest';
+          this.q11Class = 'noPrint';
           this.imagen = 'imagen2';
         }, 1);
         break;
@@ -850,6 +1188,56 @@ export class ResultadosComponent implements OnInit {
           this.q33Class = 'noPrint';
         }, 1);
         break;
+      case 8:
+        this.q1Class = 'print';
+        this.q34Class = 'print';
+        setTimeout( () => {
+          window.print();
+          this.imagen = 'imagen2';
+          this.q1Class = 'cuerpoQuest';
+          this.q34Class = 'noPrint';
+        }, 1);
+        break;
+      case 9:
+        this.q1Class = 'print';
+        this.q35Class = 'print';
+        setTimeout( () => {
+          window.print();
+          this.imagen = 'imagen2';
+          this.q1Class = 'cuerpoQuest';
+          this.q35Class = 'noPrint';
+        }, 1);
+        break;
+      case 10:
+        this.q1Class = 'print';
+        this.q12Class = 'print';
+        setTimeout( () => {
+          window.print();
+          this.imagen = 'imagen2';
+          this.q1Class = 'cuerpoQuest';
+          this.q12Class = 'noPrint';
+        }, 1);
+        break;
+      case 11:
+        this.q1Class = 'print';
+        this.q24Class = 'print';
+        setTimeout( () => {
+          window.print();
+          this.imagen = 'imagen2';
+          this.q1Class = 'cuerpoQuest';
+          this.q24Class = 'noPrint';
+        }, 1);
+        break;
+      case 12:
+        this.q1Class = 'print';
+        this.q25Class = 'print';
+        setTimeout( () => {
+          window.print();
+          this.imagen = 'imagen2';
+          this.q1Class = 'cuerpoQuest';
+          this.q25Class = 'noPrint';
+        }, 1);
+        break;
     }
   }
 
@@ -872,6 +1260,457 @@ export class ResultadosComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.cargarEncuesta();
     });
+  }
+
+  getPromedioQ2(tipo: number) {
+
+    switch (tipo) {
+      case 1:
+        if (this.promedioQ2 < 20) {
+          return 0;
+        } else if (this.promedioQ2 < 45) {
+          return 1;
+        } else if (this.promedioQ2 < 70) {
+          return 2;
+        } else if (this.promedioQ2 < 90) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 2:
+        if (this.promedioQ2C1 < 3) {
+          return 0;
+        } else if (this.promedioQ2C1 < 5) {
+          return 1;
+        } else if (this.promedioQ2C1 < 7) {
+          return 2;
+        } else if (this.promedioQ2C1 < 9) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 3:
+        if (this.promedioQ2C2 < 10) {
+          return 0;
+        } else if (this.promedioQ2C2 < 20) {
+          return 1;
+        } else if (this.promedioQ2C2 < 30) {
+          return 2;
+        } else if (this.promedioQ2C2 < 40) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 4:
+        if (this.promedioQ2C3 < 4) {
+          return 0;
+        } else if (this.promedioQ2C3 < 6) {
+          return 1;
+        } else if (this.promedioQ2C3 < 9) {
+          return 2;
+        } else if (this.promedioQ2C3 < 12) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 5:
+        if (this.promedioQ2C4 < 10) {
+          return 0;
+        } else if (this.promedioQ2C4 < 18) {
+          return 1;
+        } else if (this.promedioQ2C4 < 28) {
+          return 2;
+        } else if (this.promedioQ2C4 < 38) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 6:
+        if (this.promedioQ2D1 < 3) {
+          return 0;
+        } else if (this.promedioQ2D1 < 5) {
+          return 1;
+        } else if (this.promedioQ2D1 < 7) {
+          return 2;
+        } else if (this.promedioQ2D1 < 9) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 7:
+        if (this.promedioQ2D2 < 12) {
+          return 0;
+        } else if (this.promedioQ2D2 < 16) {
+          return 1;
+        } else if (this.promedioQ2D2 < 20) {
+          return 2;
+        } else if (this.promedioQ2D2 < 24) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 8:
+        if (this.promedioQ2D3 < 5) {
+          return 0;
+        } else if (this.promedioQ2D3 < 8) {
+          return 1;
+        } else if (this.promedioQ2D3 < 11) {
+          return 2;
+        } else if (this.promedioQ2D3 < 14) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 9:
+        if (this.promedioQ2D4 < 1) {
+          return 0;
+        } else if (this.promedioQ2D4 < 2) {
+          return 1;
+        } else if (this.promedioQ2D4 < 4) {
+          return 2;
+        } else if (this.promedioQ2D4 < 6) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 10:
+        if (this.promedioQ2D5 < 1) {
+          return 0;
+        } else if (this.promedioQ2D5 < 2) {
+          return 1;
+        } else if (this.promedioQ2D5 < 4) {
+          return 2;
+        } else if (this.promedioQ2D5 < 6) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 11:
+        if (this.promedioQ2D6 < 1) {
+          return 0;
+        } else if (this.promedioQ2D6 < 2) {
+          return 1;
+        } else if (this.promedioQ2D6 < 4) {
+          return 2;
+        } else if (this.promedioQ2D6 < 6) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 12:
+        if (this.promedioQ2D7 < 5) {
+          return 0;
+        } else if (this.promedioQ2D7 < 8) {
+          return 1;
+        } else if (this.promedioQ2D7 < 11) {
+          return 2;
+        } else if (this.promedioQ2D7 < 14) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 13:
+        if (this.promedioQ2D8 < 7) {
+          return 0;
+        } else if (this.promedioQ2D8 < 10) {
+          return 1;
+        } else if (this.promedioQ2D8 < 13) {
+          return 2;
+        } else if (this.promedioQ2D8 < 16) {
+          return 3;
+        } else {
+          return 4;
+        }
+    }
+  }
+
+  getPromedioQ3(tipo: number) {
+
+    switch (tipo) {
+      case 1:
+        if (this.promedioQ3 < 20) {
+          return 0;
+        } else if (this.promedioQ3 < 45) {
+          return 1;
+        } else if (this.promedioQ3 < 70) {
+          return 2;
+        } else if (this.promedioQ3 < 90) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 2:
+        if (this.promedioQ3C1 < 3) {
+          return 0;
+        } else if (this.promedioQ3C1 < 5) {
+          return 1;
+        } else if (this.promedioQ3C1 < 7) {
+          return 2;
+        } else if (this.promedioQ3C1 < 9) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 3:
+        if (this.promedioQ3C2 < 10) {
+          return 0;
+        } else if (this.promedioQ3C2 < 20) {
+          return 1;
+        } else if (this.promedioQ3C2 < 30) {
+          return 2;
+        } else if (this.promedioQ3C2 < 40) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 4:
+        if (this.promedioQ3C3 < 4) {
+          return 0;
+        } else if (this.promedioQ3C3 < 6) {
+          return 1;
+        } else if (this.promedioQ3C3 < 9) {
+          return 2;
+        } else if (this.promedioQ3C3 < 12) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 5:
+        if (this.promedioQ3C4 < 10) {
+          return 0;
+        } else if (this.promedioQ3C4 < 18) {
+          return 1;
+        } else if (this.promedioQ3C4 < 28) {
+          return 2;
+        } else if (this.promedioQ3C4 < 38) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 6:
+        if (this.promedioQ3C5 < 10) {
+          return 0;
+        } else if (this.promedioQ3C5 < 14) {
+          return 1;
+        } else if (this.promedioQ3C5 < 18) {
+          return 2;
+        } else if (this.promedioQ3C5 < 23) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 7:
+        if (this.promedioQ3D1 < 3) {
+          return 0;
+        } else if (this.promedioQ3D1 < 5) {
+          return 1;
+        } else if (this.promedioQ3D1 < 7) {
+          return 2;
+        } else if (this.promedioQ3D1 < 9) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 8:
+        if (this.promedioQ3D2 < 12) {
+          return 0;
+        } else if (this.promedioQ3D2 < 16) {
+          return 1;
+        } else if (this.promedioQ3D2 < 20) {
+          return 2;
+        } else if (this.promedioQ3D2 < 24) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 9:
+        if (this.promedioQ3D3 < 5) {
+          return 0;
+        } else if (this.promedioQ3D3 < 8) {
+          return 1;
+        } else if (this.promedioQ3D3 < 11) {
+          return 2;
+        } else if (this.promedioQ3D3 < 14) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 10:
+        if (this.promedioQ3D4 < 1) {
+          return 0;
+        } else if (this.promedioQ3D4 < 2) {
+          return 1;
+        } else if (this.promedioQ3D4 < 4) {
+          return 2;
+        } else if (this.promedioQ3D4 < 6) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 11:
+        if (this.promedioQ3D5 < 1) {
+          return 0;
+        } else if (this.promedioQ3D5 < 2) {
+          return 1;
+        } else if (this.promedioQ3D5 < 4) {
+          return 2;
+        } else if (this.promedioQ3D5 < 6) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 12:
+        if (this.promedioQ3D6 < 1) {
+          return 0;
+        } else if (this.promedioQ3D6 < 2) {
+          return 1;
+        } else if (this.promedioQ3D6 < 4) {
+          return 2;
+        } else if (this.promedioQ3D6 < 6) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 13:
+        if (this.promedioQ3D7 < 5) {
+          return 0;
+        } else if (this.promedioQ3D7 < 8) {
+          return 1;
+        } else if (this.promedioQ3D7 < 11) {
+          return 2;
+        } else if (this.promedioQ3D7 < 14) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 14:
+        if (this.promedioQ3D8 < 7) {
+          return 0;
+        } else if (this.promedioQ3D8 < 10) {
+          return 1;
+        } else if (this.promedioQ3D8 < 13) {
+          return 2;
+        } else if (this.promedioQ3D8 < 16) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 15:
+        if (this.promedioQ3D9 < 6) {
+          return 0;
+        } else if (this.promedioQ3D9 < 10) {
+          return 1;
+        } else if (this.promedioQ3D9 < 14) {
+          return 2;
+        } else if (this.promedioQ3D9 < 18) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 16:
+        if (this.promedioQ3D10 < 4) {
+          return 0;
+        } else if (this.promedioQ3D10 < 6) {
+          return 1;
+        } else if (this.promedioQ3D10 < 8) {
+          return 2;
+        } else if (this.promedioQ3D10 < 10) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+    }
+  }
+
+  getNombre(num: number) {
+    switch (num) {
+      case 0:
+        return 'Nulo o despreciable';
+      case 1:
+        return 'Bajo';
+      case 2:
+        return 'Medio';
+      case 3:
+        return 'Alto';
+      case 4:
+        return 'Muy Alto';
+      default:
+        break;
+    }
+  }
+
+  getColor(num: number) {
+    switch (num) {
+      case 0:
+        return '#9BE5F7';
+      case 1:
+        return '#6BF56E';
+      case 2:
+        return '#FFFF00';
+      case 3:
+        return '#FFC000';
+      case 4:
+        return '#FF0000';
+      default:
+        break;
+    }
+  }
+
+  getTexto(num: number) {
+    switch (num) {
+      case 0:
+        return 'El riesgo resulta despreciable por lo que no se requiere medidas adicionales.';
+      case 1:
+        return 'Es necesario una mayor difusión de la política de prevención de riesgos psicosociales y programas para: ' +
+          'la prevención de los factores de riesgo psicosocial, la promoción de un entorno organizacional favorable y la ' +
+          'prevención de la violencia laboral.';
+      case 2:
+        return 'Se requiere revisar la política de prevención de riesgos psicosociales y programas para la prevención de ' +
+          'los factores de riesgo psicosocial, la promoción de un entorno organizacional favorable y la prevención de la ' +
+          'violencia laboral, así como reforzar su aplicación y difusión, mediante un Programa de intervención.';
+      case 3:
+        return 'Se requiere realizar un análisis de cada categoría y dominio, de manera que se puedan determinar las acciones ' +
+          'de intervención apropiadas a través de un Programa de intervención, que podrá incluir una evaluación específica1 y ' +
+          'deberá incluir una campaña de sensibilización, revisar la política de prevención de riesgos psicosociales y programas ' +
+          'para la prevención de los factores de riesgo psicosocial, la promoción de un entorno organizacional favorable y la ' +
+          'prevención de la violencia laboral, así como reforzar su aplicación y difusión.';
+      case 4:
+        return 'Se requiere realizar el análisis de cada categoría y dominio para establecer las acciones de intervención ' +
+          'apropiadas, mediante un Programa de intervención que deberá incluir evaluaciones específicas1, y contemplar campañas ' +
+          'de sensibilización, revisar la política de prevención de riesgos psicosociales y programas para la prevención de los ' +
+          'factores de riesgo psicosocial, la promoción de un entorno organizacional favorable y la prevención de la violencia ' +
+          'laboral, así como reforzar su aplicación y difusión.';
+      default:
+        break;
+    }
   }
 
 }

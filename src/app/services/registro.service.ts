@@ -14,6 +14,7 @@ interface EncuestaData {
   quest1: boolean;
   quest2: boolean;
   quest3: boolean;
+  areas: string[];
 }
 
 interface PersonaData {
@@ -136,7 +137,8 @@ export class RegistroService {
                 resData[key].numPersonas,
                 resData[key].quest1,
                 resData[key].quest2,
-                resData[key].quest3));
+                resData[key].quest3,
+                resData[key].areas));
             }
           }
 

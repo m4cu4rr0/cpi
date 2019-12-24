@@ -26,6 +26,8 @@ export class EncuestaComponent implements OnInit {
 
   dialogRef: any;
 
+  area: string;
+
   constructor(public empService: EmpresasService,
               private router: Router,
               private regService: RegistroService,
@@ -40,7 +42,7 @@ export class EncuestaComponent implements OnInit {
     if (this.nuevaEncuesta ) {
       // console.log(this.nuevaEncuesta);
     } else {
-      this.nuevaEncuesta = new EncuestaModel(null, null, null, false, false, false );
+      this.nuevaEncuesta = new EncuestaModel(null, null, null, false, false, false, []);
     }
     this.newId = null;
   }
@@ -99,6 +101,13 @@ export class EncuestaComponent implements OnInit {
       });
     } else {
       this.error = 1;
+    }
+  }
+
+  addArea() {
+    if (this.area !== '') {
+    this.nuevaEncuesta.areas.push(this.area);
+    this.area = '';
     }
   }
 

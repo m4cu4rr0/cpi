@@ -134,6 +134,11 @@
       </mat-grid-tile>
       <mat-grid-tile>
         <label class="opcion">Departamento / Sección / Área:</label>
+        <mat-select class="select" placeholder="Seleccione su área" [(ngModel)]="nuevaPersona.departamento" name="departamento">
+          <mat-option *ngFor="let a of encuestaActual.areas" [value]="a">
+            {{a}}
+          </mat-option>
+        </mat-select>
         <mat-form-field class="input">
           <input matInput [(ngModel)]="nuevaPersona.departamento" name="departamento" oninput="this.value = this.value.toUpperCase()"/>
         </mat-form-field>

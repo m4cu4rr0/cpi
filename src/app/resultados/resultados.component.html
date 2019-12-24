@@ -102,7 +102,7 @@
       <mat-tab label="Cuestionario 1" *ngIf="encuestaActual.quest1">
         <div [ngClass]="q1Class">
           <mat-accordion>
-            <mat-expansion-panel>
+            <mat-expansion-panel [ngClass]="q11Class">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   Requieren Atención
@@ -114,10 +114,99 @@
               <button mat-icon-button (click)="print(1)" class="noPrint">
                 <mat-icon>save</mat-icon>
               </button>
-              <label *ngFor="let p of personasEncuesta" [ngClass]="p.atencionQ1 ? 'ayuda' : 'noAyuda'"
-                     (click)="openDialog(p)">
-                {{p.nombre}}
-              </label>
+              <div class="resQues1">
+                <label class="titulo">Resumen</label>
+                <mat-divider style="margin:10px;"></mat-divider>
+                <label class="cell" style="font-weight: bold;">Agrupación</label>
+                <label class="cell" style="font-weight: bold;">Total</label>
+                <label class="cell" style="font-weight: bold;">Personas que requieren atención clínica</label>
+                <label class="cell" style="font-weight: bold;">Personas que no requieren atención clínica</label>
+                <label class="cell" style="font-weight: bold;">Porcentaje que necesita atención</label>
+
+                <label class="cell">Total</label>
+                <label class="cell">{{countTotal}}</label>
+                <label class="cell">{{countAtencion}}</label>
+                <label class="cell">{{countNoAtencion}}</label>
+                <label class="cell">{{((countAtencion / countTotal) * 100).toFixed(2) + '%'}}</label>
+
+                <label class="cell">Mujeres</label>
+                <label class="cell">{{countMuj}}</label>
+                <label class="cell">{{countAtencionM}}</label>
+                <label class="cell">{{countNoAtencionM}}</label>
+                <label class="cell">{{((countAtencionM / countMuj) * 100).toFixed(2) + '%'}}</label>
+
+                <label class="cell">Hombres</label>
+                <label class="cell">{{countHom}}</label>
+                <label class="cell">{{countAtencionH}}</label>
+                <label class="cell">{{countNoAtencionH}}</label>
+                <label class="cell">{{((countAtencionH / countHom) * 100).toFixed(2) + '%'}}</label>
+              </div>
+              <mat-divider style="margin:50px;"></mat-divider>
+              <div class="graph" *ngIf="chart1 != null">
+                <canvas mdbChart
+                        [chartType]="'pie'"
+                        [datasets]="chart1"
+                        [labels]="chartLabels1"
+                        [colors]="chartColors1"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel [ngClass]="q12Class">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Todos los empleados
+                </mat-panel-title>
+                <mat-panel-description>
+                  Listado completo de empleados
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <button mat-icon-button (click)="print(10)" class="noPrint">
+                <mat-icon>save</mat-icon>
+              </button>
+              <div class="resQues1">
+                <mat-form-field class="filtro noPrint">
+                  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar" class="noPrint">
+                </mat-form-field>
+
+                <table mat-table [dataSource]="dataSource2" matSort>
+
+                  <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Nombre
+                    </th>
+                    <td mat-cell *matCellDef="let element" (click)="openDialog(element)"> {{element.nombre}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="sexo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Sexo
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.sexo}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="edad">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Edad
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.edad}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="departamento">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Departamento
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.departamento}}</td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns2;"
+                      [ngClass]="row.atencionQ1 ? 'ayuda' : 'noAyuda'"></tr>
+                </table>
+              </div>
             </mat-expansion-panel>
           </mat-accordion>
         </div>
@@ -125,6 +214,137 @@
       <mat-tab label="Cuestionario 2" *ngIf="encuestaActual.quest2">
         <div [ngClass]="q1Class">
           <mat-accordion>
+            <mat-expansion-panel [ngClass]="q24Class">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Reporte Resumen
+                </mat-panel-title>
+                <mat-panel-description>
+                  Reporte resumido cuestionario 2
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <button mat-icon-button (click)="print(11)" class="noPrint">
+                <mat-icon>save</mat-icon>
+              </button>
+              <div style="width: 100% !important;">
+                <label class="titulo">Resumen General</label>
+                <mat-divider style="margin:10px;"></mat-divider>
+                <label class="subtitulo">Categoría</label>
+                <label class="opcion">1.-Ambiente de trabajo: <label
+                  [style.color]="getColor(getPromedioQ2(2))">{{getNombre(getPromedioQ2(2))}}</label></label>
+                <label class="opcion">2.-Factores propios de la actividad: <label
+                  [style.color]="getColor(getPromedioQ2(3))">{{getNombre(getPromedioQ2(3))}}</label></label>
+                <label class="opcion">3.-Organización del tiempo de trabajo: <label
+                  [style.color]="getColor(getPromedioQ2(4))">{{getNombre(getPromedioQ2(4))}}</label></label>
+                <label class="opcion">4.-Liderazgo y relaciones en el trabajo: <label
+                  [style.color]="getColor(getPromedioQ2(5))">{{getNombre(getPromedioQ2(5))}}</label></label>
+                <mat-divider style="margin:10px;"></mat-divider>
+                <label class="subtitulo">Dominio</label>
+                <label class="opcion">1.-Condiciones en el ambiente de trabajo: <label
+                  [style.color]="getColor(getPromedioQ2(6))">{{getNombre(getPromedioQ2(6))}}</label></label>
+                <label class="opcion">2.-Carga de trabajo: <label
+                  [style.color]="getColor(getPromedioQ2(7))">{{getNombre(getPromedioQ2(7))}}</label></label>
+                <label class="opcion">3.-Falta de control sobre el trabajo: <label
+                  [style.color]="getColor(getPromedioQ2(8))">{{getNombre(getPromedioQ2(8))}}</label></label>
+                <label class="opcion">4.-Jornada de trabajo: <label
+                  [style.color]="getColor(getPromedioQ2(9))">{{getNombre(getPromedioQ2(9))}}</label></label>
+                <label class="opcion">5.-Interferencia en la relación trabajo-familia: <label
+                  [style.color]="getColor(getPromedioQ2(10))">{{getNombre(getPromedioQ2(10))}}</label></label>
+                <label class="opcion">6.-Liderazgo: <label
+                  [style.color]="getColor(getPromedioQ2(11))">{{getNombre(getPromedioQ2(11))}}</label></label>
+                <label class="opcion">7.-Relaciones en el trabajo: <label
+                  [style.color]="getColor(getPromedioQ2(12))">{{getNombre(getPromedioQ2(12))}}</label></label>
+                <label class="opcion">8.-Violencia: <label
+                  [style.color]="getColor(getPromedioQ2(13))">{{getNombre(getPromedioQ2(13))}}</label></label>
+                <mat-divider style="margin:10px;"></mat-divider>
+                <label class="subtitulo">Calificación Final: <label
+                  [style.color]="getColor(getPromedioQ2(1))">{{getNombre(getPromedioQ2(1))}}</label></label>
+                <label class="textFinal">
+                  {{getTexto(getPromedioQ2(1))}}
+                </label>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel [ngClass]="q25Class">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Promedio
+                </mat-panel-title>
+                <mat-panel-description>
+                  Reporte del promedio
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div style="width:100%;">
+                <button mat-icon-button (click)="print(12)" class="noPrint">
+                  <mat-icon>save</mat-icon>
+                </button>
+                <mat-slide-toggle
+                  class="noPrint"
+                  (change)="cambio($event)"
+                  [checked]="checked">
+                  Gráficas Pie
+                </mat-slide-toggle>
+              </div>
+              <mat-divider style="margin:10px;"></mat-divider>
+              <div class="graph" *ngIf="chart2Prom != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chart2Prom"
+                        [labels]="chartLabels22"
+                        [colors]="chartColors22"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <mat-divider style="margin:10px;"></mat-divider>
+              <div class="tabAyuda">
+                <label class="tab1" style="font-weight: bold;">Categoría</label>
+                <label class="tab2" style="font-weight: bold;">Nivel</label>
+                <label class="tab1">1.-Ambiente de Trabajo</label>
+                <label class="tab2" [style.color]="getColor(getPromedioQ2(2))">{{getNombre(getPromedioQ2(2))}}</label>
+                <label class="tab1">2.-Factores propios de la actividad</label>
+                <label class="tab2" [style.color]="getColor(getPromedioQ2(3))">{{getNombre(getPromedioQ2(3))}}</label>
+                <label class="tab1">3.-Organización del tiempo de trabajo</label>
+                <label class="tab2" [style.color]="getColor(getPromedioQ2(4))">{{getNombre(getPromedioQ2(4))}}</label>
+                <label class="tab1">4.-Liderazgo y relaciones en el trabajo</label>
+                <label class="tab2" [style.color]="getColor(getPromedioQ2(5))">{{getNombre(getPromedioQ2(5))}}</label>
+              </div>
+              <mat-divider style="margin:10px;"></mat-divider>
+              <div class="graph" *ngIf="chart2PromDom != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chart2PromDom"
+                        [labels]="chartLabels32"
+                        [colors]="chartColors32"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <mat-divider style="margin:10px;"></mat-divider>
+              <div class="tabAyuda">
+                <label class="tab1" style="font-weight: bold;">Dominio</label>
+                <label class="tab2" style="font-weight: bold;">Nivel</label>
+                <label class="tab1">1.-Condiciones en el ambiente de trabajo</label>
+                <label class="tab2" [style.color]="getColor(getPromedioQ2(6))">{{getNombre(getPromedioQ2(6))}}</label>
+                <label class="tab1">2.-Carga de trabajo</label>
+                <label class="tab2" [style.color]="getColor(getPromedioQ2(7))">{{getNombre(getPromedioQ2(7))}}</label>
+                <label class="tab1">3.-Falta de control sobre el trabajo</label>
+                <label class="tab2" [style.color]="getColor(getPromedioQ2(8))">{{getNombre(getPromedioQ2(8))}}</label>
+                <label class="tab1">4.-Jornada de trabajo</label>
+                <label class="tab2" [style.color]="getColor(getPromedioQ2(9))">{{getNombre(getPromedioQ2(9))}}</label>
+                <label class="tab1">5.-Interferencia en la relación trabajo-familia</label>
+                <label class="tab2" [style.color]="getColor(getPromedioQ2(10))">{{getNombre(getPromedioQ2(10))}}</label>
+                <label class="tab1">6.-Liderazgo</label>
+                <label class="tab2" [style.color]="getColor(getPromedioQ2(11))">{{getNombre(getPromedioQ2(11))}}</label>
+                <label class="tab1">7.-Relaciones en el trabajo</label>
+                <label class="tab2" [style.color]="getColor(getPromedioQ2(12))">{{getNombre(getPromedioQ2(12))}}</label>
+                <label class="tab1">8.-Violencia</label>
+                <label class="tab2" [style.color]="getColor(getPromedioQ2(13))">{{getNombre(getPromedioQ2(13))}}</label>
+              </div>
+            </mat-expansion-panel>
             <mat-expansion-panel [ngClass]="q21Class">
               <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -341,9 +561,152 @@
           </mat-accordion>
         </div>
       </mat-tab>
-      <mat-tab label="Cuestionario 3" *ngIf="encuestaActual.quest3">
+      <mat-tab label="Cuestionario 3" *ngIf="encuestaActual.quest3" class="noPrint">
         <div [ngClass]="q1Class">
           <mat-accordion>
+            <mat-expansion-panel [ngClass]="q34Class">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Reporte Resumen
+                </mat-panel-title>
+                <mat-panel-description>
+                  Reporte resumido cuestionario 3
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <button mat-icon-button (click)="print(8)" class="noPrint">
+                <mat-icon>save</mat-icon>
+              </button>
+              <div style="width: 100% !important;">
+                <label class="titulo">Resumen General</label>
+                <mat-divider style="margin:10px;"></mat-divider>
+                <label class="subtitulo">Categoría</label>
+                <label class="opcion">1.-Ambiente de trabajo: <label
+                  [style.color]="getColor(getPromedioQ3(2))">{{getNombre(getPromedioQ3(2))}}</label></label>
+                <label class="opcion">2.-Factores propios de la actividad: <label
+                  [style.color]="getColor(getPromedioQ3(3))">{{getNombre(getPromedioQ3(3))}}</label></label>
+                <label class="opcion">3.-Organización del tiempo de trabajo: <label
+                  [style.color]="getColor(getPromedioQ3(4))">{{getNombre(getPromedioQ3(4))}}</label></label>
+                <label class="opcion">4.-Liderazgo y relaciones en el trabajo: <label
+                  [style.color]="getColor(getPromedioQ3(5))">{{getNombre(getPromedioQ3(5))}}</label></label>
+                <label class="opcion">5.-Entorno organizacional: <label
+                  [style.color]="getColor(getPromedioQ3(6))">{{getNombre(getPromedioQ3(6))}}</label></label>
+                <mat-divider style="margin:10px;"></mat-divider>
+                <label class="subtitulo">Dominio</label>
+                <label class="opcion">1.-Condiciones en el ambiente de trabajo: <label
+                  [style.color]="getColor(getPromedioQ3(7))">{{getNombre(getPromedioQ3(7))}}</label></label>
+                <label class="opcion">2.-Carga de trabajo: <label
+                  [style.color]="getColor(getPromedioQ3(8))">{{getNombre(getPromedioQ3(8))}}</label></label>
+                <label class="opcion">3.-Falta de control sobre el trabajo: <label
+                  [style.color]="getColor(getPromedioQ3(9))">{{getNombre(getPromedioQ3(9))}}</label></label>
+                <label class="opcion">4.-Jornada de trabajo: <label
+                  [style.color]="getColor(getPromedioQ3(10))">{{getNombre(getPromedioQ3(10))}}</label></label>
+                <label class="opcion">5.-Interferencia en la relación trabajo-familia: <label
+                  [style.color]="getColor(getPromedioQ3(11))">{{getNombre(getPromedioQ3(11))}}</label></label>
+                <label class="opcion">6.-Liderazgo: <label
+                  [style.color]="getColor(getPromedioQ3(12))">{{getNombre(getPromedioQ3(12))}}</label></label>
+                <label class="opcion">7.-Relaciones en el trabajo: <label
+                  [style.color]="getColor(getPromedioQ3(13))">{{getNombre(getPromedioQ3(13))}}</label></label>
+                <label class="opcion">8.-Violencia: <label
+                  [style.color]="getColor(getPromedioQ3(14))">{{getNombre(getPromedioQ3(14))}}</label></label>
+                <label class="opcion">9.-Reconocimiento del desempeño: <label
+                  [style.color]="getColor(getPromedioQ3(15))">{{getNombre(getPromedioQ3(15))}}</label></label>
+                <label class="opcion">10.-Insuficiente sentido de pertenencia e, inestabilidad: <label
+                  [style.color]="getColor(getPromedioQ3(16))">{{getNombre(getPromedioQ3(16))}}</label></label>
+                <mat-divider style="margin:10px;"></mat-divider>
+                <label class="subtitulo">Calificación Final: <label
+                  [style.color]="getColor(getPromedioQ3(1))">{{getNombre(getPromedioQ3(1))}}</label></label>
+                <label class="textFinal">
+                  {{getTexto(getPromedioQ3(1))}}
+                </label>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel [ngClass]="q35Class">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Promedio
+                </mat-panel-title>
+                <mat-panel-description>
+                  Reporte del promedio
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div style="width:100%;">
+                <button mat-icon-button (click)="print(9)" class="noPrint">
+                  <mat-icon>save</mat-icon>
+                </button>
+                <mat-slide-toggle
+                  class="noPrint"
+                  (change)="cambio($event)"
+                  [checked]="checked">
+                  Gráficas Pie
+                </mat-slide-toggle>
+              </div>
+              <mat-divider style="margin:10px;"></mat-divider>
+              <div class="graph" *ngIf="chart3Prom != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chart3Prom"
+                        [labels]="chartLabels2"
+                        [colors]="chartColors2"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <mat-divider style="margin:10px;"></mat-divider>
+              <div class="tabAyuda">
+                <label class="tab1" style="font-weight: bold;">Categoría</label>
+                <label class="tab2" style="font-weight: bold;">Nivel</label>
+                <label class="tab1">1.-Ambiente de Trabajo</label>
+                <label class="tab2" [style.color]="getColor(getPromedioQ3(2))">{{getNombre(getPromedioQ3(2))}}</label>
+                <label class="tab1">2.-Factores propios de la actividad</label>
+                <label class="tab2" [style.color]="getColor(getPromedioQ3(3))">{{getNombre(getPromedioQ3(3))}}</label>
+                <label class="tab1">3.-Organización del tiempo de trabajo</label>
+                <label class="tab2" [style.color]="getColor(getPromedioQ3(4))">{{getNombre(getPromedioQ3(4))}}</label>
+                <label class="tab1">4.-Liderazgo y relaciones en el trabajo</label>
+                <label class="tab2" [style.color]="getColor(getPromedioQ3(5))">{{getNombre(getPromedioQ3(5))}}</label>
+                <label class="tab1">5.-Entorno organizacional</label>
+                <label class="tab2" [style.color]="getColor(getPromedioQ3(6))">{{getNombre(getPromedioQ3(6))}}</label>
+              </div>
+              <mat-divider style="margin:10px;"></mat-divider>
+              <div class="graph" *ngIf="chart3PromDom != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chart3PromDom"
+                        [labels]="chartLabels3"
+                        [colors]="chartColors3"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <mat-divider style="margin:10px;"></mat-divider>
+              <div class="tabAyuda">
+                <label class="tab1" style="font-weight: bold;">Dominio</label>
+                <label class="tab2" style="font-weight: bold;">Nivel</label>
+                <label class="tab1">1.-Condiciones en el ambiente de trabajo</label>
+                <label class="tab2" [style.color]="getColor(getPromedioQ3(7))">{{getNombre(getPromedioQ3(7))}}</label>
+                <label class="tab1">2.-Carga de trabajo</label>
+                <label class="tab2" [style.color]="getColor(getPromedioQ3(8))">{{getNombre(getPromedioQ3(8))}}</label>
+                <label class="tab1">3.-Falta de control sobre el trabajo</label>
+                <label class="tab2" [style.color]="getColor(getPromedioQ3(9))">{{getNombre(getPromedioQ3(9))}}</label>
+                <label class="tab1">4.-Jornada de trabajo</label>
+                <label class="tab2" [style.color]="getColor(getPromedioQ3(10))">{{getNombre(getPromedioQ3(10))}}</label>
+                <label class="tab1">5.-Interferencia en la relación trabajo-familia</label>
+                <label class="tab2" [style.color]="getColor(getPromedioQ3(11))">{{getNombre(getPromedioQ3(11))}}</label>
+                <label class="tab1">6.-Liderazgo</label>
+                <label class="tab2" [style.color]="getColor(getPromedioQ3(12))">{{getNombre(getPromedioQ3(12))}}</label>
+                <label class="tab1">7.-Relaciones en el trabajo</label>
+                <label class="tab2" [style.color]="getColor(getPromedioQ3(13))">{{getNombre(getPromedioQ3(13))}}</label>
+                <label class="tab1">8.-Violencia</label>
+                <label class="tab2" [style.color]="getColor(getPromedioQ3(14))">{{getNombre(getPromedioQ3(14))}}</label>
+                <label class="tab1">9.-Reconocimiento del desempeño</label>
+                <label class="tab2" [style.color]="getColor(getPromedioQ3(15))">{{getNombre(getPromedioQ3(15))}}</label>
+                <label class="tab1">10.-Insuficiente sentido de pertenencia e, inestabilidad</label>
+                <label class="tab2" [style.color]="getColor(getPromedioQ3(16))">{{getNombre(getPromedioQ3(16))}}</label>
+              </div>
+            </mat-expansion-panel>
             <mat-expansion-panel [ngClass]="q31Class">
               <mat-expansion-panel-header>
                 <mat-panel-title>

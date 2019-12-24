@@ -16,6 +16,21 @@
         </mat-select>
       </mat-grid-tile>
       <mat-grid-tile>
+        <label class="opcion">Áreas:</label>
+        <mat-form-field class="input">
+          <input matInput [(ngModel)]="area" name="area" type="text" oninput="this.value = this.value.toUpperCase()"/>
+          <mat-icon matSuffix class="addBtn" (click)="addArea()">add</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile *ngIf="nuevaEncuesta.areas.length > 0">
+        <label class="opcion"></label>
+        <mat-select class="select" placeholder="Áreas Agregadas" name="areas">
+          <mat-option *ngFor="let a of nuevaEncuesta.areas">
+            {{a}}
+          </mat-option>
+        </mat-select>
+      </mat-grid-tile>
+      <mat-grid-tile>
         <label class="opcion">Número de Personas:</label>
         <mat-form-field class="input">
           <input matInput [(ngModel)]="nuevaEncuesta.numPersonas" name="numPersonas" type="number"/>

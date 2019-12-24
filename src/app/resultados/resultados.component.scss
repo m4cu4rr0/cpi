@@ -10,9 +10,8 @@ table{
 }
 
 .filtro{
-  width: 80%;
-  margin-left: 10%;
-  margin-top: 30px;
+  width: 100%;
+  margin-top: 20px;
 }
 
 .quests{
@@ -40,12 +39,12 @@ table{
 .cuerpoQuest{
   max-height: 500px;
   overflow-y: visible;
+  width: 100%;
 }
 .graph{
   width: 800px;
-  width: 600px;
-  margin-left: 20%;
-  margin-top: 30px;
+  margin-left: 10%;
+  margin-top: 5%;
 }
 .img2{
   height: 50px;
@@ -60,4 +59,58 @@ table{
   position: absolute;
   left: 73%;
   margin-bottom: 100px;
+}
+
+.resQues1{
+  width: 100%;
+}
+.titulo{
+  width: 100%;
+  font-size: 20px;
+  font-weight: bold;
+  color: #3F50B5;
+  text-align: center;
+  margin-top: 50px;
+}
+.subtitulo{
+  width: 100%;
+  font-size: 18px;
+  font-weight: bold;
+  color: #3F50B5;
+  margin-top: 50px;
+}
+.opcion{
+  width: 100%;
+  font-size: 16px;
+  color: #3F50B5;
+}
+.cell{
+  width: 20%;
+  text-align: center;
+  padding: 1px;
+  color: #3F50B5;
+}
+.textFinal{
+  width: 100%;
+  text-align: justify;
+}
+
+.tabAyuda{
+  width: 100%;
+  margin-top: 5%;
+}
+.tab1{
+  width: 50%;
+  margin-left: 10%;
+  font-size: 18px;
+  text-align: center;
+  color: #3F50B5;
+  padding: 10px;
+}
+.tab2{
+  width: 25%;
+  font-size: 18px;
+  text-align: center;
+  color: #3F50B5;
+  padding: 10px;
 }
