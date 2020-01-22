@@ -220,7 +220,7 @@
                   Reporte Resumen
                 </mat-panel-title>
                 <mat-panel-description>
-                  Reporte resumido cuestionario 2
+                  Reporte resumido cuestionario 2 del promedio de cada categoría y dominio.
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <button mat-icon-button (click)="print(11)" class="noPrint">
@@ -270,7 +270,7 @@
                   Promedio
                 </mat-panel-title>
                 <mat-panel-description>
-                  Reporte del promedio
+                  Promedio de cada una de las categorías y de cada dominio.
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <div style="width:100%;">
@@ -351,7 +351,7 @@
                   Calificación General
                 </mat-panel-title>
                 <mat-panel-description>
-                  La calificación final
+                  La calificación final del cuestionario según los diferentes niveles.
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <button mat-icon-button (click)="print(2)" class="noPrint">
@@ -382,7 +382,7 @@
                   Calificación por Categoría
                 </mat-panel-title>
                 <mat-panel-description>
-                  Para la calificación de la categoría
+                  Calificación de cada categoría segun el nivel de cada empleado
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <button mat-icon-button (click)="print(3)" class="noPrint">
@@ -449,7 +449,7 @@
                   Calificación por Dominio
                 </mat-panel-title>
                 <mat-panel-description>
-                  Para la calificación del dominio
+                  Calificación de cada dominio segun el nivel de cada empleado
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <button mat-icon-button (click)="print(4)" class="noPrint">
@@ -558,6 +558,164 @@
                 </canvas>
               </div>
             </mat-expansion-panel>
+            <mat-expansion-panel [ngClass]="q26Class">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Resultados Completos Categoría
+                </mat-panel-title>
+                <mat-panel-description>
+                  Todos los resultados de los empleados por categoría
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <button mat-icon-button (click)="print(15)" class="noPrint">
+                <mat-icon>save</mat-icon>
+              </button>
+              <div class="resQues1">
+                <mat-form-field class="filtro noPrint">
+                  <input matInput (keyup)="applyFilter3($event.target.value)" placeholder="Buscar" class="noPrint">
+                </mat-form-field>
+                <table mat-table [dataSource]="dataSource4" matSort>
+
+                  <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Nombre
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.nombre}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="departamento">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Departamento
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.departamento}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="ambienteTrabajo">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Ambiente de Trabajo
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor(getValorQ3(element.ambienteTrabajo,2))"> {{ getNombre(getValorQ3(element.ambienteTrabajo,2))}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="factoresActividad">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Factores de la Actividad
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor(getValorQ3(element.factoresActividad,3))"> {{ getNombre(getValorQ3(element.factoresActividad,3))}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="organizacionTiempo">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Organización del Tiempo
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor(getValorQ3(element.organizacionTiempo,4))"> {{ getNombre(getValorQ3(element.organizacionTiempo,4))}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="lideranzoRelaciones">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Liderazgo en Relaciones
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor(getValorQ3(element.lideranzoRelaciones,5))"> {{ getNombre(getValorQ3(element.lideranzoRelaciones,5))}}</td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns5"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns5;"></tr>
+                </table>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel [ngClass]="q27Class">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Resultados Completos Dominio
+                </mat-panel-title>
+                <mat-panel-description>
+                  Todos los resultados de los empleados por dominio
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <button mat-icon-button (click)="print(16)" class="noPrint">
+                <mat-icon>save</mat-icon>
+              </button>
+              <div class="resQues1">
+                <mat-form-field class="filtro noPrint">
+                  <input matInput (keyup)="applyFilter3($event.target.value)" placeholder="Buscar" class="noPrint">
+                </mat-form-field>
+                <table mat-table [dataSource]="dataSource4" matSort>
+
+                  <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Nombre
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.nombre}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="departamento">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Departamento
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.departamento}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="condicionesTrabajo">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Condiciones de Trabajo
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor(getValorQ3(element.condicionesTrabajo,7))"> {{ getNombre(getValorQ3(element.condicionesTrabajo,7))}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="cargaTrabajo">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Carga de Trabajo
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor(getValorQ3(element.cargaTrabajo,8))"> {{ getNombre(getValorQ3(element.cargaTrabajo,8))}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="faltaControl">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Falta de Control
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor(getValorQ3(element.faltaControl,9))"> {{ getNombre(getValorQ3(element.faltaControl,9))}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="jornadaTrabajo">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Jornada de Trabajo
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor(getValorQ3(element.jornadaTrabajo,10))"> {{ getNombre(getValorQ3(element.jornadaTrabajo,10))}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="interferenciaRelacion">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Interefencia en Relaciones
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor(getValorQ3(element.interferenciaRelacion,11))"> {{ getNombre(getValorQ3(element.interferenciaRelacion,11))}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="liderazgo">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Liderazgo
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor(getValorQ3(element.liderazgo,12))"> {{ getNombre(getValorQ3(element.liderazgo,12))}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="relacionesTrabajo">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Relaciones de Trabajo
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor(getValorQ3(element.relacionesTrabajo,13))"> {{ getNombre(getValorQ3(element.relacionesTrabajo,13))}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="violencia">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Violencia
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor(getValorQ3(element.violencia,14))"> {{ getNombre(getValorQ3(element.violencia,14))}}</td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns6"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns6;"></tr>
+                </table>
+              </div>
+            </mat-expansion-panel>
           </mat-accordion>
         </div>
       </mat-tab>
@@ -570,7 +728,7 @@
                   Reporte Resumen
                 </mat-panel-title>
                 <mat-panel-description>
-                  Reporte resumido cuestionario 3
+                  Reporte resumido cuestionario 3 del promedio de cada categoría y dominio.
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <button mat-icon-button (click)="print(8)" class="noPrint">
@@ -626,7 +784,7 @@
                   Promedio
                 </mat-panel-title>
                 <mat-panel-description>
-                  Reporte del promedio
+                  Promedio de cada una de las categorías y de cada dominio.
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <div style="width:100%;">
@@ -713,7 +871,7 @@
                   Calificación General
                 </mat-panel-title>
                 <mat-panel-description>
-                  La calificación final
+                  La calificación final del cuestionario según los diferentes niveles.
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <button mat-icon-button (click)="print(5)" class="noPrint">
@@ -744,7 +902,7 @@
                   Calificación por Categoría
                 </mat-panel-title>
                 <mat-panel-description>
-                  Para la calificación de la categoría
+                  Calificación de cada categoría segun el nivel de cada empleado
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <button mat-icon-button (click)="print(6)" class="noPrint">
@@ -823,7 +981,7 @@
                   Calificación por Dominio
                 </mat-panel-title>
                 <mat-panel-description>
-                  Para la calificación del dominio
+                  Calificación de cada dominio segun el nivel de cada empleado
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <button mat-icon-button (click)="print(7)" class="noPrint">
@@ -954,6 +1112,185 @@
                         (chartHover)="chartHovered($event)"
                         (chartClick)="chartClicked($event)">
                 </canvas>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel [ngClass]="q36Class">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Resultados Completos Categoría
+                </mat-panel-title>
+                <mat-panel-description>
+                  Todos los resultados de los empleados por categoría
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <button mat-icon-button (click)="print(13)" class="noPrint">
+                <mat-icon>save</mat-icon>
+              </button>
+              <div class="resQues1">
+                <mat-form-field class="filtro noPrint">
+                  <input matInput (keyup)="applyFilter2($event.target.value)" placeholder="Buscar" class="noPrint">
+                </mat-form-field>
+                <table mat-table [dataSource]="dataSource3" matSort>
+
+                  <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Nombre
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.nombre}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="departamento">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Departamento
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.departamento}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="ambienteTrabajo">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Ambiente de Trabajo
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor(getValorQ3(element.ambienteTrabajo,2))"> {{ getNombre(getValorQ3(element.ambienteTrabajo,2))}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="factoresActividad">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Factores de la Actividad
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor(getValorQ3(element.factoresActividad,3))"> {{ getNombre(getValorQ3(element.factoresActividad,3))}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="organizacionTiempo">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Organización del Tiempo
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor(getValorQ3(element.organizacionTiempo,4))"> {{ getNombre(getValorQ3(element.organizacionTiempo,4))}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="lideranzoRelaciones">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Liderazgo en Relaciones
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor(getValorQ3(element.lideranzoRelaciones,5))"> {{ getNombre(getValorQ3(element.lideranzoRelaciones,5))}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="entornoOrganizacional">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Entorno Organizacional
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor(getValorQ3(element.entornoOrganizacional,6))"> {{ getNombre(getValorQ3(element.entornoOrganizacional,6))}}</td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns3;"></tr>
+                </table>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel [ngClass]="q37Class">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Resultados Completos Dominio
+                </mat-panel-title>
+                <mat-panel-description>
+                  Todos los resultados de los empleados por dominio
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <button mat-icon-button (click)="print(14)" class="noPrint">
+                <mat-icon>save</mat-icon>
+              </button>
+              <div class="resQues1">
+                <mat-form-field class="filtro noPrint">
+                  <input matInput (keyup)="applyFilter2($event.target.value)" placeholder="Buscar" class="noPrint">
+                </mat-form-field>
+                <table mat-table [dataSource]="dataSource3" matSort>
+
+                  <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Nombre
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.nombre}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="departamento">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Departamento
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.departamento}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="condicionesTrabajo">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Condiciones de Trabajo
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor(getValorQ3(element.condicionesTrabajo,7))"> {{ getNombre(getValorQ3(element.condicionesTrabajo,7))}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="cargaTrabajo">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Carga de Trabajo
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor(getValorQ3(element.cargaTrabajo,8))"> {{ getNombre(getValorQ3(element.cargaTrabajo,8))}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="faltaControl">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Falta de Control
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor(getValorQ3(element.faltaControl,9))"> {{ getNombre(getValorQ3(element.faltaControl,9))}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="jornadaTrabajo">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Jornada de Trabajo
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor(getValorQ3(element.jornadaTrabajo,10))"> {{ getNombre(getValorQ3(element.jornadaTrabajo,10))}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="interferenciaRelacion">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Interefencia en Relaciones
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor(getValorQ3(element.interferenciaRelacion,11))"> {{ getNombre(getValorQ3(element.interferenciaRelacion,11))}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="liderazgo">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Liderazgo
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor(getValorQ3(element.liderazgo,12))"> {{ getNombre(getValorQ3(element.liderazgo,12))}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="relacionesTrabajo">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Relaciones de Trabajo
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor(getValorQ3(element.relacionesTrabajo,13))"> {{ getNombre(getValorQ3(element.relacionesTrabajo,13))}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="violencia">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Violencia
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor(getValorQ3(element.violencia,14))"> {{ getNombre(getValorQ3(element.violencia,14))}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="reconocimientoDesemp">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Reconocimiento de Desempeño
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor(getValorQ3(element.reconocimientoDesemp,15))"> {{ getNombre(getValorQ3(element.reconocimientoDesemp,15))}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="insuficientePertenencia">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Insuficiente Pertenencia
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor(getValorQ3(element.insuficientePertenencia,16))"> {{ getNombre(getValorQ3(element.insuficientePertenencia,16))}}</td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns4"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns4;"></tr>
+                </table>
               </div>
             </mat-expansion-panel>
           </mat-accordion>

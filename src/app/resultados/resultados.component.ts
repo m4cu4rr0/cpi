@@ -9,14 +9,30 @@ import {PersonaModel} from '../model/persona.model';
 import {MatDialog} from '@angular/material/dialog';
 import {DatosPersonaComponent} from '../modal/datos-persona/datos-persona.component';
 import {EncuestaComponent} from '../encuesta/encuesta.component';
-import {MatSort} from '@angular/material/sort';
+import {MatSort, Sort} from '@angular/material/sort';
 import {Quest3Model} from '../model/quest3.model';
 import {Quest2Model} from '../model/quest2.model';
 
-interface PerQuest {
-  persona: PersonaModel;
-  quest3: Quest3Model;
-  quest2: Quest2Model;
+export class PerQuest {
+  constructor(public nombre: string,
+              public departamento: string,
+              public calificacion: number,
+              public ambienteTrabajo: number,
+              public factoresActividad: number,
+              public organizacionTiempo: number,
+              public lideranzoRelaciones: number,
+              public entornoOrganizacional: number,
+              public condicionesTrabajo: number,
+              public cargaTrabajo: number,
+              public faltaControl: number,
+              public jornadaTrabajo: number,
+              public interferenciaRelacion: number,
+              public liderazgo: number,
+              public relacionesTrabajo: number,
+              public violencia: number,
+              public reconocimientoDesemp: number,
+              public insuficientePertenencia: number) {
+  }
 }
 
 @Component({
@@ -126,11 +142,15 @@ export class ResultadosComponent implements OnInit {
   q23Class = 'noPrint';
   q24Class = 'noPrint';
   q25Class = 'noPrint';
+  q26Class = 'noPrint';
+  q27Class = 'noPrint';
   q31Class = 'noPrint';
   q32Class = 'noPrint';
   q33Class = 'noPrint';
   q34Class = 'noPrint';
   q35Class = 'noPrint';
+  q36Class = 'noPrint';
+  q37Class = 'noPrint';
   checked: boolean;
   imagen = 'imagen2';
 
@@ -145,8 +165,26 @@ export class ResultadosComponent implements OnInit {
   countNoAtencionH = 0;
   displayedColumns2: string[] = ['nombre', 'sexo', 'edad', 'departamento'];
   dataSource2;
+  displayedColumns3: string[] = ['nombre', 'departamento', 'ambienteTrabajo', 'factoresActividad', 'organizacionTiempo',
+                                'lideranzoRelaciones', 'entornoOrganizacional'];
+  displayedColumns4: string[] = ['nombre', 'departamento', 'condicionesTrabajo', 'cargaTrabajo', 'faltaControl',
+                                'jornadaTrabajo', 'interferenciaRelacion', 'liderazgo', 'relacionesTrabajo', 'violencia',
+                                'reconocimientoDesemp', 'insuficientePertenencia'];
+  displayedColumns5: string[] = ['nombre', 'departamento', 'ambienteTrabajo', 'factoresActividad', 'organizacionTiempo',
+                                'lideranzoRelaciones'];
+  displayedColumns6: string[] = ['nombre', 'departamento', 'condicionesTrabajo', 'cargaTrabajo', 'faltaControl',
+                                'jornadaTrabajo', 'interferenciaRelacion', 'liderazgo', 'relacionesTrabajo', 'violencia'];
+  dataSource3;
+  dataSource4;
+
+  quest2: Quest2Model[];
+  quest3: Quest3Model[];
+  perQuests: PerQuest[] = [];
+  perQuests2: PerQuest[] = [];
 
   sort;
+  sort2;
+  sort3;
   // @ts-ignore
   @ViewChild(MatSort) set content(content: ElementRef) {
     this.sort = content;
@@ -155,6 +193,27 @@ export class ResultadosComponent implements OnInit {
         return;
       }
       this.dataSource2.sort = this.sort;
+    }
+  }
+  // @ts-ignore
+  @ViewChild(MatSort) set content2(content2: ElementRef) {
+    this.sort2 = content2;
+    if (this.sort2) {
+      if (!this.dataSource3) {
+        return;
+      }
+      this.dataSource3.sort = this.sort2;
+
+    }
+  }
+  // @ts-ignore
+  @ViewChild(MatSort) set content3(content3: ElementRef) {
+    this.sort3 = content3;
+    if (this.sort3) {
+      if (!this.dataSource4) {
+        return;
+      }
+      this.dataSource4.sort = this.sort3;
 
     }
   }
@@ -208,6 +267,12 @@ export class ResultadosComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.dataSource2.filter = filterValue.trim().toLowerCase();
+  }
+  applyFilter2(filterValue: string) {
+    this.dataSource3.filter = filterValue.trim().toLowerCase();
+  }
+  applyFilter3(filterValue: string) {
+    this.dataSource4.filter = filterValue.trim().toLowerCase();
   }
 
   chartClicked(e: any): void {
@@ -275,6 +340,7 @@ export class ResultadosComponent implements OnInit {
 
   seeEncuesta(encuesta: EncuestaModel) {
     this.encuestaActual = encuesta;
+    this.personasEncuesta = [];
     this.regSer.personasFolio(encuesta.id).then(() => {
       this.regSer.getPersonas().subscribe(resData => {
         this.personasEncuesta = resData;
@@ -416,7 +482,6 @@ export class ResultadosComponent implements OnInit {
     let m13 = 0;
     let a13 = 0;
     let mA13 = 0;
-    let quest2;
     let longitud = 0;
     this.promedioQ2 = 0;
     this.promedioQ2C1 = 0;
@@ -431,15 +496,16 @@ export class ResultadosComponent implements OnInit {
     this.promedioQ2D6 = 0;
     this.promedioQ2D7 = 0;
     this.promedioQ2D8 = 0;
+    this.quest2 = [];
 
     this.personasEncuesta.forEach(p => ids.push(p.id));
     this.regSer.quest2Personas(ids).then(() => {
       this.regSer.getQuest2().subscribe(resData => {
-        quest2 = resData;
-        // console.log(quest2);
-        longitud = quest2.length;
+        this.quest2 = resData;
+        // console.log(this.quest2);
+        longitud = this.quest2.length;
       });
-      quest2.forEach(q => {
+      this.quest2.forEach(q => {
         if (q.calificacion < 20) {
           n1++;
         } else if (q.calificacion < 45) {
@@ -701,6 +767,7 @@ export class ResultadosComponent implements OnInit {
           borderWidth: 2,
         }
       ];
+      this.acomodarQuest2();
     });
   }
 
@@ -786,17 +853,17 @@ export class ResultadosComponent implements OnInit {
     let m16 = 0;
     let a16 = 0;
     let mA16 = 0;
-    let quest3;
     let longitud = 0;
+    this.quest3 = [];
 
     this.personasEncuesta.forEach(p => ids.push(p.id));
     this.regSer.quest3Personas(ids).then(() => {
       this.regSer.getQuest3().subscribe(resData => {
-        quest3 = resData;
-        // console.log(quest3);
-        longitud = quest3.length;
+        this.quest3 = resData;
+        // console.log(this.quest3);
+        longitud = this.quest3.length;
       });
-      quest3.forEach(q => {
+      this.quest3.forEach(q => {
         if (q.calificacion < 20) {
           n1++;
         } else if (q.calificacion < 45) {
@@ -1112,6 +1179,7 @@ export class ResultadosComponent implements OnInit {
           borderWidth: 2,
         }
       ];
+      this.acomodarQuest3();
     });
   }
 
@@ -1236,6 +1304,46 @@ export class ResultadosComponent implements OnInit {
           this.imagen = 'imagen2';
           this.q1Class = 'cuerpoQuest';
           this.q25Class = 'noPrint';
+        }, 1);
+        break;
+      case 13:
+        this.q1Class = 'print';
+        this.q36Class = 'print';
+        setTimeout( () => {
+          window.print();
+          this.imagen = 'imagen2';
+          this.q1Class = 'cuerpoQuest';
+          this.q36Class = 'noPrint';
+        }, 1);
+        break;
+      case 14:
+        this.q1Class = 'print';
+        this.q37Class = 'print';
+        setTimeout( () => {
+          window.print();
+          this.imagen = 'imagen2';
+          this.q1Class = 'cuerpoQuest';
+          this.q37Class = 'noPrint';
+        }, 1);
+        break;
+      case 15:
+        this.q1Class = 'print';
+        this.q26Class = 'print';
+        setTimeout( () => {
+          window.print();
+          this.imagen = 'imagen2';
+          this.q1Class = 'cuerpoQuest';
+          this.q26Class = 'noPrint';
+        }, 1);
+        break;
+      case 16:
+        this.q1Class = 'print';
+        this.q27Class = 'print';
+        setTimeout( () => {
+          window.print();
+          this.imagen = 'imagen2';
+          this.q1Class = 'cuerpoQuest';
+          this.q27Class = 'noPrint';
         }, 1);
         break;
     }
@@ -1710,6 +1818,269 @@ export class ResultadosComponent implements OnInit {
           'laboral, así como reforzar su aplicación y difusión.';
       default:
         break;
+    }
+  }
+
+  acomodarQuest2() {
+    let quest2Temp: Quest2Model = null;
+    this.perQuests2 = [];
+    // console.log(this.quest2);
+    this.personasEncuesta.forEach(p => {
+      // console.log(p);
+      if (this.quest2 !== undefined) {
+        quest2Temp = this.quest2.find(q => q.idPersona === p.id);
+        // console.log(quest2Temp);
+      }
+      this.perQuests2.push(new PerQuest(p.nombre, p.departamento, quest2Temp.calificacion, quest2Temp.ambienteTrabajo,
+        quest2Temp.factoresActividad, quest2Temp.organizacionTiempo, quest2Temp.lideranzoRelaciones, null,
+        quest2Temp.condicionesTrabajo, quest2Temp.cargaTrabajo, quest2Temp.faltaControl, quest2Temp.jornadaTrabajo,
+        quest2Temp.interferenciaRelacion, quest2Temp.liderazgo, quest2Temp.relacionesTrabajo, quest2Temp.violencia,
+        null, null));
+    });
+    console.log(this.perQuests2);
+    this.dataSource4 = new MatTableDataSource(this.perQuests2);
+    this.dataSource4.sort = this.sort3;
+    const sortState: Sort = {active: 'departamento', direction: 'asc'};
+    this.sort3.active = sortState.active;
+    this.sort3.direction = sortState.direction;
+    this.sort3.sortChange.emit(sortState);
+  }
+
+  acomodarQuest3() {
+    let quest3Temp: Quest3Model = null;
+    this.perQuests = [];
+    this.personasEncuesta.forEach(p => {
+      // console.log(p);
+      if (this.quest3 !== undefined) {
+        quest3Temp = this.quest3.find(q => q.idPersona === p.id);
+        // console.log(quest3Temp);
+      }
+      this.perQuests.push(new PerQuest(p.nombre, p.departamento, quest3Temp.calificacion, quest3Temp.ambienteTrabajo,
+        quest3Temp.factoresActividad, quest3Temp.organizacionTiempo, quest3Temp.lideranzoRelaciones, quest3Temp.entornoOrganizacional,
+        quest3Temp.condicionesTrabajo, quest3Temp.cargaTrabajo, quest3Temp.faltaControl, quest3Temp.jornadaTrabajo,
+        quest3Temp.interferenciaRelacion, quest3Temp.liderazgo, quest3Temp.relacionesTrabajo, quest3Temp.violencia,
+        quest3Temp.reconocimientoDesemp, quest3Temp.insuficientePertenencia));
+    });
+    // console.log(this.perQuests);
+    this.dataSource3 = new MatTableDataSource(this.perQuests);
+    this.dataSource3.sort = this.sort2;
+    const sortState: Sort = {active: 'departamento', direction: 'asc'};
+    this.sort2.active = sortState.active;
+    this.sort2.direction = sortState.direction;
+    this.sort2.sortChange.emit(sortState);
+  }
+
+  getValorQ3(valor: number, tipo: number) {
+
+    switch (tipo) {
+      case 1:
+        if (valor < 20) {
+          return 0;
+        } else if (valor < 45) {
+          return 1;
+        } else if (valor < 70) {
+          return 2;
+        } else if (valor < 90) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 2:
+        if (valor < 3) {
+          return 0;
+        } else if (valor < 5) {
+          return 1;
+        } else if (valor < 7) {
+          return 2;
+        } else if (valor < 9) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 3:
+        if (valor < 10) {
+          return 0;
+        } else if (valor < 20) {
+          return 1;
+        } else if (valor < 30) {
+          return 2;
+        } else if (valor < 40) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 4:
+        if (valor < 4) {
+          return 0;
+        } else if (valor < 6) {
+          return 1;
+        } else if (valor < 9) {
+          return 2;
+        } else if (valor < 12) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 5:
+        if (valor < 10) {
+          return 0;
+        } else if (valor < 18) {
+          return 1;
+        } else if (valor < 28) {
+          return 2;
+        } else if (valor < 38) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 6:
+        if (valor < 10) {
+          return 0;
+        } else if (valor < 14) {
+          return 1;
+        } else if (valor < 18) {
+          return 2;
+        } else if (valor < 23) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 7:
+        if (valor < 3) {
+          return 0;
+        } else if (valor < 5) {
+          return 1;
+        } else if (valor < 7) {
+          return 2;
+        } else if (valor < 9) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 8:
+        if (valor < 12) {
+          return 0;
+        } else if (valor < 16) {
+          return 1;
+        } else if (valor < 20) {
+          return 2;
+        } else if (valor < 24) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 9:
+        if (valor < 5) {
+          return 0;
+        } else if (valor < 8) {
+          return 1;
+        } else if (valor < 11) {
+          return 2;
+        } else if (valor < 14) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 10:
+        if (valor < 1) {
+          return 0;
+        } else if (valor < 2) {
+          return 1;
+        } else if (valor < 4) {
+          return 2;
+        } else if (valor < 6) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 11:
+        if (valor < 1) {
+          return 0;
+        } else if (valor < 2) {
+          return 1;
+        } else if (valor < 4) {
+          return 2;
+        } else if (valor < 6) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 12:
+        if (valor < 1) {
+          return 0;
+        } else if (valor < 2) {
+          return 1;
+        } else if (valor < 4) {
+          return 2;
+        } else if (valor < 6) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 13:
+        if (valor < 5) {
+          return 0;
+        } else if (valor < 8) {
+          return 1;
+        } else if (valor < 11) {
+          return 2;
+        } else if (valor < 14) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 14:
+        if (valor < 7) {
+          return 0;
+        } else if (valor < 10) {
+          return 1;
+        } else if (valor < 13) {
+          return 2;
+        } else if (valor < 16) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 15:
+        if (valor < 6) {
+          return 0;
+        } else if (valor < 10) {
+          return 1;
+        } else if (valor < 14) {
+          return 2;
+        } else if (valor < 18) {
+          return 3;
+        } else {
+          return 4;
+        }
+
+      case 16:
+        if (valor < 4) {
+          return 0;
+        } else if (valor < 6) {
+          return 1;
+        } else if (valor < 8) {
+          return 2;
+        } else if (valor < 10) {
+          return 3;
+        } else {
+          return 4;
+        }
+
     }
   }
 

@@ -48,6 +48,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { DatosPersonaComponent } from './modal/datos-persona/datos-persona.component';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {MatSortModule} from '@angular/material/sort';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -95,7 +97,8 @@ import {MatSortModule} from '@angular/material/sort';
     MatExpansionModule,
     MatSlideToggleModule,
     MatSortModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [{ provide: MatDialogRef, useValue: {} },
               { provide: MAT_DIALOG_DATA, useValue: [] },
