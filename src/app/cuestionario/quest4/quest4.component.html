@@ -1,0 +1,122 @@
+<div class="container">
+  <div class="seccion">
+    <div>
+      <label class="titulo">Permite conocer en qué grado el trabajador padece los síntomas asociados al estrés.</label>
+      <label class="pregunta">De los siguientes síntomas, selecciona el grado experimentado durante los últimos 3 meses:</label>
+      <label class="opcion">Imposibilidad de conciliar el sueño:</label>
+      <mat-radio-group [(ngModel)]="quest4.preg1">
+        <mat-radio-button value="1" class="radio" color="primary">Nunca</mat-radio-button>
+        <mat-radio-button value="2" class="radio" color="primary">Casi nunca</mat-radio-button>
+        <mat-radio-button value="3" class="radio" color="primary">Pocas veces</mat-radio-button>
+        <mat-radio-button value="4" class="radio" color="primary">Algunas veces</mat-radio-button>
+        <mat-radio-button value="5" class="radio" color="primary">Relativamente frecuente</mat-radio-button>
+        <mat-radio-button value="6" class="radio" color="primary">Muy frecuente</mat-radio-button>
+      </mat-radio-group>
+      <label class="opcion">Jaquecas y dolores de cabeza:</label>
+      <mat-radio-group [(ngModel)]="quest4.preg2">
+        <mat-radio-button value="1" class="radio" color="primary">Nunca</mat-radio-button>
+        <mat-radio-button value="2" class="radio" color="primary">Casi nunca</mat-radio-button>
+        <mat-radio-button value="3" class="radio" color="primary">Pocas veces</mat-radio-button>
+        <mat-radio-button value="4" class="radio" color="primary">Algunas veces</mat-radio-button>
+        <mat-radio-button value="5" class="radio" color="primary">Relativamente frecuente</mat-radio-button>
+        <mat-radio-button value="6" class="radio" color="primary">Muy frecuente</mat-radio-button>
+      </mat-radio-group>
+      <label class="opcion">Indigestiones o molestias gastrointestinales:</label>
+      <mat-radio-group [(ngModel)]="quest4.preg3">
+        <mat-radio-button value="1" class="radio" color="primary">Nunca</mat-radio-button>
+        <mat-radio-button value="2" class="radio" color="primary">Casi nunca</mat-radio-button>
+        <mat-radio-button value="3" class="radio" color="primary">Pocas veces</mat-radio-button>
+        <mat-radio-button value="4" class="radio" color="primary">Algunas veces</mat-radio-button>
+        <mat-radio-button value="5" class="radio" color="primary">Relativamente frecuente</mat-radio-button>
+        <mat-radio-button value="6" class="radio" color="primary">Muy frecuente</mat-radio-button>
+      </mat-radio-group>
+      <label class="opcion">Sensación de cansancio extremo o agotamiento:</label>
+      <mat-radio-group [(ngModel)]="quest4.preg4">
+        <mat-radio-button value="1" class="radio" color="primary">Nunca</mat-radio-button>
+        <mat-radio-button value="2" class="radio" color="primary">Casi nunca</mat-radio-button>
+        <mat-radio-button value="3" class="radio" color="primary">Pocas veces</mat-radio-button>
+        <mat-radio-button value="4" class="radio" color="primary">Algunas veces</mat-radio-button>
+        <mat-radio-button value="5" class="radio" color="primary">Relativamente frecuente</mat-radio-button>
+        <mat-radio-button value="6" class="radio" color="primary">Muy frecuente</mat-radio-button>
+      </mat-radio-group>
+      <label class="opcion">Tendencia de comer, beber o fumar más de lo habitual:</label>
+      <mat-radio-group [(ngModel)]="quest4.preg5">
+        <mat-radio-button value="1" class="radio" color="primary">Nunca</mat-radio-button>
+        <mat-radio-button value="2" class="radio" color="primary">Casi nunca</mat-radio-button>
+        <mat-radio-button value="3" class="radio" color="primary">Pocas veces</mat-radio-button>
+        <mat-radio-button value="4" class="radio" color="primary">Algunas veces</mat-radio-button>
+        <mat-radio-button value="5" class="radio" color="primary">Relativamente frecuente</mat-radio-button>
+        <mat-radio-button value="6" class="radio" color="primary">Muy frecuente</mat-radio-button>
+      </mat-radio-group>
+      <label class="opcion">Disminución del interés sexual:</label>
+      <mat-radio-group [(ngModel)]="quest4.preg6">
+        <mat-radio-button value="1" class="radio" color="primary">Nunca</mat-radio-button>
+        <mat-radio-button value="2" class="radio" color="primary">Casi nunca</mat-radio-button>
+        <mat-radio-button value="3" class="radio" color="primary">Pocas veces</mat-radio-button>
+        <mat-radio-button value="4" class="radio" color="primary">Algunas veces</mat-radio-button>
+        <mat-radio-button value="5" class="radio" color="primary">Relativamente frecuente</mat-radio-button>
+        <mat-radio-button value="6" class="radio" color="primary">Muy frecuente</mat-radio-button>
+      </mat-radio-group>
+      <label class="opcion">Respiración entrecortada o sensación de ahogo:</label>
+      <mat-radio-group [(ngModel)]="quest4.preg7">
+        <mat-radio-button value="1" class="radio" color="primary">Nunca</mat-radio-button>
+        <mat-radio-button value="2" class="radio" color="primary">Casi nunca</mat-radio-button>
+        <mat-radio-button value="3" class="radio" color="primary">Pocas veces</mat-radio-button>
+        <mat-radio-button value="4" class="radio" color="primary">Algunas veces</mat-radio-button>
+        <mat-radio-button value="5" class="radio" color="primary">Relativamente frecuente</mat-radio-button>
+        <mat-radio-button value="6" class="radio" color="primary">Muy frecuente</mat-radio-button>
+      </mat-radio-group>
+      <label class="opcion">Disminución del apetito:</label>
+      <mat-radio-group [(ngModel)]="quest4.preg8">
+        <mat-radio-button value="1" class="radio" color="primary">Nunca</mat-radio-button>
+        <mat-radio-button value="2" class="radio" color="primary">Casi nunca</mat-radio-button>
+        <mat-radio-button value="3" class="radio" color="primary">Pocas veces</mat-radio-button>
+        <mat-radio-button value="4" class="radio" color="primary">Algunas veces</mat-radio-button>
+        <mat-radio-button value="5" class="radio" color="primary">Relativamente frecuente</mat-radio-button>
+        <mat-radio-button value="6" class="radio" color="primary">Muy frecuente</mat-radio-button>
+      </mat-radio-group>
+      <label class="opcion">Temblores musculares (por ejemplo tics nerviosos o parpadeos):</label>
+      <mat-radio-group [(ngModel)]="quest4.preg9">
+        <mat-radio-button value="1" class="radio" color="primary">Nunca</mat-radio-button>
+        <mat-radio-button value="2" class="radio" color="primary">Casi nunca</mat-radio-button>
+        <mat-radio-button value="3" class="radio" color="primary">Pocas veces</mat-radio-button>
+        <mat-radio-button value="4" class="radio" color="primary">Algunas veces</mat-radio-button>
+        <mat-radio-button value="5" class="radio" color="primary">Relativamente frecuente</mat-radio-button>
+        <mat-radio-button value="6" class="radio" color="primary">Muy frecuente</mat-radio-button>
+      </mat-radio-group>
+      <label class="opcion">Pinchazos o sensaciones dolorosas en distintas partes del cuerpo:</label>
+      <mat-radio-group [(ngModel)]="quest4.preg10">
+        <mat-radio-button value="1" class="radio" color="primary">Nunca</mat-radio-button>
+        <mat-radio-button value="2" class="radio" color="primary">Casi nunca</mat-radio-button>
+        <mat-radio-button value="3" class="radio" color="primary">Pocas veces</mat-radio-button>
+        <mat-radio-button value="4" class="radio" color="primary">Algunas veces</mat-radio-button>
+        <mat-radio-button value="5" class="radio" color="primary">Relativamente frecuente</mat-radio-button>
+        <mat-radio-button value="6" class="radio" color="primary">Muy frecuente</mat-radio-button>
+      </mat-radio-group>
+      <label class="opcion">Tentaciones fuertes de no levantarse por la mañana:</label>
+      <mat-radio-group [(ngModel)]="quest4.preg11">
+        <mat-radio-button value="1" class="radio" color="primary">Nunca</mat-radio-button>
+        <mat-radio-button value="2" class="radio" color="primary">Casi nunca</mat-radio-button>
+        <mat-radio-button value="3" class="radio" color="primary">Pocas veces</mat-radio-button>
+        <mat-radio-button value="4" class="radio" color="primary">Algunas veces</mat-radio-button>
+        <mat-radio-button value="5" class="radio" color="primary">Relativamente frecuente</mat-radio-button>
+        <mat-radio-button value="6" class="radio" color="primary">Muy frecuente</mat-radio-button>
+      </mat-radio-group>
+      <label class="opcion">Tendencias a sudar o palpitaciones:</label>
+      <mat-radio-group [(ngModel)]="quest4.preg12">
+        <mat-radio-button value="1" class="radio" color="primary">Nunca</mat-radio-button>
+        <mat-radio-button value="2" class="radio" color="primary">Casi nunca</mat-radio-button>
+        <mat-radio-button value="3" class="radio" color="primary">Pocas veces</mat-radio-button>
+        <mat-radio-button value="4" class="radio" color="primary">Algunas veces</mat-radio-button>
+        <mat-radio-button value="5" class="radio" color="primary">Relativamente frecuente</mat-radio-button>
+        <mat-radio-button value="6" class="radio" color="primary">Muy frecuente</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+  <mat-error *ngIf="error === 1">
+    Favor de ingresar todos los datos
+  </mat-error>
+  <div class="btnRow">
+    <button mat-raised-button color="primary" class="btn" (click)="terminar()">Terminar</button>
+  </div>
+</div>

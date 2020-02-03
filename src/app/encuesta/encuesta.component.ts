@@ -40,9 +40,11 @@ export class EncuestaComponent implements OnInit {
   ngOnInit() {
     this.cargarEmpresa();
     if (this.nuevaEncuesta ) {
-      // console.log(this.nuevaEncuesta);
+      if (!this.nuevaEncuesta.areas) {
+        this.nuevaEncuesta.areas = [];
+      }
     } else {
-      this.nuevaEncuesta = new EncuestaModel(null, null, null, false, false, false, []);
+      this.nuevaEncuesta = new EncuestaModel(null, null, null, false, false, false, false, false, []);
     }
     this.newId = null;
   }
@@ -60,7 +62,7 @@ export class EncuestaComponent implements OnInit {
   }
 
   save() {
-    if (this.nuevaEncuesta.idEmpresa != null && this.nuevaEncuesta.numPersonas != null) {
+    if (this.nuevaEncuesta.idEmpresa != null && this.nuevaEncuesta.numPersonas != null && this.nuevaEncuesta.areas.length > 0) {
       this.openDialog('Creando encuesta');
       this.regService.agregarEncuesta(this.nuevaEncuesta).then( () => {
         this.newId = this.regService.uniqueId;

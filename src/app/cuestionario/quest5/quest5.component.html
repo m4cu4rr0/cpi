@@ -1,0 +1,171 @@
+<div class="container">
+  <div class="seccion" *ngIf="seccion == 1">
+    <div>
+      <label class="titulo">Permite analizar sobre cuáles son las causas que te provocan dicho estrés,
+        facilitando la toma de decisiones en caso necesario.</label>
+      <label class="pregunta">Satisfacción Intrínseca:</label>
+      <label class="opcion">Libertad para elegir tu propio método de trabajo:</label>
+      <mat-radio-group [(ngModel)]="quest5.preg1">
+        <mat-radio-button value="1" class="radio" color="primary">Muy insatisfecho</mat-radio-button>
+        <mat-radio-button value="2" class="radio" color="primary">Insatisfecho</mat-radio-button>
+        <mat-radio-button value="3" class="radio" color="primary">Moderadamente insatisfecho</mat-radio-button>
+        <mat-radio-button value="4" class="radio" color="primary">Ni satisfecho ni satisfecho</mat-radio-button>
+        <mat-radio-button value="5" class="radio" color="primary">Moderadamente satisfecho</mat-radio-button>
+        <mat-radio-button value="6" class="radio" color="primary">Satisfecho</mat-radio-button>
+        <mat-radio-button value="7" class="radio" color="primary">Muy Satisfecho</mat-radio-button>
+      </mat-radio-group>
+      <label class="opcion">Reconocimiento que obtienes por el trabajo bien hecho:</label>
+      <mat-radio-group [(ngModel)]="quest5.preg2">
+        <mat-radio-button value="1" class="radio" color="primary">Muy insatisfecho</mat-radio-button>
+        <mat-radio-button value="2" class="radio" color="primary">Insatisfecho</mat-radio-button>
+        <mat-radio-button value="3" class="radio" color="primary">Moderadamente insatisfecho</mat-radio-button>
+        <mat-radio-button value="4" class="radio" color="primary">Ni satisfecho ni satisfecho</mat-radio-button>
+        <mat-radio-button value="5" class="radio" color="primary">Moderadamente satisfecho</mat-radio-button>
+        <mat-radio-button value="6" class="radio" color="primary">Satisfecho</mat-radio-button>
+        <mat-radio-button value="7" class="radio" color="primary">Muy Satisfecho</mat-radio-button>
+      </mat-radio-group>
+      <label class="opcion">Responsabilidad que tienes asignada:</label>
+      <mat-radio-group [(ngModel)]="quest5.preg3">
+        <mat-radio-button value="1" class="radio" color="primary">Muy insatisfecho</mat-radio-button>
+        <mat-radio-button value="2" class="radio" color="primary">Insatisfecho</mat-radio-button>
+        <mat-radio-button value="3" class="radio" color="primary">Moderadamente insatisfecho</mat-radio-button>
+        <mat-radio-button value="4" class="radio" color="primary">Ni satisfecho ni satisfecho</mat-radio-button>
+        <mat-radio-button value="5" class="radio" color="primary">Moderadamente satisfecho</mat-radio-button>
+        <mat-radio-button value="6" class="radio" color="primary">Satisfecho</mat-radio-button>
+        <mat-radio-button value="7" class="radio" color="primary">Muy Satisfecho</mat-radio-button>
+      </mat-radio-group>
+      <label class="opcion">La posibilidad de utilizar tus capacidades:</label>
+      <mat-radio-group [(ngModel)]="quest5.preg4">
+        <mat-radio-button value="1" class="radio" color="primary">Muy insatisfecho</mat-radio-button>
+        <mat-radio-button value="2" class="radio" color="primary">Insatisfecho</mat-radio-button>
+        <mat-radio-button value="3" class="radio" color="primary">Moderadamente insatisfecho</mat-radio-button>
+        <mat-radio-button value="4" class="radio" color="primary">Ni satisfecho ni satisfecho</mat-radio-button>
+        <mat-radio-button value="5" class="radio" color="primary">Moderadamente satisfecho</mat-radio-button>
+        <mat-radio-button value="6" class="radio" color="primary">Satisfecho</mat-radio-button>
+        <mat-radio-button value="7" class="radio" color="primary">Muy Satisfecho</mat-radio-button>
+      </mat-radio-group>
+      <label class="opcion">Tus posibilidades de promocionar:</label>
+      <mat-radio-group [(ngModel)]="quest5.preg5">
+        <mat-radio-button value="1" class="radio" color="primary">Muy insatisfecho</mat-radio-button>
+        <mat-radio-button value="2" class="radio" color="primary">Insatisfecho</mat-radio-button>
+        <mat-radio-button value="3" class="radio" color="primary">Moderadamente insatisfecho</mat-radio-button>
+        <mat-radio-button value="4" class="radio" color="primary">Ni satisfecho ni satisfecho</mat-radio-button>
+        <mat-radio-button value="5" class="radio" color="primary">Moderadamente satisfecho</mat-radio-button>
+        <mat-radio-button value="6" class="radio" color="primary">Satisfecho</mat-radio-button>
+        <mat-radio-button value="7" class="radio" color="primary">Muy Satisfecho</mat-radio-button>
+      </mat-radio-group>
+      <label class="opcion">La atención que se presta a las sugerencias que haces:</label>
+      <mat-radio-group [(ngModel)]="quest5.preg6">
+        <mat-radio-button value="1" class="radio" color="primary">Muy insatisfecho</mat-radio-button>
+        <mat-radio-button value="2" class="radio" color="primary">Insatisfecho</mat-radio-button>
+        <mat-radio-button value="3" class="radio" color="primary">Moderadamente insatisfecho</mat-radio-button>
+        <mat-radio-button value="4" class="radio" color="primary">Ni satisfecho ni satisfecho</mat-radio-button>
+        <mat-radio-button value="5" class="radio" color="primary">Moderadamente satisfecho</mat-radio-button>
+        <mat-radio-button value="6" class="radio" color="primary">Satisfecho</mat-radio-button>
+        <mat-radio-button value="7" class="radio" color="primary">Muy Satisfecho</mat-radio-button>
+      </mat-radio-group>
+      <label class="opcion">La variedad de tareas que realizas en tu trabajo:</label>
+      <mat-radio-group [(ngModel)]="quest5.preg7">
+        <mat-radio-button value="1" class="radio" color="primary">Muy insatisfecho</mat-radio-button>
+        <mat-radio-button value="2" class="radio" color="primary">Insatisfecho</mat-radio-button>
+        <mat-radio-button value="3" class="radio" color="primary">Moderadamente insatisfecho</mat-radio-button>
+        <mat-radio-button value="4" class="radio" color="primary">Ni satisfecho ni satisfecho</mat-radio-button>
+        <mat-radio-button value="5" class="radio" color="primary">Moderadamente satisfecho</mat-radio-button>
+        <mat-radio-button value="6" class="radio" color="primary">Satisfecho</mat-radio-button>
+        <mat-radio-button value="7" class="radio" color="primary">Muy Satisfecho</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+  <div class="seccion" *ngIf="seccion == 2">
+    <div>
+      <label class="pregunta">Satisfacción Extrínseca:</label>
+      <label class="opcion">Condiciones físicas de tu trabajo:</label>
+      <mat-radio-group [(ngModel)]="quest5.preg8">
+        <mat-radio-button value="1" class="radio" color="primary">Muy insatisfecho</mat-radio-button>
+        <mat-radio-button value="2" class="radio" color="primary">Insatisfecho</mat-radio-button>
+        <mat-radio-button value="3" class="radio" color="primary">Moderadamente insatisfecho</mat-radio-button>
+        <mat-radio-button value="4" class="radio" color="primary">Ni satisfecho ni satisfecho</mat-radio-button>
+        <mat-radio-button value="5" class="radio" color="primary">Moderadamente satisfecho</mat-radio-button>
+        <mat-radio-button value="6" class="radio" color="primary">Satisfecho</mat-radio-button>
+        <mat-radio-button value="7" class="radio" color="primary">Muy Satisfecho</mat-radio-button>
+      </mat-radio-group>
+      <label class="opcion">Tus compañeros de trabajo:</label>
+      <mat-radio-group [(ngModel)]="quest5.preg9">
+        <mat-radio-button value="1" class="radio" color="primary">Muy insatisfecho</mat-radio-button>
+        <mat-radio-button value="2" class="radio" color="primary">Insatisfecho</mat-radio-button>
+        <mat-radio-button value="3" class="radio" color="primary">Moderadamente insatisfecho</mat-radio-button>
+        <mat-radio-button value="4" class="radio" color="primary">Ni satisfecho ni satisfecho</mat-radio-button>
+        <mat-radio-button value="5" class="radio" color="primary">Moderadamente satisfecho</mat-radio-button>
+        <mat-radio-button value="6" class="radio" color="primary">Satisfecho</mat-radio-button>
+        <mat-radio-button value="7" class="radio" color="primary">Muy Satisfecho</mat-radio-button>
+      </mat-radio-group>
+      <label class="opcion">Tu superior inmediato:</label>
+      <mat-radio-group [(ngModel)]="quest5.preg10">
+        <mat-radio-button value="1" class="radio" color="primary">Muy insatisfecho</mat-radio-button>
+        <mat-radio-button value="2" class="radio" color="primary">Insatisfecho</mat-radio-button>
+        <mat-radio-button value="3" class="radio" color="primary">Moderadamente insatisfecho</mat-radio-button>
+        <mat-radio-button value="4" class="radio" color="primary">Ni satisfecho ni satisfecho</mat-radio-button>
+        <mat-radio-button value="5" class="radio" color="primary">Moderadamente satisfecho</mat-radio-button>
+        <mat-radio-button value="6" class="radio" color="primary">Satisfecho</mat-radio-button>
+        <mat-radio-button value="7" class="radio" color="primary">Muy Satisfecho</mat-radio-button>
+      </mat-radio-group>
+      <label class="opcion">Tu salario:</label>
+      <mat-radio-group [(ngModel)]="quest5.preg11">
+        <mat-radio-button value="1" class="radio" color="primary">Muy insatisfecho</mat-radio-button>
+        <mat-radio-button value="2" class="radio" color="primary">Insatisfecho</mat-radio-button>
+        <mat-radio-button value="3" class="radio" color="primary">Moderadamente insatisfecho</mat-radio-button>
+        <mat-radio-button value="4" class="radio" color="primary">Ni satisfecho ni satisfecho</mat-radio-button>
+        <mat-radio-button value="5" class="radio" color="primary">Moderadamente satisfecho</mat-radio-button>
+        <mat-radio-button value="6" class="radio" color="primary">Satisfecho</mat-radio-button>
+        <mat-radio-button value="7" class="radio" color="primary">Muy Satisfecho</mat-radio-button>
+      </mat-radio-group>
+      <label class="opcion">Relación entre dirección y trabajadores en la empresa:</label>
+      <mat-radio-group [(ngModel)]="quest5.preg12">
+        <mat-radio-button value="1" class="radio" color="primary">Muy insatisfecho</mat-radio-button>
+        <mat-radio-button value="2" class="radio" color="primary">Insatisfecho</mat-radio-button>
+        <mat-radio-button value="3" class="radio" color="primary">Moderadamente insatisfecho</mat-radio-button>
+        <mat-radio-button value="4" class="radio" color="primary">Ni satisfecho ni satisfecho</mat-radio-button>
+        <mat-radio-button value="5" class="radio" color="primary">Moderadamente satisfecho</mat-radio-button>
+        <mat-radio-button value="6" class="radio" color="primary">Satisfecho</mat-radio-button>
+        <mat-radio-button value="7" class="radio" color="primary">Muy Satisfecho</mat-radio-button>
+      </mat-radio-group>
+      <label class="opcion">El modo en que la empresa está gestionada:</label>
+      <mat-radio-group [(ngModel)]="quest5.preg13">
+        <mat-radio-button value="1" class="radio" color="primary">Muy insatisfecho</mat-radio-button>
+        <mat-radio-button value="2" class="radio" color="primary">Insatisfecho</mat-radio-button>
+        <mat-radio-button value="3" class="radio" color="primary">Moderadamente insatisfecho</mat-radio-button>
+        <mat-radio-button value="4" class="radio" color="primary">Ni satisfecho ni satisfecho</mat-radio-button>
+        <mat-radio-button value="5" class="radio" color="primary">Moderadamente satisfecho</mat-radio-button>
+        <mat-radio-button value="6" class="radio" color="primary">Satisfecho</mat-radio-button>
+        <mat-radio-button value="7" class="radio" color="primary">Muy Satisfecho</mat-radio-button>
+      </mat-radio-group>
+      <label class="opcion">Tu horario de trabajo:</label>
+      <mat-radio-group [(ngModel)]="quest5.preg14">
+        <mat-radio-button value="1" class="radio" color="primary">Muy insatisfecho</mat-radio-button>
+        <mat-radio-button value="2" class="radio" color="primary">Insatisfecho</mat-radio-button>
+        <mat-radio-button value="3" class="radio" color="primary">Moderadamente insatisfecho</mat-radio-button>
+        <mat-radio-button value="4" class="radio" color="primary">Ni satisfecho ni satisfecho</mat-radio-button>
+        <mat-radio-button value="5" class="radio" color="primary">Moderadamente satisfecho</mat-radio-button>
+        <mat-radio-button value="6" class="radio" color="primary">Satisfecho</mat-radio-button>
+        <mat-radio-button value="7" class="radio" color="primary">Muy Satisfecho</mat-radio-button>
+      </mat-radio-group>
+      <label class="opcion">Tu estabilidad en el empleo:</label>
+      <mat-radio-group [(ngModel)]="quest5.preg15">
+        <mat-radio-button value="1" class="radio" color="primary">Muy insatisfecho</mat-radio-button>
+        <mat-radio-button value="2" class="radio" color="primary">Insatisfecho</mat-radio-button>
+        <mat-radio-button value="3" class="radio" color="primary">Moderadamente insatisfecho</mat-radio-button>
+        <mat-radio-button value="4" class="radio" color="primary">Ni satisfecho ni satisfecho</mat-radio-button>
+        <mat-radio-button value="5" class="radio" color="primary">Moderadamente satisfecho</mat-radio-button>
+        <mat-radio-button value="6" class="radio" color="primary">Satisfecho</mat-radio-button>
+        <mat-radio-button value="7" class="radio" color="primary">Muy Satisfecho</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+  <mat-error *ngIf="error === 1" class="seccion">
+    Favor de ingresar todos los datos
+  </mat-error>
+  <div class="btnRow">
+    <button mat-raised-button color="warn" *ngIf="seccion > 1" (click)="anterior()">Anterior</button>
+    <button mat-raised-button color="primary" class="btn" (click)="siguiente()">Siguiente</button>
+  </div>
+</div>

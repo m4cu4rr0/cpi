@@ -40,17 +40,25 @@
         <label class="opcion">Questionarios a realizar:</label>
       </mat-grid-tile>
     </mat-grid-list>
-    <mat-grid-list cols="1" rowHeight="150px">
+    <mat-grid-list cols="1" rowHeight="30px">
       <mat-grid-tile>
-        <section class="section">
-          <mat-checkbox [(ngModel)]="nuevaEncuesta.quest1">IDENTIFICAR A LOS TRABAJADORES QUE FUERON SUJETOS A
-            ACONTECIMIENTOS TRAUMÁTICOS SEVEROS
-          </mat-checkbox>
-          <mat-checkbox [(ngModel)]="nuevaEncuesta.quest2">FACTORES DE RIESGO PSICOSOCIAL</mat-checkbox>
-          <mat-checkbox [(ngModel)]="nuevaEncuesta.quest3" class="checkbox">FACTORES DE RIESGO PSICOSOCIAL Y EVALUACIÓN
-            DEL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO
-          </mat-checkbox>
-        </section>
+        <mat-checkbox [(ngModel)]="nuevaEncuesta.quest1" class="checkbox">IDENTIFICAR A LOS TRABAJADORES QUE FUERON SUJETOS A
+          ACONTECIMIENTOS TRAUMÁTICOS SEVEROS
+        </mat-checkbox>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-checkbox [(ngModel)]="nuevaEncuesta.quest2" class="checkbox">FACTORES DE RIESGO PSICOSOCIAL</mat-checkbox>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-checkbox [(ngModel)]="nuevaEncuesta.quest3" class="checkbox">FACTORES DE RIESGO PSICOSOCIAL Y EVALUACIÓN
+          DEL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO
+        </mat-checkbox>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-checkbox [(ngModel)]="nuevaEncuesta.quest4" class="checkbox">ESCALA GENERAL DE SATISFACCIÓN LABORAL</mat-checkbox>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-checkbox [(ngModel)]="nuevaEncuesta.quest5" class="checkbox">TEST DE ESTRÉS LABORAL</mat-checkbox>
       </mat-grid-tile>
     </mat-grid-list>
     <mat-error *ngIf="error === 1" style="margin-left: 40px;">

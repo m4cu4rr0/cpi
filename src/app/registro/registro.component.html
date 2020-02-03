@@ -139,9 +139,6 @@
             {{a}}
           </mat-option>
         </mat-select>
-        <mat-form-field class="input">
-          <input matInput [(ngModel)]="nuevaPersona.departamento" name="departamento" oninput="this.value = this.value.toUpperCase()"/>
-        </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
         <label class="opcion" >Tipo de puesto:</label>
@@ -307,6 +304,24 @@
         <mat-icon mat-list-icon *ngIf="nuevaPersona.quest3 !== null">check</mat-icon>
         <h4 style="white-space: initial;" mat-line>Cuestionario para identificar a los factores de riesgo psicosocial y evaluar el entorno organizacional en los centros de trabajo</h4>
       </mat-list-item>
+      <mat-divider *ngIf="encuestaActual.quest3" ></mat-divider>
+      <mat-list-item *ngIf="encuestaActual.quest4"
+                     class="cuestionario"
+                     [ngStyle]="{'cursor': nuevaPersona.quest4 === null ? 'pointer' : 'default'}"
+                     (click)="questionario4()">
+        <mat-icon mat-list-icon *ngIf="nuevaPersona.quest4 === null">check_box_outline_blank</mat-icon>
+        <mat-icon mat-list-icon *ngIf="nuevaPersona.quest4 !== null">check</mat-icon>
+        <h4 style="white-space: initial;" mat-line>Cuestionario para  analizar sobre cuáles son las causas que te provocan dicho estrés, facilitando la toma de decisiones en caso necesario.</h4>
+      </mat-list-item>
+      <mat-divider *ngIf="encuestaActual.quest4" ></mat-divider>
+      <mat-list-item *ngIf="encuestaActual.quest5"
+                     class="cuestionario"
+                     [ngStyle]="{'cursor': nuevaPersona.quest5 === null ? 'pointer' : 'default'}"
+                     (click)="questionario5()">
+        <mat-icon mat-list-icon *ngIf="nuevaPersona.quest5 === null">check_box_outline_blank</mat-icon>
+        <mat-icon mat-list-icon *ngIf="nuevaPersona.quest5 !== null">check</mat-icon>
+        <h4 style="white-space: initial;" mat-line>Cuestionario para conocer en qué grado el trabajador padece los síntomas asociados al estrés. </h4>
+      </mat-list-item>
       <mat-divider></mat-divider>
     </mat-list>
     <button mat-raised-button
@@ -315,7 +330,9 @@
             class="uniqueBtn"
             *ngIf=" (((encuestaActual.quest1 && nuevaPersona.quest1 !== null) || !encuestaActual.quest1) &&
                     ((encuestaActual.quest2 && nuevaPersona.quest2 !== null) || !encuestaActual.quest2) &&
-                    ((encuestaActual.quest3 && nuevaPersona.quest3 !== null) || !encuestaActual.quest3))">Terminar</button>
+                    ((encuestaActual.quest3 && nuevaPersona.quest3 !== null) || !encuestaActual.quest3) &&
+                    ((encuestaActual.quest4 && nuevaPersona.quest4 !== null) || !encuestaActual.quest4) &&
+                    ((encuestaActual.quest5 && nuevaPersona.quest5 !== null) || !encuestaActual.quest5))">Terminar</button>
   </div>
   <div class="datos" *ngIf="cuestionario == 3">
     <app-quest1 (jsonSalida)="salidaQuest1($event)" (atencionQ1)="salidaBoolean($event)"></app-quest1>
@@ -325,6 +342,12 @@
   </div>
   <div class="datos" *ngIf="cuestionario == 5">
     <app-quest3 (jsonSalida)="salidaQuest3($event)" (questSalida)="salidaRes3($event)"></app-quest3>
+  </div>
+  <div class="datos" *ngIf="cuestionario == 7">
+    <app-quest4 (jsonSalida)="salidaQuest4($event)" (calificacionQ4)="salidaRes4($event)"></app-quest4>
+  </div>
+  <div class="datos" *ngIf="cuestionario == 8">
+    <app-quest5 (jsonSalida)="salidaQuest5($event)" (calificacion1Q5)="salidaRes51($event)" (calificacion2Q5)="salidaRes52($event)"></app-quest5>
   </div>
   <div class="datos" *ngIf="cuestionario == 6">
     <label class="exitoTit">Guardado exitosamente</label>

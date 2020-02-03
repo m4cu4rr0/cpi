@@ -49,7 +49,8 @@ export class ResultadosComponent implements OnInit {
   }
 
   chartType = 'bar';
-  displayedColumns: string[] = ['empresa', 'folio', 'personas', 'encuesta1', 'encuesta2', 'encuesta3', 'acciones'];
+  displayedColumns: string[] = ['empresa', 'folio', 'personas', 'encuesta1', 'encuesta2',
+    'encuesta3', 'encuesta4', 'encuesta5', 'acciones'];
   dataSource;
   encuestas: EncuestaModel[];
   numPer: Array<{ id: string, text: string }> = [];

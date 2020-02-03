@@ -50,6 +50,8 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {MatSortModule} from '@angular/material/sort';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { Quest4Component } from './cuestionario/quest4/quest4.component';
+import { Quest5Component } from './cuestionario/quest5/quest5.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,9 @@ import { environment } from '../environments/environment';
     Quest2Component,
     Quest3Component,
     LoadingComponent,
-    DatosPersonaComponent
+    DatosPersonaComponent,
+    Quest4Component,
+    Quest5Component
   ],
   imports: [
     BrowserModule,

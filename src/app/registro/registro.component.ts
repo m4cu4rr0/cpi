@@ -28,7 +28,8 @@ export class RegistroComponent implements OnInit {
 
   ngOnInit() {
     this.nuevaPersona = new PersonaModel(null, null, null, null, null, null, null,
-      null, null, null, null, null, null, null, null, null, null, null, null, null);
+      null, null, null, null, null, null, null, null, null, null,
+      null, null, null, null, null, null, null, null);
     this.regService.fetchEncuestas();
     this.quest2Res = null;
     this.quest3Res = null;
@@ -131,6 +132,20 @@ export class RegistroComponent implements OnInit {
     }
   }
 
+  questionario4() {
+    if (this.nuevaPersona.quest4 === null) {
+      this.cuestionario = 7;
+      window.scroll(0, 0);
+    }
+  }
+
+  questionario5() {
+    if (this.nuevaPersona.quest5 === null) {
+      this.cuestionario = 8;
+      window.scroll(0, 0);
+    }
+  }
+
   salidaQuest2($event) {
     this.nuevaPersona.quest2 = $event;
     this.cuestionario = 2;
@@ -141,12 +156,34 @@ export class RegistroComponent implements OnInit {
     this.cuestionario = 2;
   }
 
+  salidaQuest4($event) {
+    this.nuevaPersona.quest4 = $event;
+    this.cuestionario = 2;
+  }
+
+  salidaQuest5($event) {
+    this.nuevaPersona.quest5 = $event;
+    this.cuestionario = 2;
+  }
+
   salidaRes2($event) {
     this.quest2Res = $event;
   }
 
   salidaRes3($event) {
     this.quest3Res = $event;
+  }
+
+  salidaRes4($event) {
+    this.nuevaPersona.calificacion1 = $event;
+  }
+
+  salidaRes51($event) {
+    this.nuevaPersona.calificacion2 = $event;
+  }
+
+  salidaRes52($event) {
+    this.nuevaPersona.calificacion3 = $event;
   }
 
   terminar() {
@@ -159,7 +196,7 @@ export class RegistroComponent implements OnInit {
   cerrar() {
     this.cuestionario = 0;
     this.nuevaPersona = new PersonaModel(null, null, null, null, null, null, null,
-      null, null, null, null, null, null, null, null, null, null, null, null, null);
+      null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     this.error = 0;
     this.folio = null;
   }
