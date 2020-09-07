@@ -98,9 +98,6 @@ export class ResultadosComponent implements OnInit {
   chartColors3: Array<any> = null;
 
   chart1: Array<any> = null;
-  chart4: Array<any> = null;
-  chart5: Array<any> = null;
-  chart51: Array<any> = null;
 
   chart2Prom: Array<any> = null;
   chart2PromDom: Array<any> = null;
@@ -155,10 +152,6 @@ export class ResultadosComponent implements OnInit {
   q35Class = 'noPrint';
   q36Class = 'noPrint';
   q37Class = 'noPrint';
-  q41Class = 'noPrint';
-  q42Class = 'noPrint';
-  q51Class = 'noPrint';
-  q52Class = 'noPrint';
   checked: boolean;
   imagen = 'imagen2';
 
@@ -171,17 +164,6 @@ export class ResultadosComponent implements OnInit {
   countNoAtencionM = 0;
   countAtencionH = 0 ;
   countNoAtencionH = 0;
-  countQ4E1 = 0;
-  countQ4E2 = 0;
-  countQ4E3 = 0;
-  countQ4E4 = 0;
-  countQ4E5 = 0;
-  countQ5E1 = 0;
-  countQ5E2 = 0;
-  countQ5E3 = 0;
-  countQ5E4 = 0;
-  countQ5E5 = 0;
-  countQ5E6 = 0;
   displayedColumns2: string[] = ['nombre', 'sexo', 'edad', 'departamento'];
   dataSource2;
   displayedColumns3: string[] = ['nombre', 'departamento', 'ambienteTrabajo', 'factoresActividad', 'organizacionTiempo',
@@ -193,8 +175,6 @@ export class ResultadosComponent implements OnInit {
                                 'lideranzoRelaciones'];
   displayedColumns6: string[] = ['nombre', 'departamento', 'condicionesTrabajo', 'cargaTrabajo', 'faltaControl',
                                 'jornadaTrabajo', 'interferenciaRelacion', 'liderazgo', 'relacionesTrabajo', 'violencia'];
-  displayedColumns7: string[] = ['nombre', 'sexo', 'edad', 'departamento', 'estres'];
-  displayedColumns8: string[] = ['nombre', 'sexo', 'edad', 'departamento', 'satisfaccion1', 'satisfaccion2'];
   dataSource3;
   dataSource4;
 
@@ -206,7 +186,8 @@ export class ResultadosComponent implements OnInit {
   sort;
   sort2;
   sort3;
-  @ViewChild(MatSort, {static: false}) set content(content: ElementRef) {
+  // @ts-ignore
+  @ViewChild(MatSort) set content(content: ElementRef) {
     this.sort = content;
     if (this.sort) {
       if (!this.dataSource2) {
@@ -215,7 +196,8 @@ export class ResultadosComponent implements OnInit {
       this.dataSource2.sort = this.sort;
     }
   }
-  @ViewChild(MatSort, {static: false}) set content2(content2: ElementRef) {
+  // @ts-ignore
+  @ViewChild(MatSort) set content2(content2: ElementRef) {
     this.sort2 = content2;
     if (this.sort2) {
       if (!this.dataSource3) {
@@ -225,7 +207,8 @@ export class ResultadosComponent implements OnInit {
 
     }
   }
-  @ViewChild(MatSort, {static: false}) set content3(content3: ElementRef) {
+  // @ts-ignore
+  @ViewChild(MatSort) set content3(content3: ElementRef) {
     this.sort3 = content3;
     if (this.sort3) {
       if (!this.dataSource4) {
@@ -242,8 +225,6 @@ export class ResultadosComponent implements OnInit {
   chartLabels22: Array<any> = ['1', '2', '3', '4'];
   chartLabels32: Array<any> = ['1', '2', '3', '4', '5', '6', '7', '8'];
   chartLabels1: Array<any> = ['No requieren atención', 'Requieren atención'];
-  chartLabels4: Array<any> = ['Sin estrés', 'Estrés leve', 'Estrés medio', 'Estrés alto', 'Estrés grave'];
-  chartLabels5: Array<any> = ['No satisfecho', 'Puede mejorar', 'Satisfecho'];
 
   chartColors: Array<any> = [
     {
@@ -279,21 +260,7 @@ export class ResultadosComponent implements OnInit {
     }
   ];
 
-  chartColors5: Array<any> = [
-    {
-      backgroundColor: [
-        '#5101ad',
-        '#ea9809',
-        '#f9f904'
-      ],
-      borderColor: [
-        '#5101ad',
-        '#ea9809',
-        '#f9f904'
-      ],
-      borderWidth: 2,
-    }
-  ];
+
 
   chartOptions: any = {
     responsive: true
@@ -385,17 +352,8 @@ export class ResultadosComponent implements OnInit {
       if (encuesta.quest3) {
         this.cargarQuest3();
       }
-      if (encuesta.quest1 || encuesta.quest4 || encuesta.quest5) {
-        this.cargarTotalPersonas();
-        if (encuesta.quest1) {
-          this.cargarQuest1();
-        }
-        if (encuesta.quest4) {
-          this.cargarQuest4();
-        }
-        if (encuesta.quest5) {
-          this.cargarQuest5();
-        }
+      if (encuesta.quest1) {
+        this.cargarQuest1();
         this.dataSource2 = new MatTableDataSource(this.personasEncuesta);
         this.dataSource2.sort = this.sort;
       }
@@ -418,6 +376,44 @@ export class ResultadosComponent implements OnInit {
       this.cargarNumPersonas();
       this.dataSource = new MatTableDataSource(this.encuestas);
     });
+  }
+
+  cargarQuest1() {
+    this.countTotal = this.personasEncuesta.length;
+    this.countAtencion = 0;
+    this.countNoAtencion = 0;
+    this.countMuj = 0;
+    this.countAtencionM = 0;
+    this.countNoAtencionM = 0;
+    this.countHom = 0;
+    this.countAtencionH = 0;
+    this.countNoAtencionH = 0;
+    this.personasEncuesta.forEach(p => {
+      if (p.atencionQ1) {
+        this.countAtencion++;
+        if (p.sexo === 'M') {
+          this.countHom++;
+          this.countAtencionH++;
+        } else {
+          this.countMuj++;
+          this.countAtencionM++;
+        }
+      } else {
+        this.countNoAtencion++;
+        if (p.sexo === 'M') {
+          this.countHom++;
+          this.countNoAtencionH++;
+        } else {
+          this.countMuj++;
+          this.countNoAtencionM++;
+        }
+      }
+    });
+
+    this.chart1 = [
+      {data: [this.countNoAtencion, this.countAtencion], label: 'Tota de Trabajadores'}
+    ];
+
   }
 
   cargarQuest2() {
@@ -1351,46 +1347,6 @@ export class ResultadosComponent implements OnInit {
           this.q27Class = 'noPrint';
         }, 1);
         break;
-      case 17:
-        this.q1Class = 'print';
-        this.q41Class = 'print';
-        setTimeout( () => {
-          window.print();
-          this.imagen = 'imagen2';
-          this.q1Class = 'cuerpoQuest';
-          this.q41Class = 'noPrint';
-        }, 1);
-        break;
-      case 18:
-        this.q1Class = 'print';
-        this.q42Class = 'print';
-        setTimeout( () => {
-          window.print();
-          this.imagen = 'imagen2';
-          this.q1Class = 'cuerpoQuest';
-          this.q42Class = 'noPrint';
-        }, 1);
-        break;
-      case 19:
-        this.q1Class = 'print';
-        this.q51Class = 'print';
-        setTimeout( () => {
-          window.print();
-          this.imagen = 'imagen2';
-          this.q1Class = 'cuerpoQuest';
-          this.q51Class = 'noPrint';
-        }, 1);
-        break;
-      case 20:
-        this.q1Class = 'print';
-        this.q52Class = 'print';
-        setTimeout( () => {
-          window.print();
-          this.imagen = 'imagen2';
-          this.q1Class = 'cuerpoQuest';
-          this.q52Class = 'noPrint';
-        }, 1);
-        break;
     }
   }
 
@@ -2127,156 +2083,6 @@ export class ResultadosComponent implements OnInit {
         }
 
     }
-  }
-
-  getEstres(num: number) {
-    switch (num) {
-      case 1:
-        return 'Sin estrés';
-      case 2:
-        return 'Sin estrés';
-      case 3:
-        return 'Estrés leve';
-      case 4:
-        return 'Estrés medio';
-      case 5:
-        return 'Estrés alto';
-      case 6:
-        return 'Estrés grave';
-
-    }
-  }
-
-  getSatisfaccion(num: number) {
-    switch (num) {
-      case 1:
-        return 'No satisfecho';
-      case 2:
-        return 'Puede mejorar';
-      case 3:
-        return 'Satisfecho';
-
-    }
-  }
-
-  getColor2(num: number) {
-    switch (num) {
-      case 1:
-        return 'black';
-      case 2:
-        return '#9BE5F7';
-      case 3:
-        return '#6BF56E';
-      case 4:
-        return '#eeee00';
-      case 5:
-        return '#FFC000';
-      case 6:
-        return '#FF0000';
-      default:
-        break;
-    }
-  }
-
-  getColor3(num: number) {
-    switch (num) {
-      case 1:
-        return '#5101ad';
-      case 2:
-        return '#ea9809';
-      case 3:
-        return '#f9f904';
-      default:
-        break;
-    }
-  }
-
-  cargarTotalPersonas() {
-    this.countTotal = this.personasEncuesta.length;
-    this.countMuj = 0;
-    this.countHom = 0;
-    this.personasEncuesta.forEach(p => {
-      if (p.sexo === 'M') {
-        this.countHom++;
-      } else {
-        this.countMuj++;
-      }
-    });
-  }
-
-  cargarQuest1() {
-    this.countAtencion = 0;
-    this.countNoAtencion = 0;
-    this.countAtencionM = 0;
-    this.countNoAtencionM = 0;
-    this.countAtencionH = 0;
-    this.countNoAtencionH = 0;
-    this.personasEncuesta.forEach(p => {
-      if (p.atencionQ1) {
-        this.countAtencion++;
-        if (p.sexo === 'M') {
-          this.countAtencionH++;
-        } else {
-          this.countAtencionM++;
-        }
-      } else {
-        this.countNoAtencion++;
-        if (p.sexo === 'M') {
-          this.countNoAtencionH++;
-        } else {
-          this.countNoAtencionM++;
-        }
-      }
-    });
-
-    this.chart1 = [
-      {data: [this.countNoAtencion, this.countAtencion], label: 'Tota de Trabajadores'}
-    ];
-
-  }
-
-  cargarQuest4() {
-    this.personasEncuesta.forEach(p => {
-      if (p.calificacion1 === 1) {
-        this.countQ4E1++;
-      } else if (p.calificacion1 === 2) {
-        this.countQ4E2++;
-      } else if (p.calificacion1 === 3) {
-        this.countQ4E3++;
-      } else if (p.calificacion1 === 4) {
-        this.countQ4E4++;
-      } else {
-        this.countQ4E5++;
-      }
-    });
-    this.chart4 = [
-      {data: [this.countQ4E1, this.countQ4E2, this.countQ4E3, this.countQ4E4, this.countQ4E5], label: 'Nivel de Estrés'}
-    ];
-  }
-
-  cargarQuest5() {
-    this.personasEncuesta.forEach(p => {
-      if (p.calificacion2 === 1) {
-        this.countQ5E1++;
-      } else if (p.calificacion2 === 2) {
-        this.countQ5E2++;
-      } else {
-        this.countQ5E3++;
-      }
-      if (p.calificacion3 === 1) {
-        this.countQ5E4++;
-      } else if (p.calificacion3 === 2) {
-        this.countQ5E5++;
-      } else {
-        this.countQ5E6++;
-      }
-    });
-    this.chart5 = [
-      {data: [this.countQ5E1, this.countQ5E2, this.countQ5E3], label: 'Satisfacción Intrínseca'}
-    ];
-    this.chart51 = [
-      {data: [this.countQ5E4, this.countQ5E5, this.countQ5E6], label: 'Satisfacción Extrínseca'}
-    ];
   }
 
 }

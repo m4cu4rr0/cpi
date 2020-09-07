@@ -72,15 +72,15 @@ export class Quest4Component implements OnInit {
       +this.quest4.preg10 +
       +this.quest4.preg11 +
       +this.quest4.preg12;
-    if (total < 18) {
+    if(total < 18){
       this.calificacion = 1;
-    }  else if (total < 30) {
+    }  else if(total < 30) {
       this.calificacion = 2;
-    } else if (total < 42) {
+    } else if(total < 42) {
       this.calificacion = 3;
-    } else if (total < 54) {
+    } else if(total < 54) {
       this.calificacion = 4;
-    } else if (total < 64) {
+    } else if(total < 64) {
       this.calificacion = 5;
     } else {
       this.calificacion = 6;
