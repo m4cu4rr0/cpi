@@ -1324,6 +1324,286 @@
           </mat-accordion>
         </div>
       </mat-tab>
+      <mat-tab label="Cuestionario 4" *ngIf="encuestaActual.quest4">
+        <div [ngClass]="q1Class">
+          <mat-accordion>
+            <mat-expansion-panel [ngClass]="q41Class">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Resumen General
+                </mat-panel-title>
+                <mat-panel-description>
+                  Resumen de los empleados
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <button mat-icon-button (click)="print(17)" class="noPrint">
+                <mat-icon>save</mat-icon>
+              </button>
+              <mat-slide-toggle
+                class="noPrint"
+                (change)="cambio($event)"
+                [checked]="checked">
+                Gráficas Pie
+              </mat-slide-toggle>
+              <div class="resQues1">
+                <label class="titulo">Resumen</label>
+                <mat-divider style="margin:10px;"></mat-divider>
+                <label class="cell2" style="font-weight: bold;">Agrupación</label>
+                <label class="cell2" style="font-weight: bold;">Total</label>
+                <label class="cell2" style="font-weight: bold;" [style.color]="getColor2(2)">Sin Estrés</label>
+                <label class="cell2" style="font-weight: bold;" [style.color]="getColor2(3)">Estrés Leve</label>
+                <label class="cell2" style="font-weight: bold;" [style.color]="getColor2(4)">Estrés Medio</label>
+                <label class="cell2" style="font-weight: bold;" [style.color]="getColor2(5)">Estrés Alto</label>
+                <label class="cell2" style="font-weight: bold;" [style.color]="getColor2(6)">Estrés Grave</label>
+
+                <label class="cell2">Total</label>
+                <label class="cell2">{{countTotal}}</label>
+                <label class="cell2">{{countQ4E1}}</label>
+                <label class="cell2">{{countQ4E2}}</label>
+                <label class="cell2">{{countQ4E3}}</label>
+                <label class="cell2">{{countQ4E4}}</label>
+                <label class="cell2">{{countQ4E5}}</label>
+              </div>
+              <mat-divider style="margin:10px;"></mat-divider>
+              <label class="subtitulo">Recomendaciones</label>
+              <label class="opcion">1.-<label [style.color]="getColor2(2)">Sin Estrés</label>: No existe síntoma alguno de estrés. Tienes un buen equilibrio, continúa así y contagia a los
+                demás de tus estrategias de afrontamiento!</label>
+              <label class="opcion">2.-<label [style.color]="getColor2(3)">Estrés Leve</label>: Te encuentras en fase de alarma, trata de identificar el
+                o los factores que te causan estrés para poder
+                ocuparte de ellos de manera preventiva.</label>
+              <label class="opcion">3.-<label [style.color]="getColor2(4)">Estrés Medio</label>: Haz conciencia de la situación en la que te encuentras
+                y trata de ubicar qué puedes modificar, ya que si la
+                situación estresante se prolonga, puedes romper tu
+                equilibrio entre lo laboral y lo personal. No agotes tus
+                resistencias!</label>
+              <label class="opcion">4.-<label [style.color]="getColor2(5)">Estrés Alto</label>: Te encuentras en una fase de agotamiento de recursos
+                fisiológicos con desgaste físico y mental. Esto puede
+                tener consecuencias más serias para tu salud. </label>
+              <label class="opcion">5.-<label [style.color]="getColor2(6)">Estrés Grave</label>: Busca ayuda</label>
+              <mat-divider style="margin:10px;"></mat-divider>
+              <div class="graph" *ngIf="chart4 != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chart4"
+                        [labels]="chartLabels4"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel [ngClass]="q42Class">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Todos los empleados
+                </mat-panel-title>
+                <mat-panel-description>
+                  Listado completo de empleados
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <button mat-icon-button (click)="print(18)" class="noPrint">
+                <mat-icon>save</mat-icon>
+              </button>
+              <div class="resQues1">
+                <mat-form-field class="filtro noPrint">
+                  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar" class="noPrint">
+                </mat-form-field>
+
+                <table mat-table [dataSource]="dataSource2" matSort>
+
+                  <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Nombre
+                    </th>
+                    <td mat-cell *matCellDef="let element" (click)="openDialog(element)" style="cursor: pointer;"> {{element.nombre}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="sexo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Sexo
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.sexo}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="edad">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Edad
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.edad}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="departamento">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Departamento
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.departamento}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="estres">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Nivel de Estrés
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor2(element.calificacion1)"> {{ getEstres(element.calificacion1)}}</td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns7"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns7;"></tr>
+                </table>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </mat-tab>
+      <mat-tab label="Cuestionario 5" *ngIf="encuestaActual.quest5">
+        <div [ngClass]="q1Class">
+          <mat-accordion>
+            <mat-expansion-panel [ngClass]="q51Class">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Resumen General
+                </mat-panel-title>
+                <mat-panel-description>
+                  Resumen de los empleados
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <button mat-icon-button (click)="print(19)" class="noPrint">
+                <mat-icon>save</mat-icon>
+              </button>
+              <mat-slide-toggle
+                class="noPrint"
+                (change)="cambio($event)"
+                [checked]="checked">
+                Gráficas Pie
+              </mat-slide-toggle>
+              <div class="resQues1">
+                <label class="titulo">Resumen</label>
+                <mat-divider style="margin:10px;"></mat-divider>
+                <label class="cell3" style="font-weight: bold;">Agrupación</label>
+                <label class="cell3" style="font-weight: bold;">Total</label>
+                <label class="cell3" style="font-weight: bold;" [style.color]="getColor3(1)">Sin Satisfacción Intrínseca</label>
+                <label class="cell3" style="font-weight: bold;" [style.color]="getColor3(2)">Media Satisfacción Intrínseca</label>
+                <label class="cell3" style="font-weight: bold;" [style.color]="getColor3(3)">Con Satisfacción Intrínseca</label>
+                <label class="cell3" style="font-weight: bold;" [style.color]="getColor3(1)">Sin Satisfacción Extrínseca</label>
+                <label class="cell3" style="font-weight: bold;" [style.color]="getColor3(2)">Media Satisfacción Extrínseca</label>
+                <label class="cell3" style="font-weight: bold;" [style.color]="getColor3(3)">Con Satisfacción Extrínseca</label>
+
+                <label class="cell3">Total</label>
+                <label class="cell3">{{countTotal}}</label>
+                <label class="cell3">{{countQ5E1}}</label>
+                <label class="cell3">{{countQ5E2}}</label>
+                <label class="cell3">{{countQ5E3}}</label>
+                <label class="cell3">{{countQ5E4}}</label>
+                <label class="cell3">{{countQ5E5}}</label>
+                <label class="cell3">{{countQ5E6}}</label>
+              </div>
+              <mat-divider style="margin:10px;"></mat-divider>
+              <label class="subtitulo">Satisfacción Intrínseca: </label>
+              <label class="opcion">Es el grado de satisfacción que tienes con tu puesto de trabajo como:
+                responsabilidad, contenido de las actividades o la promoción, entre otro. Revisa
+                la suma total y ubica el grado donde te encuentras (puedes analizar
+                internamente aquello que haz calificado más bajo para buscar mejorarlo).</label>
+              <div class="graph" *ngIf="chart5 != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chart5"
+                        [labels]="chartLabels5"
+                        [colors]="chartColors5"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+              <mat-divider style="margin:10px;"></mat-divider>
+              <label class="subtitulo">Satisfacción Extrínseca: </label>
+              <label class="opcion">Se refiere a grado de satisfacción con factores relacionados con el puesto de
+                trabajo, como: la organización, el horario o la remuneración económica, entre
+                otros. Revisa la suma total y ubica el grado donde te encuentras (puedes analizar
+                internamente aquello que haz calificado más bajo para buscar mejorarlo).</label>
+              <div class="graph" *ngIf="chart51 != null">
+                <canvas mdbChart
+                        [chartType]="chartType"
+                        [datasets]="chart51"
+                        [labels]="chartLabels5"
+                        [colors]="chartColors5"
+                        [options]="chartOptions"
+                        [legend]="true"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel [ngClass]="q52Class">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Todos los empleados
+                </mat-panel-title>
+                <mat-panel-description>
+                  Listado completo de empleados
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <button mat-icon-button (click)="print(20)" class="noPrint">
+                <mat-icon>save</mat-icon>
+              </button>
+              <div class="resQues1">
+                <mat-form-field class="filtro noPrint">
+                  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar" class="noPrint">
+                </mat-form-field>
+
+                <table mat-table [dataSource]="dataSource2" matSort>
+
+                  <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Nombre
+                    </th>
+                    <td mat-cell *matCellDef="let element" (click)="openDialog(element)" style="cursor: pointer;"> {{element.nombre}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="sexo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Sexo
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{element.sexo}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="edad">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Edad
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.edad}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="departamento">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Departamento
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.departamento}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="satisfaccion1">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Satisfacción Intrínseca
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor3(element.calificacion2)"> {{ getSatisfaccion(element.calificacion2)}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="satisfaccion2">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Satisfacción Extrínseca
+                    </th>
+                    <td mat-cell *matCellDef="let element" [style.color]="getColor3(element.calificacion3)"> {{ getSatisfaccion(element.calificacion3)}}</td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns8"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns8;"></tr>
+                </table>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </mat-tab>
     </mat-tab-group>
   </div>
 </div>
